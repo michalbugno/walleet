@@ -52,4 +52,16 @@ describe DebtAdder do
     elements = DebtElement.where(:debt_id => debt.id, :person_id => giver.id).all
     elements.map(&:amount).sum.should == 49
   end
+
+  it "covers situation when giver is amongs takers" do
+    adder = DebtAdder.new(giver, [taker, giver], group, 200)
+
+    adder.add_debt
+
+    debt = Debt.first
+    elements = DebtElement.where(:debt_id => debt.id, :person_id => [giver.id]).all
+    elements.map(&:amount).sum.should == 100
+    elements = DebtElement.where(:debt_id => debt.id, :person_id => [taker.id]).all
+    elements.map(&:amount).sum.should == -100
+  end
 end
