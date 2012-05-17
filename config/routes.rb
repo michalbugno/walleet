@@ -1,4 +1,6 @@
 Walleet::Application.routes.draw do
+  devise_for :people
+
   namespace :api do
     namespace :v1 do
       resources :groups
