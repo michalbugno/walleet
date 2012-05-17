@@ -8,6 +8,8 @@ FactoryGirl.define do
 
   factory :person do
     email
+    sequence(:password) { |n| "password#{n}" }
+    password_confirmation { password }
   end
 
   factory :group_membership do
