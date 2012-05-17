@@ -1,8 +1,15 @@
+require 'responders/group_responder'
+
 class Api::V1::GroupsController < ApplicationController
   respond_to :json
 
   def index
     respond_with Group.all
+  end
+
+  def show
+    group = Group.find(params[:id])
+    respond_with group, :responder => GroupResponder
   end
 
   def create
