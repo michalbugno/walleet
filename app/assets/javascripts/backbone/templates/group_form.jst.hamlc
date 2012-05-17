@@ -1,4 +1,5 @@
 %form.form-inline.well
   %input#group-name.input-small{:name => 'name', :type => 'text', :placeholder => 'Name'}
   %button.btn
+    %i.icon-plus
     Create group
