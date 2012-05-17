@@ -23,6 +23,8 @@ end
 group :test do
   gem 'database_cleaner'
   gem 'rspec'
+  gem 'rspec-rails'
+  gem 'shoulda-matchers'
 end
 
 gem 'jquery-rails'
