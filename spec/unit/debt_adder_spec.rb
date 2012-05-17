@@ -19,11 +19,37 @@ describe DebtAdder do
     debt.should_not be_nil
 
     elements = DebtElement.where(:debt_id => debt.id, :person_id => giver.id).all
-    sum = elements.inject(0) { |sum, element| sum += element.amount }
-    sum.should == 100
+    elements.map(&:amount).sum.should == 100
 
     elements = DebtElement.where(:debt_id => debt.id, :person_id => taker.id).all
-    sum = elements.inject(0) { |sum, element| sum += element.amount }
-    sum.should == -100
+    elements.map(&:amount).sum.should == -100
+  end
+
+  it "splits debt between users" do
+    taker2 = FactoryGirl.create :person
+    adder = DebtAdder.new(giver, [taker, taker2], group, 50)
+
+    adder.add_debt
+
+    debt = Debt.first
+    elements = DebtElement.where(:debt_id => debt.id, :person_id => taker.id).all
+    elements.map(&:amount).sum.should == -25
+    elements = DebtElement.where(:debt_id => debt.id, :person_id => taker2.id).all
+    elements.map(&:amount).sum.should == -25
+    elements = DebtElement.where(:debt_id => debt.id, :person_id => giver.id).all
+    elements.map(&:amount).sum.should == 50
+  end
+
+  it "divides reminder between users so that total amount sums" do
+    taker2 = FactoryGirl.create :person
+    adder = DebtAdder.new(giver, [taker, taker2], group, 49)
+
+    adder.add_debt
+
+    debt = Debt.first
+    elements = DebtElement.where(:debt_id => debt.id, :person_id => [taker.id, taker2.id]).all
+    elements.map(&:amount).sum.should == -49
+    elements = DebtElement.where(:debt_id => debt.id, :person_id => giver.id).all
+    elements.map(&:amount).sum.should == 49
   end
 end
