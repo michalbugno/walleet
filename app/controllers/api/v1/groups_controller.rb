@@ -10,11 +10,15 @@ class Api::V1::GroupsController < ApplicationController
   end
   
   def add_person
-    respond_with(Group.find(params[:id]).persons << Person.find(params[:person_id]), :location => "")
+    group = Group.find(params[:id])
+    person = Person.find(params[:person_id])
+    respond_with(GroupMembershipInvite.new(group, person).add_person_to_group, :location => "")
   end
 
   def remove_person
-    respond_with(Group.find(params[:id]).group_memberships.where(:person_id => params[:person_id]).each { |el| el.destroy })
+    group = Group.find(params[:id])
+    person = Person.find(params[:person_id])    
+    respond_with(GroupMembershipRemove.new(group, person).remove_person_from_group)
   end
   
   def destroy
