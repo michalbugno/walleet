@@ -1,12 +1,13 @@
 class Walleet.Views.GroupBarView extends Backbone.View
-  template: Handlebars.compile $("#group-bar-template").html()
+  template: JST['backbone/templates/group_bar']
 
   collection: new Walleet.Collections.GroupCollection
 
   initialize: (options) ->
     super(options)
 
-    this.render()
+    @collection.bind "reset", => @render()
+    @collection.fetch()
 
   render: ->
-    $(@el).html @template(groups: @collection.all)
+    $(@el).html @template(groups: @collection.models)
