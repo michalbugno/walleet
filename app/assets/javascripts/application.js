@@ -15,4 +15,5 @@
 //= require underscore
 //= require backbone
 //= require twitter/bootstrap
+//= require vendor/handlebars
 //= require_tree .
