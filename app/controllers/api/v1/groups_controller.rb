@@ -8,9 +8,12 @@ class Api::V1::GroupsController < ApplicationController
   def create
     respond_with(Group.create(params[:group]), :location => "")
   end
+  
+  def add_person
+    respond_with(Group.find(params[:id]).persons << Person.find(params[:person_id]), :location => "")
+  end
 
   def destroy
-    Group.find(params[:id]).destroy
-    redirect_to api_v1_groups_path
+    respond_with(Group.find(params[:id]).destroy)
   end
 end

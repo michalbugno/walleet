@@ -7,5 +7,5 @@ describe Api::V1::GroupsController do
     delete :destroy, :id => group.id, :format => :json
   end 
   
-  it { should respond_with(:redirect) }
+  it { should respond_with(204) }
 end

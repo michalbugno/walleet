@@ -1,7 +1,11 @@
 Walleet::Application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :groups
+      resources :groups do
+        member do
+          post :add_person
+        end
+      end
     end
   end
   # The priority is based upon order of creation:
