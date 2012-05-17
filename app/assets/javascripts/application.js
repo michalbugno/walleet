@@ -17,4 +17,5 @@
 //= require underscore
 //= require backbone
 //= require backbone/walleet
+//= require hamlcoffee
 //= require_tree .
