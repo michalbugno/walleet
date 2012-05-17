@@ -31,9 +31,12 @@
           <a class="brand" href="#">Walleet</a>
           <div class="container nav-collapse">
             <ul class="nav">
-              <li><%= link_to "Link1", "/path1"  %></li>
-              <li><%= link_to "Link2", "/path2"  %></li>
-              <li><%= link_to "Link3", "/path3"  %></li>
+              <% if current_person %>
+                <li><%= link_to 'Sign out', destroy_person_session_path, :method => :delete  %></li>
+              <% else %>
+                <li><%= link_to 'Sign in', new_person_session_path  %></li>
+                <li><%= link_to 'Sign up', new_person_registration_path  %></li>
+              <% end %>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -42,8 +45,12 @@
 
     <div class="container">
       <div class="content">
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
+        <% if notice %>
+          <span class="label label-success"><%= notice %></span>
+        <% end %>
+        <% if alert %>
+          <span class="label label-important"><%= alert %></span>
+        <% end %>
 
         <div class="row">
            <div class="span9">
