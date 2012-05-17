@@ -9,6 +9,7 @@ Walleet::Application.routes.draw do
           put :remove_person
         end
       end
+      resources :debts
     end
   end
   # The priority is based upon order of creation:
