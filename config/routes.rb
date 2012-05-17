@@ -6,6 +6,7 @@ Walleet::Application.routes.draw do
       resources :groups do
         member do
           post :add_person
+          put :remove_person
         end
       end
     end

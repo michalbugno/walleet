@@ -13,6 +13,10 @@ class Api::V1::GroupsController < ApplicationController
     respond_with(Group.find(params[:id]).persons << Person.find(params[:person_id]), :location => "")
   end
 
+  def remove_person
+    respond_with(Group.find(params[:id]).group_memberships.where(:person_id => params[:person_id]).each { |el| el.destroy })
+  end
+  
   def destroy
     respond_with(Group.find(params[:id]).destroy)
   end
