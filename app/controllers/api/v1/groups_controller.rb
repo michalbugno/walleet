@@ -4,4 +4,8 @@ class Api::V1::GroupsController < ApplicationController
   def index
     respond_with Group.all
   end
+  
+  def destroy
+    Group.find(:id).destroy
+  end
 end
