@@ -27,6 +27,7 @@ describe DebtAdder do
 
   it "splits debt between users" do
     taker2 = FactoryGirl.create :person
+    FactoryGirl.create :group_membership, :group_id => group.id, :person_id => taker2.id
     adder = DebtAdder.new(giver, [taker, taker2], group, 50)
 
     adder.add_debt
@@ -42,6 +43,7 @@ describe DebtAdder do
 
   it "divides reminder between users so that total amount sums" do
     taker2 = FactoryGirl.create :person
+    FactoryGirl.create :group_membership, :group_id => group.id, :person_id => taker2.id
     adder = DebtAdder.new(giver, [taker, taker2], group, 49)
 
     adder.add_debt
@@ -63,5 +65,23 @@ describe DebtAdder do
     elements.map(&:amount).sum.should == 100
     elements = DebtElement.where(:debt_id => debt.id, :person_id => [taker.id]).all
     elements.map(&:amount).sum.should == -100
+  end
+
+  describe "#initialize" do
+    let(:group2) { FactoryGirl.create :group }
+
+    it "raises if giver doesn't belong to group" do
+      membership = GroupMembership.where(:person_id => giver.id).first
+      membership.update_attributes(:group_id => group2.id)
+
+      lambda { DebtAdder.new(giver, [taker], group, 10) }.should raise_error(DebtAdder::Error)
+    end
+
+    it "raises if taker doesn't belong to group" do
+      membership = GroupMembership.where(:person_id => taker.id).first
+      membership.update_attributes(:group_id => group2.id)
+
+      lambda { DebtAdder.new(giver, [taker], group, 10) }.should raise_error(DebtAdder::Error)
+    end
   end
 end
