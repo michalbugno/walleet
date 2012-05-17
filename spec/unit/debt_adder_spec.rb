@@ -7,8 +7,8 @@ describe DebtAdder do
   let(:taker) { FactoryGirl.create :person }
 
   before(:each) do
-    FactoryGirl.create :group_membership, :group_id => group.id, :person_id => giver.id
-    FactoryGirl.create :group_membership, :group_id => group.id, :person_id => taker.id
+    GroupMembershipManager.new(group, giver).connect
+    GroupMembershipManager.new(group, taker).connect
   end
 
   it "adds debt for simple 1-1 case" do
@@ -27,7 +27,7 @@ describe DebtAdder do
 
   it "splits debt between users" do
     taker2 = FactoryGirl.create :person
-    FactoryGirl.create :group_membership, :group_id => group.id, :person_id => taker2.id
+    GroupMembershipManager.new(group, taker2).connect
     adder = DebtAdder.new(giver, [taker, taker2], group, 50)
 
     adder.add_debt
@@ -43,7 +43,7 @@ describe DebtAdder do
 
   it "divides reminder between users so that total amount sums" do
     taker2 = FactoryGirl.create :person
-    FactoryGirl.create :group_membership, :group_id => group.id, :person_id => taker2.id
+    GroupMembershipManager.new(group, taker2).connect
     adder = DebtAdder.new(giver, [taker, taker2], group, 49)
 
     adder.add_debt
