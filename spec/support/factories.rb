@@ -9,4 +9,9 @@ FactoryGirl.define do
   factory :person do
     email
   end
+
+  factory :group_membership do
+    sequence(:group_id)
+    sequence(:person_id)
+  end
 end
