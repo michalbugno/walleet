@@ -29,6 +29,7 @@ group :test do
   gem 'factory_girl'
 end
 
+gem 'backbone-rails'
 gem 'jquery-rails'
 gem 'twitter-bootstrap-rails'
 
