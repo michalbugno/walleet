@@ -47,6 +47,6 @@ class DebtAdder
   end
 
   def membership?(person, group)
-    !person.group_memberships.where(:group_id => group.id).empty?
+    GroupMembershipManager.new(group, person).member?
   end
 end
