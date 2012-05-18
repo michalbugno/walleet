@@ -1,5 +1,0 @@
-#group-bar
-  %ul.nav.nav-pills
-    - for group in @groups
-      %li
-        %a= group.get('name')

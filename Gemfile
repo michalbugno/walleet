@@ -27,6 +27,7 @@ group :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'factory_girl'
+  gem 'simplecov'
 end
 
 gem 'rails-backbone'
