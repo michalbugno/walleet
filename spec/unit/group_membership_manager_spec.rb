@@ -6,6 +6,31 @@ describe GroupMembershipManager do
   let(:group) { FactoryGirl.create :group }
   let(:person) { FactoryGirl.create :person }
 
+  describe "::invite_user" do
+    before(:each) do
+      GroupMembershipManager.should respond_to(:invite_user)
+    end
+    
+    it "if user exist invite to group" do
+      GroupMembershipManager.should_not_receive(:create_person)
+      GroupMembershipManager.should_receive(:new).with(group, person)      
+      GroupMembershipManager.invite_user(group, person.email)
+    end
+    
+    it "if user not exist" do
+      GroupMembershipManager.should_receive(:create_person)
+      GroupMembershipManager.should_receive(:new)
+      GroupMembershipManager.invite_user(group, "unknown@email.com")
+    end
+  end
+
+  describe "::create_person" do
+    it "send password instructions" do
+      GroupMembershipManager.invite_user(group, "unknown@email.com")
+      ActionMailer::Base.deliveries.last.to == ["unknown@email.com"]
+    end
+  end
+  
   describe "#connect" do
     before(:each) do
       @manager = GroupMembershipManager.new(group, person)
