@@ -27,7 +27,8 @@ class Api::V1::GroupsController < ApplicationController
   def remove_person
     group = Group.find(params[:id])
     person = Person.find(params[:person_id])
-    respond_with(GroupMembershipManager.new(group, person).disconnect)
+    GroupMembershipManager.new(group, person).disconnect
+    respond_with("", :location => "")
   end
 
   def destroy
