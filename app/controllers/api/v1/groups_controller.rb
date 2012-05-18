@@ -11,9 +11,6 @@ class Api::V1::GroupsController < ApplicationController
 
   def add_person
     group = Group.find(params[:id])
-    # if exist add, if no -> create, invite and add to group
-    # GroupMembershipManager.invite_user(group, params[:person_email])
-    
     person = Person.find(params[:person_id])
     respond_with(GroupMembershipManager.new(group, person).connect, :location => "")
   end
