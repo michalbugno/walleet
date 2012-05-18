@@ -1,4 +1,5 @@
 require 'responders/group_responder'
+require 'group_membership_manager'
 
 class Api::V1::GroupsController < ApplicationController
   respond_to :json
@@ -19,7 +20,8 @@ class Api::V1::GroupsController < ApplicationController
   def add_person
     group = Group.find(params[:id])
     person = Person.find(params[:person_id])
-    respond_with(GroupMembershipManager.new(group, person).connect, :location => "")
+    GroupMembershipManager.new(group, person).connect
+    respond_with("", :location => "")
   end
 
   def remove_person
