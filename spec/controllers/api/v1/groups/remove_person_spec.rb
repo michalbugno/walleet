@@ -7,6 +7,7 @@ describe Api::V1::GroupsController do
 
   before(:each) do
     GroupMembershipManager.new(group, person).connect
+    sign_in :person, person
   end 
 
   it "responds with 204 after successful add" do

@@ -2,8 +2,13 @@ require 'spec_helper'
 require 'group_membership_manager'
 
 describe Api::V1::GroupsController do
+  let(:person) { FactoryGirl.create :person }
   let(:group) { FactoryGirl.create :group, :name => "My name" }
   let(:request) { get :show, :id => group.id, :format => :json }
+
+  before(:each) do
+    sign_in :person, person
+  end
 
   it "responds with success" do
     request

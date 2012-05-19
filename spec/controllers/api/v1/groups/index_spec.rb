@@ -2,9 +2,17 @@ require 'spec_helper'
 
 describe Api::V1::GroupsController do
   let!(:group) { FactoryGirl.create :group, :name => "My name" }
-  before { get :index, :format => :json }
+  let(:request) { get :index, :format => :json }
+  let(:current_person) { FactoryGirl.create :person }
 
-  it { should respond_with(:success) }
+  before(:each) do
+    sign_in :person, current_person
+    request
+  end
+
+  it "responds with success" do
+    should respond_with(:success)
+  end
 
   it "includes name in response" do
     groups = Yajl::Parser.parse(response.body)

@@ -1,7 +1,7 @@
 require 'responders/group_responder'
 require 'group_membership_manager'
 
-class Api::V1::GroupsController < ApplicationController
+class Api::V1::GroupsController < Api::BaseController
   respond_to :json
 
   def index
