@@ -14,7 +14,9 @@ class Api::V1::GroupsController < Api::BaseController
   end
 
   def create
-    respond_with(Group.create(params[:group]), :location => "")
+    group = Group.create(params[:group])
+    GroupMembershipManager.new(group, current_person).connect
+    respond_with(group, :location => "")
   end
 
   def add_person
