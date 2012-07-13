@@ -1,0 +1,5 @@
+%form.form-inline.well
+  %input#person-name.input-small{:name => 'name', :type => 'text', :placeholder => 'Name'}
+  %button.btn
+    %i.icon-plus
+    Add member

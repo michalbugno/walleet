@@ -9,3 +9,4 @@ window.Walleet =
   Collections: {}
   Routers: {}
   Views: {}
+  Layouts: {}

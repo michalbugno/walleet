@@ -4,22 +4,18 @@ class Walleet.Views.GroupBarView extends Backbone.View
   initialize: (options) ->
     super(options)
 
-    @groupView = options.groupView
-
     @collection = options.collection
-    @collection.bind "reset", => @render()
-    @collection.fetch()
+    @currentId = options.currentId * 1
+    @collection.bind "reset", this.render
 
-  render: ->
+  render: =>
     $(@el).html('')
 
     for group in @collection.models
       do (group) =>
-        node = $(@template(group: group))
-        node.find('a').on 'click', =>
-          @$('.active').removeClass('active')
-          node.addClass('active')
-
-          @groupView.showGroup(group)
-
+        if group.get("id") == @currentId
+          current = "active"
+        else
+          current = ""
+        node = $(@template(group: group, current: current))
         $(@el).append(node)

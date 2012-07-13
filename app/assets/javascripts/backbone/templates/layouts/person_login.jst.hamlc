@@ -1,0 +1,14 @@
+%div.container
+  %div.content
+    %div.row
+      %div.span4
+        &nbsp;
+      %div.span4
+        %form.form-inline.well
+          %input#person-email.input-small{:name => 'email', :type => 'email', :placeholder => 'Email'}
+          %input#person-password.input-small{:name => 'password', :type => 'password', :placeholder => 'Password'}
+          %button.btn
+            %i.icon-user
+            Login
+      %div.span4
+        &nbsp;

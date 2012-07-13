@@ -1,2 +1,2 @@
-%li
-  %a= @group.get('name')
+%li{:class => @current}
+  %a{:href => "#/group/#{@group.get('id')}"}= @group.get('name')

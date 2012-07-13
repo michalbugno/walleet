@@ -16,6 +16,7 @@
 //= require vendor/handlebars
 //= require underscore
 //= require backbone
+//= require walleet
 //= require backbone/walleet
 //= require hamlcoffee
 //= require_tree .

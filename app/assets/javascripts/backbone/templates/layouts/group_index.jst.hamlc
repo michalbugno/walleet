@@ -1,0 +1,11 @@
+%div.container
+  %div.content
+    %div.row
+      %div.span9
+        %ul#group-bar.nav.nav-pills
+      %div.span3
+        %div#group-form
+      %div.span9
+        %div#main-content
+      %div.span3
+        %div#side-content

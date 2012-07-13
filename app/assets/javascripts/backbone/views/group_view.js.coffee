@@ -1,19 +1,30 @@
 class Walleet.Views.GroupView extends Backbone.View
   sidebarTemplate: JST['backbone/templates/group_sidebar']
 
+  el: $("#group-sidebar")
+
+  events:
+    "submit form": "addDebt"
+
   initialize: (options) ->
     super(options)
 
-    @currentGroup = options.group
+    @group = options.group
+    @group.bind "change", this.render
 
-    this.render()
-
-  render: ->
-    if @currentGroup
-      $('#group-sidebar').html @sidebarTemplate(group: @currentGroup)
+  render: =>
+    if @group
+      $(this.el).html(this.sidebarTemplate(group: @group))
     else
-      $('#group-sidebar').html('')
+      $(this.el).html('')
 
-  showGroup: (group) ->
-    @currentGroup = group
-    this.render()
+  addDebt: (event) =>
+    event.preventDefault()
+    target = $(event.target)
+    amount = $("#amount", target).val() * 1
+    groupId = @group.get("id")
+    giverId = this.$("#giver-id :selected").val()
+    takerIds = _.map($("#group-members :checked"), (input) => $(input).val())
+    joinedIds = takerIds.join(",")
+    debt = new Walleet.Models.Debt(group_id: groupId, taker_ids: takerIds, amount: amount, giver_id: giverId)
+    debt.save()
