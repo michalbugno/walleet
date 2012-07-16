@@ -1,4 +1,4 @@
-class Walleet.Views.GroupBarView extends Backbone.View
+class Views.GroupBarView extends Backbone.View
   template: JST['backbone/templates/group_bar_item']
 
   initialize: (options) ->

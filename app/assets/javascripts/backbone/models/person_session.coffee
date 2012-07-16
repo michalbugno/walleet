@@ -1,4 +1,4 @@
-class Walleet.Models.PersonSession extends Backbone.Model
+class Models.PersonSession extends Backbone.Model
   url: "/people/sign_in.json"
 
   defaults:

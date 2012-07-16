@@ -1,4 +1,4 @@
-class Walleet.Models.Member extends Backbone.Model
+class Models.Member extends Backbone.Model
   url: ->
     "/api/v1/groups/" + this.get("group").get("id") + ".json"
 

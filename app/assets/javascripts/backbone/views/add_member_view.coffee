@@ -1,4 +1,4 @@
-class Walleet.Views.AddMemberView extends Backbone.View
+class Views.AddMemberView extends Backbone.View
   template: JST['backbone/templates/add_member']
 
   events:
@@ -20,5 +20,5 @@ class Walleet.Views.AddMemberView extends Backbone.View
     @person = this.$("#person-name").val()
     console.log(@person, @group)
 
-    member = new Walleet.Models.Member(group: @group, person: @person)
+    member = new Models.Member(group: @group, person: @person)
     member.save()

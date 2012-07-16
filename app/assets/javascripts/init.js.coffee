@@ -1,2 +1,2 @@
-new Walleet.Routers.Walleet
+new Routers.Walleet()
 Backbone.history.start()

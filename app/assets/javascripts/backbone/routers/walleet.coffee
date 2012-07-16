@@ -1,34 +1,38 @@
-class Walleet.Routers.Walleet extends Backbone.Router
+class Routers.Walleet extends Backbone.Router
   routes: {
-    "": "groupIndex"
+    "": "mainPage"
     "group/:id": "groupShow"
     "sign_in": "signIn"
   }
 
+  mainPage: ->
+    this.clear()
+    console.log("mainpage")
+
   groupIndex: ->
     this.clear()
-    new window.Walleet.Layouts.GroupIndex().render()
-    @groups = new window.Walleet.Collections.GroupCollection()
+    new Layouts.GroupIndex().render()
+    @groups = new Collections.GroupCollection()
 
-    new window.Walleet.Views.GroupBarView(el: $("#group-bar"), collection: @groups)
-    new window.Walleet.Views.GroupFormView(el: $("#group-form"), collection: @groups)
+    new Views.GroupBarView(el: $("#group-bar"), collection: @groups)
+    new Views.GroupFormView(el: $("#group-form"), collection: @groups)
     @groups.fetch()
 
 
   groupShow: (groupId) =>
     this.clear()
-    new window.Walleet.Layouts.GroupIndex().render()
-    @groups = new window.Walleet.Collections.GroupCollection()
-    @group = new window.Walleet.Models.Group({id: groupId})
-    new window.Walleet.Views.GroupView(el: $("#main-content"), group: @group)
-    new window.Walleet.Views.GroupBarView(el: $("#group-bar"), collection: @groups, currentId: groupId)
-    new window.Walleet.Views.AddMemberView(el: $("#side-content"), group: @group).render()
+    new Layouts.GroupIndex().render()
+    @groups = new Collections.GroupCollection()
+    @group = new Models.Group({id: groupId})
+    new Views.GroupView(el: $("#main-content"), group: @group)
+    new Views.GroupBarView(el: $("#group-bar"), collection: @groups, currentId: groupId)
+    new Views.AddMemberView(el: $("#side-content"), group: @group).render()
     @group.fetch()
     @groups.fetch()
 
   signIn: =>
     this.clear()
-    new window.Walleet.Layouts.PersonLogin().render()
+    new Layouts.PersonLogin().render()
 
   clear: =>
     $("#body").html("")

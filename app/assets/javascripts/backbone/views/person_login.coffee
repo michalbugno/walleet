@@ -1,4 +1,4 @@
-class Walleet.Layouts.PersonLogin extends Backbone.View
+class Layouts.PersonLogin extends Backbone.View
   template: JST['backbone/templates/layouts/person_login']
 
   el: "#body"
@@ -14,7 +14,7 @@ class Walleet.Layouts.PersonLogin extends Backbone.View
     @password = this.$('#person-password')
     event.preventDefault()
 
-    member = new Walleet.Models.PersonSession({email: @email.val(), password: @password.val()})
+    member = new Models.PersonSession({email: @email.val(), password: @password.val()})
     member.save({}, {
       success: (response) =>
         console.log(response)

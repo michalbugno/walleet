@@ -1,4 +1,4 @@
-class Walleet.Views.GroupView extends Backbone.View
+class Views.GroupView extends Backbone.View
   sidebarTemplate: JST['backbone/templates/group_sidebar']
 
   el: $("#group-sidebar")
@@ -26,5 +26,5 @@ class Walleet.Views.GroupView extends Backbone.View
     giverId = this.$("#giver-id :selected").val()
     takerIds = _.map($("#group-members :checked"), (input) => $(input).val())
     joinedIds = takerIds.join(",")
-    debt = new Walleet.Models.Debt(group_id: groupId, taker_ids: takerIds, amount: amount, giver_id: giverId)
+    debt = new Models.Debt(group_id: groupId, taker_ids: takerIds, amount: amount, giver_id: giverId)
     debt.save()

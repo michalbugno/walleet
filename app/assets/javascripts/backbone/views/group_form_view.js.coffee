@@ -1,4 +1,4 @@
-class Walleet.Views.GroupFormView extends Backbone.View
+class Views.GroupFormView extends Backbone.View
   template: JST["backbone/templates/group_form"]
 
   initialize: (options) ->
