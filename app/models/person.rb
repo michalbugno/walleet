@@ -7,9 +7,10 @@ class Person < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
-  
+
   validates :email, :presence => true
 
   has_many :group_memberships
   has_many :persons, :through => :group_memberships
+  has_many :groups, :through => :group_memberships
 end

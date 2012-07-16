@@ -1,0 +1,10 @@
+%ul#topbar.nav.nav-pills
+  %li
+  - if @loggedIn
+    %a{:href => "#groups"}= "Groups"
+    %a#sign-out{:href => "#"}= "Sign out"
+  - else
+    %a{:href => "#person/sign_in"}= "Sign in"
+
+%div#content
+  Main layout

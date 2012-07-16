@@ -1,27 +1,36 @@
 class Routers.Walleet extends Backbone.Router
   routes: {
     "": "mainPage"
+    "welcome": "welcome"
     "group/:id": "groupShow"
-    "sign_in": "signIn"
+    "groups": "groupIndex"
+    "person/sign_in": "signIn"
   }
 
-  mainPage: ->
-    this.clear()
-    console.log("mainpage")
+  welcome: =>
+    new Layouts.Main().render()
+    new Views.Welcome().render()
 
-  groupIndex: ->
+  mainPage: =>
     this.clear()
-    new Layouts.GroupIndex().render()
+    if !Auth.loggedIn()
+      Router.navigate("#welcome", {trigger: true})
+    else
+      new Layouts.Main().render()
+
+  groupIndex: =>
+    this.clear()
+    new Layouts.Main().render()
     @groups = new Collections.GroupCollection()
 
+    new Views.Groups(el: $("#content")).render()
     new Views.GroupBarView(el: $("#group-bar"), collection: @groups)
     new Views.GroupFormView(el: $("#group-form"), collection: @groups)
     @groups.fetch()
 
-
   groupShow: (groupId) =>
     this.clear()
-    new Layouts.GroupIndex().render()
+    new Layouts.Main().render()
     @groups = new Collections.GroupCollection()
     @group = new Models.Group({id: groupId})
     new Views.GroupView(el: $("#main-content"), group: @group)
@@ -32,7 +41,8 @@ class Routers.Walleet extends Backbone.Router
 
   signIn: =>
     this.clear()
-    new Layouts.PersonLogin().render()
+    new Layouts.Main().render()
+    new Views.Login().render()
 
   clear: =>
     $("#body").html("")

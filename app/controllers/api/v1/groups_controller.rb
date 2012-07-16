@@ -5,7 +5,7 @@ class Api::V1::GroupsController < Api::BaseController
   respond_to :json
 
   def index
-    respond_with Group.all
+    respond_with current_person.groups
   end
 
   def show
