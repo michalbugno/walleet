@@ -7,6 +7,7 @@ describe Api::V1::GroupsController do
 
   before(:each) do
     sign_in :person, current_person
+    GroupMembershipManager.new(group, current_person).connect
     request
   end
 

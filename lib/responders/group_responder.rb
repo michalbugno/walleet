@@ -11,13 +11,16 @@ class GroupResponder < ActionController::Responder
 
   def people_with_amounts
     memberships = group.group_memberships.includes(:person)
-    people = memberships.map(&:person)
-    arr = people.map do |person|
+    memberships.map do |member|
       attrs = {
-        :id => person.id,
-        :email => person.email,
-        :amount => amount_in_group(person),
+        :amount => amount_in_group(member.person),
       }
+      person = member.person
+      if person
+        attrs[:id] = person.id
+        attrs[:email] = person.email
+      end
+      attrs
     end
   end
 

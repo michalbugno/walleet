@@ -21,10 +21,10 @@ class Api::V1::GroupsController < Api::BaseController
 
   def add_person
     group = Group.find(params[:id])
-    if params[:person].include?("@")
-      person = Person.find_by_email(params[:person])
+    if params[:person_id]
+      person = Person.find(params[:person_id])
     else
-      person = Person.find(params[:person])
+      person = params[:name]
     end
     GroupMembershipManager.new(group, person).connect
     respond_with("", :location => "")

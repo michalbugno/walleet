@@ -10,13 +10,13 @@ describe GroupMembershipManager do
     before(:each) do
       GroupMembershipManager.should respond_to(:invite_user)
     end
-    
+
     it "if user exist invite to group" do
       GroupMembershipManager.should_not_receive(:create_person)
-      GroupMembershipManager.should_receive(:new).with(group, person)      
+      GroupMembershipManager.should_receive(:new).with(group, person)
       GroupMembershipManager.invite_user(group, person.email)
     end
-    
+
     it "if user not exist" do
       GroupMembershipManager.should_receive(:create_person)
       GroupMembershipManager.should_receive(:new)
@@ -30,7 +30,7 @@ describe GroupMembershipManager do
       ActionMailer::Base.deliveries.last.to == ["unknown@email.com"]
     end
   end
-  
+
   describe "#connect" do
     before(:each) do
       @manager = GroupMembershipManager.new(group, person)
@@ -44,6 +44,11 @@ describe GroupMembershipManager do
     it "person is now in group" do
       @manager.connect
       expect { @manager.connect }.to change(group.persons, :count).by(0)
+    end
+
+    it "connects dummy users" do
+      manager = GroupMembershipManager.new(group, "mike")
+      expect { manager.connect }.to change(GroupMembership, :count).by(1)
     end
   end
 
