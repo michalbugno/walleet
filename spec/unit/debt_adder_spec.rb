@@ -7,8 +7,12 @@ describe DebtAdder do
   let(:taker) { FactoryGirl.create :person }
 
   before(:each) do
-    GroupMembershipManager.new(group, giver).connect
-    GroupMembershipManager.new(group, taker).connect
+    gmm1 = GroupMembershipManager.new(group, giver)
+    gmm1.connect
+    @giver_membership = gmm1.membership
+    gmm2 = GroupMembershipManager.new(group, taker)
+    gmm2.connect
+    @taker_membership = gmm2.membership
   end
 
   it "adds debt for simple 1-1 case" do
@@ -18,40 +22,42 @@ describe DebtAdder do
     debt = Debt.first
     debt.should_not be_nil
 
-    elements = DebtElement.where(:debt_id => debt.id, :person_id => giver.id).all
+    elements = DebtElement.where(:debt_id => debt.id, :group_membership_id => @giver_membership.id).all
     elements.map(&:amount).sum.should == 100
 
-    elements = DebtElement.where(:debt_id => debt.id, :person_id => taker.id).all
+    elements = DebtElement.where(:debt_id => debt.id, :group_membership_id => @taker_membership.id).all
     elements.map(&:amount).sum.should == -100
   end
 
   it "splits debt between users" do
     taker2 = FactoryGirl.create :person
-    GroupMembershipManager.new(group, taker2).connect
+    gmm = GroupMembershipManager.new(group, taker2)
+    gmm.connect
     adder = DebtAdder.new(giver, [taker, taker2], group, 50)
 
     adder.add_debt
 
     debt = Debt.first
-    elements = DebtElement.where(:debt_id => debt.id, :person_id => taker.id).all
+    elements = DebtElement.where(:debt_id => debt.id, :group_membership_id => @taker_membership.id).all
     elements.map(&:amount).sum.should == -25
-    elements = DebtElement.where(:debt_id => debt.id, :person_id => taker2.id).all
+    elements = DebtElement.where(:debt_id => debt.id, :group_membership_id => gmm.membership.id).all
     elements.map(&:amount).sum.should == -25
-    elements = DebtElement.where(:debt_id => debt.id, :person_id => giver.id).all
+    elements = DebtElement.where(:debt_id => debt.id, :group_membership_id => @giver_membership.id).all
     elements.map(&:amount).sum.should == 50
   end
 
   it "divides reminder between users so that total amount sums" do
     taker2 = FactoryGirl.create :person
-    GroupMembershipManager.new(group, taker2).connect
+    gmm = GroupMembershipManager.new(group, taker2)
+    gmm.connect
     adder = DebtAdder.new(giver, [taker, taker2], group, 49)
 
     adder.add_debt
 
     debt = Debt.first
-    elements = DebtElement.where(:debt_id => debt.id, :person_id => [taker.id, taker2.id]).all
+    elements = DebtElement.where(:debt_id => debt.id, :group_membership_id => [@taker_membership.id, gmm.membership.id]).all
     elements.map(&:amount).sum.should == -49
-    elements = DebtElement.where(:debt_id => debt.id, :person_id => giver.id).all
+    elements = DebtElement.where(:debt_id => debt.id, :group_membership_id => @giver_membership.id).all
     elements.map(&:amount).sum.should == 49
   end
 
@@ -61,9 +67,9 @@ describe DebtAdder do
     adder.add_debt
 
     debt = Debt.first
-    elements = DebtElement.where(:debt_id => debt.id, :person_id => [giver.id]).all
+    elements = DebtElement.where(:debt_id => debt.id, :group_membership_id => [@giver_membership.id]).all
     elements.map(&:amount).sum.should == 100
-    elements = DebtElement.where(:debt_id => debt.id, :person_id => [taker.id]).all
+    elements = DebtElement.where(:debt_id => debt.id, :group_membership_id => [@taker_membership.id]).all
     elements.map(&:amount).sum.should == -100
   end
 

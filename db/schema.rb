@@ -11,18 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120717065221) do
+ActiveRecord::Schema.define(:version => 20120717183400) do
 
   create_table "debt_elements", :force => true do |t|
     t.integer  "debt_id"
     t.integer  "amount"
-    t.integer  "person_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "group_membership_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   add_index "debt_elements", ["debt_id"], :name => "index_debt_elements_on_debt_id"
-  add_index "debt_elements", ["person_id"], :name => "index_debt_elements_on_person_id"
+  add_index "debt_elements", ["group_membership_id"], :name => "index_debt_elements_on_person_id"
 
   create_table "debts", :force => true do |t|
     t.integer  "group_id"

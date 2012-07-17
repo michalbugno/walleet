@@ -13,7 +13,7 @@ class GroupResponder < ActionController::Responder
     memberships = group.group_memberships.includes(:person)
     memberships.map do |member|
       attrs = {
-        :amount => amount_in_group(member.person),
+        :amount => amount_in_group(member),
       }
       person = member.person
       if person
@@ -24,8 +24,8 @@ class GroupResponder < ActionController::Responder
     end
   end
 
-  def amount_in_group(person)
+  def amount_in_group(member)
     debt_ids = Debt.where(:group_id => group.id).map(&:id)
-    DebtElement.where(:debt_id => debt_ids, :person_id => person.id).sum(:amount)
+    DebtElement.where(:debt_id => debt_ids, :group_membership_id => member.id).sum(:amount)
   end
 end

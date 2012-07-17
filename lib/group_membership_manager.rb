@@ -13,6 +13,10 @@ class GroupMembershipManager
     !query.empty?
   end
 
+  def membership
+    @group.group_memberships.where(:person_id => @person.id).first
+  end
+
   def connect
     return if member?
     if person?

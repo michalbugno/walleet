@@ -43,10 +43,15 @@ class DebtAdder
   end
 
   def change_balance(person, amount)
-    DebtElement.create!(:debt_id => debt.id, :person_id => person.id, :amount => amount)
+    membership = group_membership(person)
+    DebtElement.create!(:debt_id => debt.id, :group_membership_id => membership.id, :amount => amount)
   end
 
   def membership?(person, group)
     GroupMembershipManager.new(group, person).member?
+  end
+
+  def group_membership(person)
+    GroupMembershipManager.new(@group, person).membership
   end
 end
