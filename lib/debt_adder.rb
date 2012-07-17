@@ -2,20 +2,18 @@ class DebtAdder
   class Error < Exception
   end
 
-  def initialize(giver, takers, group, amount)
+  def initialize(giver, takers, amount)
     @giver = giver
     @takers = takers
-    @group = group
     @amount = amount
+  end
 
-    raise Error.new("Group mismatch") unless membership?(@giver, @group)
-    @takers.each do |taker|
-      raise Error.new("Group mismatch") unless membership?(taker, @group)
-    end
+  def group
+    @group ||= @giver.group
   end
 
   def add_debt
-    @debt = Debt.create!(:group_id => @group.id)
+    @debt = Debt.create!(:group_id => group.id)
 
     charge_giver
     charge_takers
@@ -42,16 +40,7 @@ class DebtAdder
     end
   end
 
-  def change_balance(person, amount)
-    membership = group_membership(person)
-    DebtElement.create!(:debt_id => debt.id, :group_membership_id => membership.id, :amount => amount)
-  end
-
-  def membership?(person, group)
-    GroupMembershipManager.new(group, person).member?
-  end
-
-  def group_membership(person)
-    GroupMembershipManager.new(@group, person).membership
+  def change_balance(member, amount)
+    DebtElement.create!(:debt_id => debt.id, :group_membership_id => member.id, :amount => amount)
   end
 end

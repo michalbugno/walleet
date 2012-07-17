@@ -1,7 +1,7 @@
 class GroupResponder < ActionController::Responder
   def to_json
     json = group.attributes
-    json["people"] = people_with_amounts
+    json["members"] = people_with_amounts
     render :json => Yajl::Encoder.encode(json)
   end
 
@@ -14,11 +14,13 @@ class GroupResponder < ActionController::Responder
     memberships.map do |member|
       attrs = {
         :amount => amount_in_group(member),
+        :id => member.id,
       }
       person = member.person
       if person
-        attrs[:id] = person.id
-        attrs[:email] = person.email
+        attrs[:name] = person.email
+      else
+        attrs[:name] = member.name
       end
       attrs
     end

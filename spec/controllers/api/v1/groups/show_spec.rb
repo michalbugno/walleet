@@ -31,7 +31,7 @@ describe Api::V1::GroupsController do
     request
 
     json = Yajl::Parser.parse(response.body)
-    json.should have_key("people")
-    json["people"].each { |p| p.should have_key("amount") }
+    json.should have_key("members")
+    json["members"].each { |p| p.should have_key("amount") }
   end
 end
