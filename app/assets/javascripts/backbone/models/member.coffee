@@ -8,5 +8,12 @@ class Models.Member extends Backbone.Model
     Backbone.sync(method, model, options)
 
   toJSON: =>
-    id: this.get("group").get("id")
-    person: this.get("person")
+    console.log(this)
+    r = {
+      id: this.get("group").get("id")
+    }
+    if this.get("person_id")
+      r.person_id = this.get("person_id")
+    else
+      r.name = this.get("name")
+    r

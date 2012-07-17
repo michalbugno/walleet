@@ -4,18 +4,18 @@ class Views.GroupView extends Backbone.View
   el: $("#group-sidebar")
 
   events:
-    "submit form": "addDebt"
+    "submit #add-debt": "addDebt"
 
   initialize: (options) ->
     super(options)
 
     @group = options.group
     @group.bind "change", this.render
-    @memberView = new Views.AddMemberView(el: "#side-content", group: @group)
 
   render: =>
     if @group
       $(this.el).html(this.sidebarTemplate(group: @group))
+      @memberView = new Views.AddMemberView(el: "#side-content", group: @group)
       @memberView.render()
     else
       $(this.el).html('')
@@ -30,3 +30,4 @@ class Views.GroupView extends Backbone.View
     joinedIds = takerIds.join(",")
     debt = new Models.Debt(group_id: groupId, taker_ids: takerIds, amount: amount, giver_id: giverId)
     debt.save()
+    @group.fetch()

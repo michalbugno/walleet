@@ -1,16 +1,16 @@
 %h1= @group.get('name')
 %ol#group-members
-  - for person in @group.get("people")
+  - for member in @group.get("members")
     %li
-      %input{:type => "checkbox", :value => person.id}
-      = person.email
-      = person.amount
+      %input{:type => "checkbox", :value => member.id}
+      = member.name
+      = member.amount
 
 
-%form.form-inline.well
+%form#add-debt.form-inline.well
   %select#giver-id{:name => "giver_id"}
-    - for person in @group.get("people")
-      %option{:value => person.id}= person.email
+    - for member in @group.get("members")
+      %option{:value => member.id}= member.name
   %input#amount.input-small{:name => 'amount', :type => 'number', :placeholder => 'Amount'}
   %button.btn
     %i.icon-plus

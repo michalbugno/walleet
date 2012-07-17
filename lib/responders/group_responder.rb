@@ -11,7 +11,7 @@ class GroupResponder < ActionController::Responder
 
   def people_with_amounts
     memberships = group.group_memberships.includes(:person)
-    memberships.map do |member|
+    ret = memberships.map do |member|
       attrs = {
         :amount => amount_in_group(member),
         :id => member.id,
@@ -24,6 +24,7 @@ class GroupResponder < ActionController::Responder
       end
       attrs
     end
+    ret.sort { |a, b| b[:amount] <=> a[:amount] }
   end
 
   def amount_in_group(member)

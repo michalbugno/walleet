@@ -15,7 +15,9 @@ class Views.AddMemberView extends Backbone.View
 
   addMember: (event) =>
     event.preventDefault()
-    @person = this.$("#person-name").val()
+    @person_id = this.$("#person-id")
+    @name = this.$("#person-name")
 
-    member = new Models.Member(group: @group, person: @person)
+    member = new Models.Member(group: @group, person_id: @person_id.val(), name: @name.val())
     member.save()
+    @group.fetch()
