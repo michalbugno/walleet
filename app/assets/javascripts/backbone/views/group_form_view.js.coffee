@@ -1,6 +1,9 @@
 class Views.GroupFormView extends Backbone.View
   template: JST["backbone/templates/group_form"]
 
+  events:
+    "submit form": "createGroup"
+
   initialize: (options) ->
     super(options)
 
@@ -8,15 +11,15 @@ class Views.GroupFormView extends Backbone.View
 
     this.render()
 
-  render: ->
+  render: =>
     $(@el).html @template()
     @groupName = @$('#group-name')
 
-    @$('form').on 'submit', (event) =>
-      event.preventDefault()
-
-      @collection.create { name: @groupName.val() }
-      @collection.fetch()
-
-      @groupName.val('')
-
+  createGroup: (event) =>
+    event.preventDefault()
+    group = new Models.Group({name: @groupName.val()})
+    group.save({}, {
+      success: =>
+        Router.navigate("group/" + group.get("id"), {trigger: true})
+        @groupName.val('')
+    })
