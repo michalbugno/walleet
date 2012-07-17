@@ -4,8 +4,6 @@ class Views.AddMemberView extends Backbone.View
   events:
     'submit form': 'addMember'
 
-  el: "#body"
-
   initialize: (options) ->
     super(options)
 
@@ -13,12 +11,11 @@ class Views.AddMemberView extends Backbone.View
     @group.bind "reset", this.render
 
   render: =>
-    $(this.el).html(this.template(group: @group))
+    this.$el.html(this.template(group: @group))
 
   addMember: (event) =>
     event.preventDefault()
     @person = this.$("#person-name").val()
-    console.log(@person, @group)
 
     member = new Models.Member(group: @group, person: @person)
     member.save()

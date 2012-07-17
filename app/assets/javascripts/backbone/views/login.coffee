@@ -8,10 +8,11 @@ class Views.Login extends Backbone.View
 
   render: =>
     this.$el.html(this.template())
-
-  signIn: (event) =>
     @email = this.$('#person-email')
     @password = this.$('#person-password')
+    @email.focus()
+
+  signIn: (event) =>
     event.preventDefault()
 
     member = new Models.Person({email: @email.val(), password: @password.val()})

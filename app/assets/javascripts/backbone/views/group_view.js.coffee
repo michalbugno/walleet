@@ -11,10 +11,12 @@ class Views.GroupView extends Backbone.View
 
     @group = options.group
     @group.bind "change", this.render
+    @memberView = new Views.AddMemberView(el: "#side-content", group: @group)
 
   render: =>
     if @group
       $(this.el).html(this.sidebarTemplate(group: @group))
+      @memberView.render()
     else
       $(this.el).html('')
 

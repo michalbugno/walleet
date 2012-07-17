@@ -15,3 +15,5 @@
   %button.btn
     %i.icon-plus
     Add debt
+
+%div#side-content
