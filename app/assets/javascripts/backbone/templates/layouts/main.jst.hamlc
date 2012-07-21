@@ -1,10 +1,18 @@
-%ul#topbar.nav.nav-pills
-  %li
-  - if @loggedIn
-    %a{:href => "#groups"}= "Groups"
-    %a#sign-out{:href => "#"}= "Sign out"
-  - else
-    %a{:href => "#person/sign_in"}= "Sign in"
+%div#main-nav.navbar.navbar-fixed-top
+  %div.navbar-inner
+    %div.container
+      %a.brand{:href => "#"} Walleet
+      %ul#topbar.nav
+        - if @loggedIn
+          %li
+            %a#sign-out{:href => "#"}= "Sign out"
+        - else
+          %li
+            %a{:href => "#person/sign_in"}= "Sign in"
+
+%div#secondary-nav.row
+  %div.span9
+    %div#group-list
+  %div#group-form.span3
 
 %div#content
-  Main layout

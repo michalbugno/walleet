@@ -9,6 +9,6 @@ class Models.Group extends Backbone.Model
 class Collections.GroupCollection extends Backbone.Collection
   model: Models.Group
 
-  url: "/api/v1/groups"
+  url: "/api/v1/groups.json"
 
   comparator: (group) -> group.get('name')

@@ -12,14 +12,15 @@ class Views.GroupFormView extends Backbone.View
     this.render()
 
   render: =>
-    $(@el).html @template()
-    @groupName = @$('#group-name')
+    this.$el.html(this.template())
+    @groupName = this.$('#group-name')
 
   createGroup: (event) =>
     event.preventDefault()
     group = new Models.Group({name: @groupName.val()})
     group.save({}, {
       success: =>
-        Router.navigate("group/" + group.get("id"), {trigger: true})
+        Router.navigate("groups/" + group.get("id"), {trigger: true})
+        @collection.fetch()
         @groupName.val('')
     })

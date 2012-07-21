@@ -1,0 +1,5 @@
+%div.subnav
+  %ul.nav.nav-pills
+    - for group in @groups
+      %li
+        %a{:href => group.url}= group.name

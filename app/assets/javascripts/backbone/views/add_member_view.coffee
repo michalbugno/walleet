@@ -5,8 +5,6 @@ class Views.AddMemberView extends Backbone.View
     'submit form': 'addMember'
 
   initialize: (options) ->
-    super(options)
-
     @group = options.group
     @group.bind "reset", this.render
 

@@ -2,46 +2,48 @@ class Routers.Walleet extends Backbone.Router
   routes: {
     "": "mainPage"
     "welcome": "welcome"
-    "group/:id": "groupShow"
-    "groups": "groupIndex"
+    "goodbye": "goodbye"
+    "groups/:id": "groupShow"
     "person/sign_in": "signIn"
+    "*anything": "mismatch"
   }
 
   welcome: =>
+    this.clear()
     new Layouts.Main().render()
     new Views.Welcome().render()
+
+  goodbye: =>
+    this.clear()
+    new Layouts.Main().render()
+    new Views.Goodbye().render()
 
   mainPage: =>
     this.clear()
     if !Auth.loggedIn()
-      Router.navigate("#welcome", {trigger: true})
+      Router.navigate("welcome", {trigger: true})
     else
       new Layouts.Main().render()
-
-  groupIndex: =>
-    this.clear()
-    new Layouts.Main().render()
-    @groups = new Collections.GroupCollection()
-
-    new Views.Groups(el: $("#content")).render()
-    new Views.GroupBarView(el: $("#group-bar"), collection: @groups)
-    new Views.GroupFormView(el: $("#group-form"), collection: @groups)
-    @groups.fetch()
+      new Views.GroupListView(el: "#group-list")
 
   groupShow: (groupId) =>
     this.clear()
-    new Layouts.Main().render()
-    @groups = new Collections.GroupCollection()
+    new Layouts.Main({el: "#body"}).render()
+
     @group = new Models.Group({id: groupId})
-    new Views.GroupView(el: $("#content"), group: @group)
-    new Views.AddMemberView(el: $("#side-content"), group: @group).render()
+
+    new Views.GroupListView(el: "#group-list")
+    new Views.GroupView({group: @group, el: "#content"})
+
     @group.fetch()
-    @groups.fetch()
 
   signIn: =>
     this.clear()
     new Layouts.Main().render()
     new Views.Login().render()
+
+  mismatch: =>
+    Router.navigate("person/sign_in", {trigger: true})
 
   clear: =>
     $("#body").html("")

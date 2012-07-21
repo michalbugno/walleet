@@ -20,6 +20,6 @@ class Views.Login extends Backbone.View
       async: false,
       success: (model, response) =>
         Auth.login(model)
-        Router.navigate("groups", {trigger: true})
+        Router.navigate("", {trigger: true})
       error: (response) => console.log("no auth")
     })

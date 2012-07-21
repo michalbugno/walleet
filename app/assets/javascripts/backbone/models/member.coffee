@@ -8,7 +8,6 @@ class Models.Member extends Backbone.Model
     Backbone.sync(method, model, options)
 
   toJSON: =>
-    console.log(this)
     r = {
       id: this.get("group").get("id")
     }

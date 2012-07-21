@@ -1,0 +1,22 @@
+%div.row
+  %div.span9
+    %form#add-debt.form-inline.well
+      %select#giver-id{:name => "giver_id"}
+        - for member in @group.members
+          %option{:value => member.id}= member.name
+      %input#amount.input-small{:name => 'amount', :type => 'number', :placeholder => 'Amount'}
+      %button.btn
+        %i.icon-plus
+        Add debt
+
+  %div.span3
+    %a#remove-group.btn.btn-danger Remove
+    %h1= @group.name
+    %ol#group-members
+      - for member in @group.members
+        %li
+          %input{:type => "checkbox", :value => member.id}
+          = member.name
+          = member.amount
+
+    %div#side-content

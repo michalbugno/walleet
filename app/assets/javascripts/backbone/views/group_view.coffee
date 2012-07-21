@@ -1,24 +1,18 @@
 class Views.GroupView extends Backbone.View
-  sidebarTemplate: JST['backbone/templates/group_sidebar']
-
-  el: $("#group-sidebar")
+  template: JST['backbone/templates/group']
 
   events:
     "submit #add-debt": "addDebt"
+    "click #remove-group": "removeGroup"
 
   initialize: (options) ->
-    super(options)
-
     @group = options.group
-    @group.bind "change", this.render
+    @group.bind("change", this.render)
 
   render: =>
-    if @group
-      $(this.el).html(this.sidebarTemplate(group: @group))
-      @memberView = new Views.AddMemberView(el: "#side-content", group: @group)
-      @memberView.render()
-    else
-      $(this.el).html('')
+    this.$el.html(this.template(this.templateContext()))
+    @addMemberView = new Views.AddMemberView(el: "#side-content", group: @group)
+    @addMemberView.render()
 
   addDebt: (event) =>
     event.preventDefault()
@@ -31,3 +25,11 @@ class Views.GroupView extends Backbone.View
     debt = new Models.Debt(group_id: groupId, taker_ids: takerIds, amount: amount, giver_id: giverId)
     debt.save()
     @group.fetch()
+
+  removeGroup: (event) =>
+    event.preventDefault()
+    @group.destroy()
+    Router.navigate("", {trigger: true})
+
+  templateContext: =>
+    group: @group.toJSON()

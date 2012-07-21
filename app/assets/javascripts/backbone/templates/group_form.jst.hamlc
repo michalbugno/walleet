@@ -1,5 +1,5 @@
-%form.form-inline.well
+%form.form-inline
   %input#group-name.input-small{:name => 'name', :type => 'text', :placeholder => 'Name' :tabindex => "1"}
   %button.btn{:tabindex => "2"}
     %i.icon-plus
-    Create group
+    Add group
