@@ -5,7 +5,7 @@
         - for member in @group.members
           %option{:value => member.id}= member.name
       %input#amount.input-small{:name => 'amount', :type => 'number', :placeholder => 'Amount'}
-      %button.btn
+      %button#add-debt-button.btn
         %i.icon-plus
         Add debt
 

@@ -4,6 +4,7 @@ class Views.GroupView extends Backbone.View
   events:
     "submit #add-debt": "addDebt"
     "click #remove-group": "removeGroup"
+    "input #amount": "updateAddDebtButton"
 
   initialize: (options) ->
     @group = options.group
@@ -13,16 +14,18 @@ class Views.GroupView extends Backbone.View
     this.$el.html(this.template(this.templateContext()))
     @addMemberView = new Views.AddMemberView(el: "#side-content", group: @group)
     @addMemberView.render()
+    @amount = $("#amount", this.$el)
+    @addDebtButton = $("#add-debt-button", this.$el)
+    this.updateAddDebtButton()
 
   addDebt: (event) =>
     event.preventDefault()
     target = $(event.target)
-    amount = $("#amount", target).val() * 1
     groupId = @group.get("id")
     giverId = this.$("#giver-id :selected").val()
     takerIds = _.map($("#group-members :checked"), (input) => $(input).val())
     joinedIds = takerIds.join(",")
-    debt = new Models.Debt(group_id: groupId, taker_ids: takerIds, amount: amount, giver_id: giverId)
+    debt = new Models.Debt(group_id: groupId, taker_ids: takerIds, amount: @amount.val(), giver_id: giverId)
     debt.save()
     @group.fetch()
 
@@ -33,3 +36,10 @@ class Views.GroupView extends Backbone.View
 
   templateContext: =>
     group: @group.toJSON()
+
+  updateAddDebtButton: (event) =>
+    amount = Number(@amount.val())
+    if Math.abs(amount) >= 0.01
+      @addDebtButton.removeAttr("disabled")
+    else
+      @addDebtButton.attr("disabled", true)
