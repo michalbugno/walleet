@@ -3,6 +3,7 @@ class Views.AddMemberView extends Backbone.View
 
   events:
     'submit form': 'addMember'
+    "input #person-name": "updateAddMemberButton"
 
   initialize: (options) ->
     @group = options.group
@@ -10,12 +11,19 @@ class Views.AddMemberView extends Backbone.View
 
   render: =>
     this.$el.html(this.template(group: @group))
+    @name = this.$("#person-name")
+    @addMemberButton = this.$("#add-member-button")
+    this.updateAddMemberButton()
 
   addMember: (event) =>
     event.preventDefault()
-    @person_id = this.$("#person-id")
-    @name = this.$("#person-name")
 
-    member = new Models.Member(group: @group, person_id: @person_id.val(), name: @name.val())
+    member = new Models.Member(group: @group, name: @name.val())
     member.save()
     @group.fetch()
+
+  updateAddMemberButton: (event) =>
+    if @name.val() != ""
+      @addMemberButton.removeAttr("disabled")
+    else
+      @addMemberButton.attr("disabled", true)

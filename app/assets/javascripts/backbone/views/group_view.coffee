@@ -5,6 +5,7 @@ class Views.GroupView extends Backbone.View
     "submit #add-debt": "addDebt"
     "click #remove-group": "removeGroup"
     "input #amount": "updateAddDebtButton"
+    "change #group-members": "updateAddDebtButton"
 
   initialize: (options) ->
     @group = options.group
@@ -23,9 +24,8 @@ class Views.GroupView extends Backbone.View
     target = $(event.target)
     groupId = @group.get("id")
     giverId = this.$("#giver-id :selected").val()
-    takerIds = _.map($("#group-members :checked"), (input) => $(input).val())
-    joinedIds = takerIds.join(",")
-    debt = new Models.Debt(group_id: groupId, taker_ids: takerIds, amount: @amount.val(), giver_id: giverId)
+    joinedIds = this.takerIds().join(",")
+    debt = new Models.Debt(group_id: groupId, taker_ids: joinedIds, amount: @amount.val(), giver_id: giverId)
     debt.save()
     @group.fetch()
 
@@ -37,9 +37,13 @@ class Views.GroupView extends Backbone.View
   templateContext: =>
     group: @group.toJSON()
 
+  takerIds: =>
+    _.map($("#group-members :checked"), (input) => $(input).val())
+
   updateAddDebtButton: (event) =>
     amount = Number(@amount.val())
-    if Math.abs(amount) >= 0.01
+    enableButton = this.takerIds().length > 0 && Math.abs(amount) >= 0.01
+    if enableButton
       @addDebtButton.removeAttr("disabled")
     else
       @addDebtButton.attr("disabled", true)

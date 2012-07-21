@@ -28,7 +28,12 @@ class GroupResponder < ActionController::Responder
   end
 
   def amount_in_group(member)
+    debt_elements.select { |e| e.group_membership_id == member.id }.map(&:amount).sum
+  end
+
+  def debt_elements
+    return @debt_elements if @debt_elements
     debt_ids = Debt.where(:group_id => group.id).map(&:id)
-    DebtElement.where(:debt_id => debt_ids, :group_membership_id => member.id).sum(:amount)
+    @debt_elements = DebtElement.where(:debt_id => debt_ids).select([:group_membership_id, :amount])
   end
 end
