@@ -10,7 +10,11 @@ Walleet::Application.routes.draw do
         end
       end
       resources :debts
-      match "me(.:format)" => "people#show"
+      resource :people, :path => "me" do
+        member do
+          get "related"
+        end
+      end
     end
   end
   # The priority is based upon order of creation:
