@@ -25,6 +25,7 @@ class Routers.Walleet extends Backbone.Router
     else
       new Layouts.Main().render()
       new Views.GroupListView(el: "#group-list")
+      new Views.GroupFormView(el: "#group-form-view-container")
 
   groupShow: (groupId) =>
     this.clear()

@@ -13,6 +13,6 @@
 %div#secondary-nav.row
   %div.span9
     %div#group-list
-  %div#group-form.span3
+  %div#group-form-view-container.span3
 
 %div#content

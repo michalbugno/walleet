@@ -7,8 +7,7 @@ class Views.GroupFormView extends Backbone.View
   initialize: (options) ->
     super(options)
 
-    @collection = options.collection
-
+    @collection = App.groups
     this.render()
 
   render: =>
