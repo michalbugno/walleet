@@ -31,8 +31,14 @@ class Views.GroupView extends Backbone.View
 
   removeGroup: (event) =>
     event.preventDefault()
-    @group.destroy()
-    Router.navigate("", {trigger: true})
+    @group.destroy({
+      success: (model, response) =>
+        App.groups.fetch()
+        Router.navigate("", trigger: true)
+        new Views.Undo(text: "Group removed", undoId: response.id)
+      error: =>
+        # pass
+    })
 
   templateContext: =>
     group: @group.toJSON()

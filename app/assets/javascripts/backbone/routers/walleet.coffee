@@ -44,6 +44,7 @@ class Routers.Walleet extends Backbone.Router
     new Views.Login().render()
 
   mismatch: =>
+    console.log("mismatch")
     Router.navigate("person/sign_in", {trigger: true})
 
   clear: =>

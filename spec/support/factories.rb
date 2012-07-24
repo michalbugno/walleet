@@ -16,4 +16,10 @@ FactoryGirl.define do
     sequence(:group_id)
     sequence(:person_id)
   end
+
+  factory :undoable do
+    undo_type "group_deletion"
+    person_id { 1 + rand(100) }
+    payload ""
+  end
 end

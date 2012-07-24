@@ -10,6 +10,8 @@
           %li
             %a{:href => "#person/sign_in"}= "Sign in"
 
+%div#undo
+
 %div#secondary-nav.row
   %div.span9
     %div#group-list

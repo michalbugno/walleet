@@ -12,5 +12,5 @@ class Person < ActiveRecord::Base
 
   has_many :group_memberships
   has_many :persons, :through => :group_memberships
-  has_many :groups, :through => :group_memberships
+  has_many :groups, :through => :group_memberships, :conditions => {:visible => true}
 end

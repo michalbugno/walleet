@@ -6,8 +6,12 @@ describe Api::V1::GroupsController do
 
   before(:each) do
     sign_in :person, person
-    delete :destroy, :id => group.id, :format => :json
   end
 
-  it { should respond_with(204) }
+  it "responds with 200 and undo" do
+    delete :destroy, :id => group.id, :format => :json
+
+    parsed = Yajl::Parser.parse(response.body)
+    parsed.keys.should include("id")
+  end
 end

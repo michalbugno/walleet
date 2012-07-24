@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120717183400) do
+ActiveRecord::Schema.define(:version => 20120723204220) do
 
   create_table "debt_elements", :force => true do |t|
     t.integer  "debt_id"
@@ -43,8 +43,9 @@ ActiveRecord::Schema.define(:version => 20120717183400) do
 
   create_table "groups", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+    t.boolean  "visible",    :default => true, :null => false
   end
 
   create_table "people", :force => true do |t|
@@ -64,5 +65,13 @@ ActiveRecord::Schema.define(:version => 20120717183400) do
 
   add_index "people", ["email"], :name => "index_people_on_email", :unique => true
   add_index "people", ["reset_password_token"], :name => "index_people_on_reset_password_token", :unique => true
+
+  create_table "undoables", :force => true do |t|
+    t.string   "undo_type",  :null => false
+    t.integer  "person_id",  :null => false
+    t.text     "payload"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
 end

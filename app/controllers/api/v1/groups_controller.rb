@@ -9,7 +9,7 @@ class Api::V1::GroupsController < Api::BaseController
   end
 
   def show
-    group = Group.find(params[:id])
+    group = Group.visible.find(params[:id])
     respond_with group, :responder => GroupResponder
   end
 
@@ -20,7 +20,7 @@ class Api::V1::GroupsController < Api::BaseController
   end
 
   def add_person
-    group = Group.find(params[:id])
+    group = Group.visible.find(params[:id])
     if params[:person_id]
       person = Person.find(params[:person_id])
     else
@@ -31,13 +31,17 @@ class Api::V1::GroupsController < Api::BaseController
   end
 
   def remove_person
-    group = Group.find(params[:id])
+    group = Group.visible.find(params[:id])
     person = Person.find(params[:person_id])
     GroupMembershipManager.new(group, person).disconnect
     respond_with("", :location => "")
   end
 
   def destroy
-    respond_with(Group.find(params[:id]).destroy)
+    group = Group.visible.find(params[:id])
+    undo = Undoable.group_deletion(group, current_person)
+    respond_with(undo, :location => "") do |format|
+      format.json { render :text => undo.to_json }
+    end
   end
 end

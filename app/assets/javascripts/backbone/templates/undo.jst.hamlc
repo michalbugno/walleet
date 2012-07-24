@@ -1,0 +1,3 @@
+%div
+  %p= @text
+  %a#undo-link{:href => "#"} You can undo this!

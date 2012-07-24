@@ -5,4 +5,6 @@ class Group < ActiveRecord::Base
 
   has_many :group_memberships
   has_many :persons, :through => :group_memberships
+
+  scope :visible, lambda { where(:visible => true) }
 end

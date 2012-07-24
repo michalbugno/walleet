@@ -10,6 +10,7 @@ Walleet::Application.routes.draw do
         end
       end
       resources :debts
+      resources :undos
       resource :people, :path => "me" do
         member do
           get "related"
