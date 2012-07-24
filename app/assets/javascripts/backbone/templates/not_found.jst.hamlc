@@ -1,0 +1,6 @@
+%h1 404 Not found
+%p
+  Path
+  %strong
+    = "/" + @path
+  was not found

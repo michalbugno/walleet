@@ -5,7 +5,7 @@ class Routers.Walleet extends Backbone.Router
     "goodbye": "goodbye"
     "groups/:id": "groupShow"
     "person/sign_in": "signIn"
-    "*anything": "mismatch"
+    "*anything": "notFound"
   }
 
   welcome: =>
@@ -29,7 +29,7 @@ class Routers.Walleet extends Backbone.Router
 
   groupShow: (groupId) =>
     this.clear()
-    new Layouts.Main({el: "#body"}).render()
+    new Layouts.Main().render()
 
     @group = new Models.Group({id: groupId})
 
@@ -43,9 +43,10 @@ class Routers.Walleet extends Backbone.Router
     new Layouts.Main().render()
     new Views.Login().render()
 
-  mismatch: =>
-    console.log("mismatch")
-    Router.navigate("person/sign_in", {trigger: true})
+  notFound: (path) =>
+    this.clear()
+    new Layouts.Main().render()
+    new Views.NotFoundView(el: "#content", path: path).render()
 
   clear: =>
     $("#body").html("")
