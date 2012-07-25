@@ -5,6 +5,7 @@ Walleet::Application.routes.draw do
     namespace :v1 do
       resources :groups do
         member do
+          get :feed
           post :add_person
           delete :remove_person
         end

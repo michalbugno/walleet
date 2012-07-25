@@ -1,0 +1,12 @@
+%h2 Feed
+%ol
+  - for item in @feed
+    %li.well
+      %span.badge.badge-info= item.feed_type
+      = item.text
+      = item.date
+
+- unless @lastPage
+  %ul.pager
+    %li
+      %a#load-feed{:href => "#/groups"} Load more

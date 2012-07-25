@@ -1,5 +1,7 @@
 require 'responders/group_responder'
 require 'group_membership_manager'
+require 'responders/group_feed_responder'
+require 'feed_fetcher'
 
 class Api::V1::GroupsController < Api::BaseController
   respond_to :json
@@ -10,13 +12,20 @@ class Api::V1::GroupsController < Api::BaseController
 
   def show
     group = Group.visible.find(params[:id])
-    respond_with group, :responder => GroupResponder
+    respond_with(group, :responder => GroupResponder)
   end
 
   def create
     group = Group.create(params[:group])
     GroupMembershipManager.new(group, current_person).connect
     respond_with(group, :location => "")
+  end
+
+  def feed
+    group = Group.visible.find(params[:id])
+    time = Time.parse(params[:time])
+    feed = FeedFetcher.new(5, time, group)
+    respond_with(feed, :responder => GroupFeedResponder)
   end
 
   def add_person

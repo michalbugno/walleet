@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require vendor/handlebars
+//= require vendor/moment.min
 //= require underscore
 //= require backbone
 //= require backbone/walleet

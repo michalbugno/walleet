@@ -9,6 +9,8 @@
         %i.icon-plus
         Add debt
 
+    %div#group-feed
+
   %div.span3
     %a#remove-group.btn.btn-danger Remove
     %h1= @group.name

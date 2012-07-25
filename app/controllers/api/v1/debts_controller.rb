@@ -7,7 +7,8 @@ class Api::V1::DebtsController < Api::BaseController
     giver = GroupMembership.find(params[:giver_id])
     takers = GroupMembership.where(:id => params[:taker_ids].split(","))
     amount = params[:amount].to_i
-    DebtAdder.new(giver, takers, amount).add_debt
+    adder = DebtAdder.new(giver, takers, amount)
+    adder.add_debt
     respond_with("", :location => "")
   end
 
