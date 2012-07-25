@@ -1,7 +1,7 @@
 require 'responders/group_responder'
 require 'group_membership_manager'
 require 'responders/group_feed_responder'
-require 'feed_fetcher'
+require 'group_feed_fetcher'
 
 class Api::V1::GroupsController < Api::BaseController
   respond_to :json
@@ -24,7 +24,7 @@ class Api::V1::GroupsController < Api::BaseController
   def feed
     group = Group.visible.find(params[:id])
     time = Time.parse(params[:time])
-    feed = FeedFetcher.new(5, time, group)
+    feed = GroupFeedFetcher.new(10, time, group)
     respond_with(feed, :responder => GroupFeedResponder)
   end
 

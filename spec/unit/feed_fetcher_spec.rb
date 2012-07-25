@@ -1,10 +1,10 @@
 require 'spec_helper'
-require 'feed_fetcher'
+require 'group_feed_fetcher'
 require 'group_membership_manager'
 require 'debt_adder'
 
-describe FeedFetcher do
-  let(:klass) { FeedFetcher }
+describe GroupFeedFetcher do
+  let(:klass) { GroupFeedFetcher }
   let(:group) { FactoryGirl.create :group }
   let(:limit) { 2 }
   let(:items) { @feed.items }

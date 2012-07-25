@@ -1,4 +1,4 @@
-class FeedFetcher
+class GroupFeedFetcher
   attr_reader :group
   attr_accessor :limit, :upto
 
