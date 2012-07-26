@@ -10,10 +10,10 @@ class Views.GroupView extends Backbone.View
   initialize: (options) ->
     @group = options.group
     @group.bind("change", this.render)
-    @feedView = new Views.FeedView(el: "#group-feed", group: @group)
 
   render: =>
     this.$el.html(this.template(this.templateContext()))
+    @feedView = new Views.FeedView(el: "#group-feed", group: @group)
     @addMemberView = new Views.AddMemberView(el: "#side-content", group: @group)
     @addMemberView.render()
 

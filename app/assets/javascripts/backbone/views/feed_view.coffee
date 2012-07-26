@@ -8,17 +8,11 @@ class Views.FeedView extends Backbone.View
     this.el = options.el
     @group = options.group
     @feed = new Collections.Feed([], {group: @group})
-    if @group
-      @group.bind("change", this.resetFeed)
-    else
-      @feed.fetchNextPage()
     @feed.bind("reset", this.render)
+    @feed.fetchNextPage()
 
   render: =>
     $(this.el).html(this.template(this.templateContext()))
-    $("#load-feed").click((event) =>
-      this.loadNextPage(event)
-    )
 
   resetFeed: =>
     @feed.resetFeed()
