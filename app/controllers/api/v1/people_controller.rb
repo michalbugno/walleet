@@ -1,3 +1,6 @@
+require 'person_feed_fetcher'
+require 'responders/feed_responder'
+
 class Api::V1::PeopleController < Api::BaseController
   respond_to :json
 
@@ -6,8 +9,15 @@ class Api::V1::PeopleController < Api::BaseController
   end
 
   def related
-    group_ids = GroupMembership.where(:person_id => current_person.id).select("DISTINCT(group_id)").map(&:group_id)
-    people_ids = GroupMembership.where(:group_id => group_ids).where("person_id IS NOT NULL").where("person_id != ?", current_person.id).select("DISTINCT(person_id)").map(&:person_id)
-    respond_with(Person.where(:id => people_ids))
+    respond_with(current_person.related)
+  end
+
+  def feed
+    feed = PersonFeedFetcher.new(10, params[:time], current_person)
+    response = {
+      :items => feed.items,
+      :next_timestamp => feed.next_timestamp,
+    }
+    respond_with(feed, :responder => FeedResponder)
   end
 end

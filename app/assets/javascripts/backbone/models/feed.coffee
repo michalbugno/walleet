@@ -12,7 +12,10 @@ class Collections.Feed extends Backbone.Collection
     super(object.items)
 
   url: =>
-    "/api/v1/groups/" + @group.get("id") + "/feed.json"
+    if @group
+      "/api/v1/groups/" + @group.get("id") + "/feed.json"
+    else
+      "/api/v1/me/feed.json"
 
   resetFeed: =>
     this.reset([], {silent: true})

@@ -1,6 +1,6 @@
 require 'responders/group_responder'
 require 'group_membership_manager'
-require 'responders/group_feed_responder'
+require 'responders/feed_responder'
 require 'group_feed_fetcher'
 
 class Api::V1::GroupsController < Api::BaseController
@@ -25,7 +25,7 @@ class Api::V1::GroupsController < Api::BaseController
     group = Group.visible.find(params[:id])
     time = Time.parse(params[:time])
     feed = GroupFeedFetcher.new(10, time, group)
-    respond_with(feed, :responder => GroupFeedResponder)
+    respond_with(feed, :responder => FeedResponder)
   end
 
   def add_person

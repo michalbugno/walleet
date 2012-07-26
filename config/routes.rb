@@ -15,6 +15,7 @@ Walleet::Application.routes.draw do
       resource :people, :path => "me" do
         member do
           get "related"
+          get "feed"
         end
       end
     end

@@ -1,4 +1,4 @@
-class GroupFeedResponder < ActionController::Responder
+class FeedResponder < ActionController::Responder
   def to_json
     items = feed.items.map do |item|
       case item
