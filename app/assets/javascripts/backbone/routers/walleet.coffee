@@ -34,7 +34,7 @@ class Routers.Walleet extends Backbone.Router
 
     @group = new Models.Group({id: groupId})
 
-    new Views.GroupListView(el: "#group-list")
+    new Views.GroupListView(el: "#group-list", currentGroup: @group)
     new Views.GroupView({group: @group, el: "#content"})
 
     @group.fetch()

@@ -4,6 +4,7 @@ class Views.GroupListView extends Backbone.View
   initialize: (options) ->
     App.groups.bind("reset", this.render)
     App.groups.fetch()
+    @currentGroup = options.currentGroup
 
   render: =>
     this.$el.html(this.template(this.templateContext()))
@@ -11,4 +12,8 @@ class Views.GroupListView extends Backbone.View
   templateContext: =>
     groups: _.map(App.groups.toJSON(), (group) =>
       group.url = "#groups/" + group.id
+      if @currentGroup && parseInt(@currentGroup.get("id")) == group.id
+        group.activeClass = "active"
+      else
+        group.activeClass = null
       group)
