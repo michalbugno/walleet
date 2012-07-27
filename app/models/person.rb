@@ -12,7 +12,7 @@ class Person < ActiveRecord::Base
 
   has_many :group_memberships
   has_many :persons, :through => :group_memberships
-  has_many :groups, :through => :group_memberships, :conditions => {:visible => true}
+  has_many :groups, :through => :group_memberships, :conditions => {:visible => true}, :order => "groups.created_at DESC"
 
   def related
     group_ids = GroupMembership.

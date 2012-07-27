@@ -5,7 +5,7 @@ class Collections.Feed extends Backbone.Collection
 
   initialize: (arr, options) =>
     @group = options.group
-    @time = moment().utc().format()
+    @time = moment().utc().add('seconds', 2).format()
 
   parse: (object) =>
     @time = object.next_timestamp

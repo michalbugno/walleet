@@ -14,11 +14,13 @@
   %div.span3
     %a#remove-group.btn.btn-danger Remove
     %h1= @group.name
-    %ol#group-members
+    %ol#group-members.group-summary
       - for member in @group.members
         %li
+          %div.amount
+            %span{:class => member.badgeClass}= member.amount
           %input{:type => "checkbox", :value => member.id}
-          = member.name
-          = member.amount
+          %div.name
+            = member.name
 
     %div#side-content

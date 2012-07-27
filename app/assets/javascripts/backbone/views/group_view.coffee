@@ -44,7 +44,18 @@ class Views.GroupView extends Backbone.View
     })
 
   templateContext: =>
-    group: @group.toJSON()
+    group = @group.toJSON()
+    _.each(group.members, (member) =>
+      badgeClass = ["badge"]
+      if member.amount > 0
+        badgeClass.push("badge-success")
+      else if member.amount == 0
+        badgeClass.push("badge-info")
+      else
+        badgeClass.push("badge-important")
+      member.badgeClass = badgeClass.join(" ")
+    )
+    group: group
 
   takerIds: =>
     _.map($("#group-members :checked"), (input) => $(input).val())
