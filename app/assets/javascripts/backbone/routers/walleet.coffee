@@ -23,19 +23,19 @@ class Routers.Walleet extends Backbone.Router
     if !Auth.loggedIn()
       Router.navigate("welcome", {trigger: true})
     else
-      new Layouts.Main().render()
-      new Views.GroupListView(el: "#group-list")
-      new Views.GroupFormView(el: "#group-form-view-container")
-      new Views.FeedView(el: "#content")
+      layout = new Layouts.Main()
+      layout.render()
+      new Views.FeedView(el: layout.container("content"))
 
   groupShow: (groupId) =>
     this.clear()
     new Layouts.Main().render()
 
     @group = new Models.Group({id: groupId})
+    layout = new Layouts.Main(currentGroup: @group)
+    layout.render()
 
-    new Views.GroupListView(el: "#group-list", currentGroup: @group)
-    new Views.GroupView({group: @group, el: "#content"})
+    new Views.GroupView({group: @group, el: layout.container("content")})
 
     @group.fetch()
 
@@ -47,7 +47,7 @@ class Routers.Walleet extends Backbone.Router
   notFound: (path) =>
     this.clear()
     new Layouts.Main().render()
-    new Views.NotFoundView(el: "#content", path: path).render()
+    new Views.NotFoundView(el: layout.container("content"), path: path).render()
 
   clear: =>
     $("#body").html("")

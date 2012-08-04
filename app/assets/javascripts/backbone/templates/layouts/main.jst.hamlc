@@ -14,7 +14,7 @@
 
 %div#secondary-nav.row
   %div.span9
-    %div#group-list
-  %div#group-form-view-container.span3
+    %div#layout-main-group-list-container
+  %div#layout-main-group-form-container.span3
 
-%div#content
+%div#layout-main-content-container
