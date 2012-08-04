@@ -9,17 +9,16 @@ class Routers.Walleet extends Backbone.Router
   }
 
   welcome: =>
-    this.clear()
-    new Layouts.Main().render()
-    new Views.Welcome().render()
+    layout = new Layouts.Main()
+    layout.render()
+    new Views.Welcome(el: layout.container("content")).render()
 
   goodbye: =>
-    this.clear()
-    new Layouts.Main().render()
-    new Views.Goodbye().render()
+    layout = new Layouts.Main()
+    layout.render()
+    new Views.Goodbye(el: layout.container("content")).render()
 
   mainPage: =>
-    this.clear()
     if !Auth.loggedIn()
       Router.navigate("welcome", {trigger: true})
     else
@@ -28,9 +27,6 @@ class Routers.Walleet extends Backbone.Router
       new Views.FeedView(el: layout.container("content"))
 
   groupShow: (groupId) =>
-    this.clear()
-    new Layouts.Main().render()
-
     @group = new Models.Group({id: groupId})
     layout = new Layouts.Main(currentGroup: @group)
     layout.render()
@@ -40,14 +36,11 @@ class Routers.Walleet extends Backbone.Router
     @group.fetch()
 
   signIn: =>
-    this.clear()
-    new Layouts.Main().render()
-    new Views.Login().render()
+    layout = new Layouts.Main()
+    layout.render()
+    new Views.Login(el: layout.container("content")).render()
 
   notFound: (path) =>
-    this.clear()
-    new Layouts.Main().render()
+    layout = new Layouts.Main()
+    layout.render()
     new Views.NotFoundView(el: layout.container("content"), path: path).render()
-
-  clear: =>
-    $("#body").html("")

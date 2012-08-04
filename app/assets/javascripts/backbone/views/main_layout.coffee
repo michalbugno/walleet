@@ -11,6 +11,7 @@ class Layouts.Main extends Layout
     @currentGroup = options.currentGroup
 
   render: =>
+    super()
     context = this.context()
     this.$el.html(this.template(context))
     if Auth.loggedIn()
