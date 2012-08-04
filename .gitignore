@@ -19,3 +19,4 @@
 
 .redcar/
 /coverage
+.DS_Store
