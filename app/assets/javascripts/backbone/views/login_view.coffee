@@ -10,7 +10,10 @@ class Views.Login extends Backbone.View
     this.$el.html(this.template())
     @email = this.$('#person-email')
     @password = this.$('#person-password')
+    @fail = this.$('#fail')
+
     @email.focus()
+    @fail.hide()
 
   signIn: (event) =>
     event.preventDefault()
@@ -21,5 +24,5 @@ class Views.Login extends Backbone.View
       success: (model, response) =>
         Auth.login(model)
         Router.navigate("", {trigger: true})
-      error: (response) => console.log("no auth")
+      error: (response) => @fail.show()
     })
