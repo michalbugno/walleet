@@ -10,6 +10,7 @@ Walleet::Application.routes.draw do
           delete :remove_person
         end
       end
+      resources :memberships
       resources :debts
       resources :undos
       resource :people, :path => "me" do

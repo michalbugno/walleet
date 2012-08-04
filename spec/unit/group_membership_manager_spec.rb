@@ -70,6 +70,7 @@ describe GroupMembershipManager do
 
   describe "#member?" do
     let(:manager) { GroupMembershipManager.new(group, person) }
+
     it "responds false if user is not member of group" do
       manager.should_not be_member
     end
@@ -80,4 +81,14 @@ describe GroupMembershipManager do
     end
   end
 
+  describe "#membership" do
+    it "works with fake members" do
+      manager = GroupMembershipManager.new(group, "fake")
+      manager.connect
+
+      membership = manager.membership
+      membership.name.should == "fake"
+      membership.group_id.should == group.id
+    end
+  end
 end

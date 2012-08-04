@@ -22,7 +22,6 @@
           %input{:type => "checkbox", :value => member.id}
           %div.name
             = member.name
-          %div.remove-membership-link
-            %a{:href => "#"} Remove
+          %a.remove-membership-link{:href => "#", :data-membership-id => member.id} Remove
 
     %div#side-content

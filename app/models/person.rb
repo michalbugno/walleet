@@ -14,19 +14,30 @@ class Person < ActiveRecord::Base
   has_many :persons, :through => :group_memberships
   has_many :groups, :through => :group_memberships, :conditions => {:visible => true}, :order => "groups.created_at DESC"
 
-  def related
+  def related_people
     group_ids = GroupMembership.
-      where(:person_id => person.id).
+      where(:person_id => self.id).
       select("DISTINCT(group_id)").
       map(&:group_id)
 
     people_ids = GroupMembership.
       where(:group_id => group_ids).
       where("person_id IS NOT NULL").
-      where("person_id != ?", person.id).
+      where("person_id != ?", self.id).
       select("DISTINCT(person_id)").
       map(&:person_id)
 
     Person.where(:id => people_ids)
+  end
+
+  def related_memberships
+    group_ids = GroupMembership.
+      where(:person_id => self.id).
+      select("DISTINCT(group_id)").
+      map(&:group_id)
+
+    GroupMembership.
+      where(:group_id => group_ids).
+      where("person_id != ? OR person_id IS NULL", self.id)
   end
 end

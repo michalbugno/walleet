@@ -8,6 +8,7 @@ class Views.GroupView extends Backbone.View
     "change #group-members": "updateAddDebtButton"
     "mouseover .member": "showRemoveMembershipLink"
     "mouseout .member": "hideRemoveMembershipLink"
+    "click .remove-membership-link": "removeMembership"
 
   initialize: (options) ->
     @group = options.group
@@ -80,3 +81,11 @@ class Views.GroupView extends Backbone.View
     target = $(event.currentTarget, this.$el)
     link = target.find(".remove-membership-link")
     link.hide()
+
+  removeMembership: (event) =>
+    event.preventDefault()
+    target = $(event.currentTarget, this.$el)
+    membershipId = target.data("membership-id")
+    membership = new Models.Membership(id: membershipId)
+    membership.destroy()
+    @group.fetch()

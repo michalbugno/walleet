@@ -4,6 +4,16 @@ class GroupMembershipManager
     @person = person
   end
 
+  def self.from_membership(membership)
+    group = membership.group
+    if membership.person_id
+      person = membership.person
+    else
+      person = membership.name
+    end
+    new(group, person)
+  end
+
   def member?
     if person?
       query = @group.group_memberships.where(:person_id => @person.id)
@@ -14,7 +24,11 @@ class GroupMembershipManager
   end
 
   def membership
-    @group.group_memberships.where(:person_id => @person.id).first
+    if person?
+      @group.group_memberships.where(:person_id => @person.id).first
+    else
+      @group.group_memberships.where(:name => @person).first
+    end
   end
 
   def connect
