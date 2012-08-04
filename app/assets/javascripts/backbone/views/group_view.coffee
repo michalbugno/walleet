@@ -6,6 +6,8 @@ class Views.GroupView extends Backbone.View
     "click #remove-group": "removeGroup"
     "input #amount": "updateAddDebtButton"
     "change #group-members": "updateAddDebtButton"
+    "mouseover .member": "showRemoveMembershipLink"
+    "mouseout .member": "hideRemoveMembershipLink"
 
   initialize: (options) ->
     @group = options.group
@@ -68,3 +70,13 @@ class Views.GroupView extends Backbone.View
       @addDebtButton.removeAttr("disabled")
     else
       @addDebtButton.attr("disabled", true)
+
+  showRemoveMembershipLink: (event) =>
+    target = $(event.currentTarget, this.$el)
+    link = target.find(".remove-membership-link")
+    link.show()
+
+  hideRemoveMembershipLink: (event) =>
+    target = $(event.currentTarget, this.$el)
+    link = target.find(".remove-membership-link")
+    link.hide()
