@@ -10,7 +10,7 @@ class Api::V1::MembershipsController < Api::BaseController
     else
       person = params[:name]
     end
-    group = current_person.groups.find(params[:id])
+    group = current_person.groups.find(params[:group_id])
     GroupMembershipManager.new(group, person).connect
     respond_with("", :location => "")
   end

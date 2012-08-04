@@ -27,22 +27,6 @@ class Api::V1::GroupsController < Api::BaseController
     respond_with(feed, :responder => FeedResponder)
   end
 
-  def add_person
-    if params[:person_id]
-      person = Person.find(params[:person_id])
-    else
-      person = params[:name]
-    end
-    GroupMembershipManager.new(@group, person).connect
-    respond_with("", :location => "")
-  end
-
-  def remove_person
-    person = Person.find(params[:person_id])
-    GroupMembershipManager.new(@group, person).disconnect
-    respond_with("", :location => "")
-  end
-
   def destroy
     undo = Undoable.group_deletion(@group, current_person)
     respond_with(undo, :location => "") do |format|

@@ -31,7 +31,8 @@ describe Person do
       m.connect
       membership = m.membership
 
-      person.related_memberships.select(:id).map(&:id).should == [membership.id]
+      expected_ids = person.related_memberships.select(:id).map(&:id).sort
+      expected_ids.should == [membership.id, person.id].sort
     end
 
     it "returns fake memberships" do
@@ -39,7 +40,8 @@ describe Person do
       m.connect
       membership = m.membership
 
-      person.related_memberships.select(:id).map(&:id).should == [membership.id]
+      expected_ids = person.related_memberships.select(:id).map(&:id).sort
+      expected_ids.should == [membership.id, person.id].sort
     end
   end
 end

@@ -1,16 +1,18 @@
 require "spec_helper"
 
-describe Api::V1::GroupsController do
+describe Api::V1::MembershipsController do
   let!(:group) { FactoryGirl.create :group, :name => "My name" }
   let(:person) { FactoryGirl.create :person, :email => "email@something.com", :password => "password" }
-  let(:request) { delete :remove_person, :id => group.id, :person_id => person.id, :format => :json }
+  let(:request) { delete :destroy, :id => @membership.id, :format => :json }
 
   before(:each) do
-    GroupMembershipManager.new(group, person).connect
+    gmm = GroupMembershipManager.new(group, person)
+    gmm.connect
+    @membership = gmm.membership
     sign_in :person, person
-  end 
+  end
 
-  it "responds with 204 after successful add" do
+  it "responds with 204 after successful remove" do
     request
 
     should respond_with(204)

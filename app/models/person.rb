@@ -37,7 +37,6 @@ class Person < ActiveRecord::Base
       map(&:group_id)
 
     GroupMembership.
-      where(:group_id => group_ids).
-      where("person_id != ? OR person_id IS NULL", self.id)
+      where(:group_id => group_ids)
   end
 end
