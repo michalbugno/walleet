@@ -57,7 +57,7 @@ class Views.GroupView extends Backbone.View
       else
         badgeClass.push("badge-important")
       member.badgeClass = badgeClass.join(" ")
-      member.amount = Helpers.formatAmount(member.amount)
+      member.formattedAmount = Helpers.formatAmount(member.amount)
     )
     group: group
 

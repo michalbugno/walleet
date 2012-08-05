@@ -46,7 +46,11 @@ class GroupMembershipManager
     else
       query = @group.group_memberships.where(:name => @person)
     end
-    query.each { |el| el.destroy }
+    query.each do |member|
+      if @group.amount(member) == 0
+        member.destroy
+      end
+    end
   end
 
   def self.invite_user(group, email)

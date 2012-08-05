@@ -18,10 +18,11 @@
       - for member in @group.members
         %li.member
           %div.amount
-            %span{:class => member.badgeClass}= member.amount
+            %span{:class => member.badgeClass}= member.formattedAmount
           %input{:type => "checkbox", :value => member.id}
           %div.name
             = member.name
-          %a.remove-membership-link{:href => "#", :data-membership-id => member.id} Remove
+          - if member.amount == 0
+            %a.remove-membership-link{:href => "#", :data-membership-id => member.id} Remove
 
     %div#side-content
