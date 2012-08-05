@@ -24,9 +24,18 @@ class Layouts.Main extends Layout
     ev.preventDefault()
     Auth.logout()
     Router.navigate("goodbye", {trigger: true})
+    alert = new Views.AlertView(el: this.alertContainer())
+    alert.addNotice("You are signed out")
+    alert.render()
 
   context: =>
     loggedIn: Auth.loggedIn()
     groups: _.map(App.groups.toJSON(), (group) =>
       group.url = "#groups/" + group.id
       group)
+
+  alertContainer: =>
+    container = $(".alert-container", this.$el)
+    if container.length == 0
+      container = $(".alert-container")
+    container

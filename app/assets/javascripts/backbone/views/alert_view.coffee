@@ -3,14 +3,15 @@ class Views.AlertView extends Backbone.View
 
   initialize: (options) =>
     @errors = []
+    @notices = []
 
   addError: (error, options) =>
-    options ||= {}
-    if options.noHide
-      hidable = false
-    else
-      hideable = true
-    @errors.push({message: error, hideable: hideable})
+    options = this.convertOptions(options)
+    @errors.push({message: error, hideable: options.hideable})
+
+  addNotice: (notice, options) =>
+    options = this.convertOptions(options)
+    @notices.push({message: notice, hideable: options.hideable})
 
   render: =>
     this.$el.html(this.template(this.templateContext()))
@@ -21,3 +22,12 @@ class Views.AlertView extends Backbone.View
 
   templateContext: =>
     errors: @errors
+    notices: @notices
+
+  convertOptions: (opts) =>
+    opts ||= {}
+    if opts.noHide
+      opts.hideable = false
+    else
+      opts.hideable = true
+    opts

@@ -4,3 +4,10 @@
       - if error.hideable
         %button{:class => "close"} ×
       = error.message
+
+- if @notices.length > 0
+  - for notice in @notices
+    %div.alert.alert-notice
+      - if notice.hideable
+        %button{:class => "close"} ×
+      = notice.message

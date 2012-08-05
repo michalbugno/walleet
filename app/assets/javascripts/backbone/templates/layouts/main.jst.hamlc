@@ -11,7 +11,10 @@
             %a{:href => "#person/sign_in"}= "Sign in"
 
 %div#undo
-%div.alert-container
+%div.row
+  %div.span4 &nbsp;
+  %div.span4.alert-container
+  %div.span4 &nbsp;
 
 %div#secondary-nav.row
   %div.span9
