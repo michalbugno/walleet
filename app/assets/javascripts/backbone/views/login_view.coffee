@@ -10,10 +10,8 @@ class Views.Login extends Backbone.View
     this.$el.html(this.template())
     @email = this.$('#person-email')
     @password = this.$('#person-password')
-    @fail = this.$('#fail')
 
     @email.focus()
-    @fail.hide()
 
   signIn: (event) =>
     event.preventDefault()
@@ -24,5 +22,16 @@ class Views.Login extends Backbone.View
       success: (model, response) =>
         Auth.login(model)
         Router.navigate("", {trigger: true})
-      error: (response) => @fail.show()
+      error: (model, response) =>
+        alert = new Views.AlertView(el: this.alertContainer())
+        alert.addError("Incorrect email and/or password", {noHide: true})
+        alert.render()
+        @email.focus()
+        @email.select()
     })
+
+  alertContainer: =>
+    container = $(".alert-container", this.$el)
+    if container.length == 0
+      container = $(".alert-container")
+    container

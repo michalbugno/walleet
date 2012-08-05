@@ -1,0 +1,6 @@
+- if @errors.length > 0
+  - for error in @errors
+    %div.alert.alert-error
+      - if error.hideable
+        %button{:class => "close"} ×
+      = error.message

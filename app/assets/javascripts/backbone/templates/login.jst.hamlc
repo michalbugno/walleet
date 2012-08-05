@@ -10,8 +10,6 @@
           %button.btn
             %i.icon-user
             Login
-        %div.alert.alert-error#fail
-          Incorrect email and/or password
+        %div.alert-container
       %div.span4
         &nbsp;
-
