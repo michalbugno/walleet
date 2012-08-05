@@ -21,46 +21,33 @@ describe DebtAdder do
     adder = DebtAdder.new(giver, [taker], 100)
     adder.add_debt
 
-    debt = Debt.first
-    debt.should_not be_nil
-
-    elements = DebtElement.where(:debt_id => debt.id, :group_membership_id => @giver_membership.id).all
-    elements.map(&:amount).sum.should == 100
-
-    elements = DebtElement.where(:debt_id => debt.id, :group_membership_id => @taker_membership.id).all
-    elements.map(&:amount).sum.should == -100
+    group.amount(@giver_membership).should == 100
+    group.amount(@taker_membership).should == -100
   end
 
   it "splits debt between users" do
     taker2 = FactoryGirl.create :person
     gmm = GroupMembershipManager.new(group, taker2)
     gmm.connect
-    adder = DebtAdder.new(giver, [taker, taker2], 50)
+    adder = DebtAdder.new(giver, [taker, gmm.membership], 50)
 
     adder.add_debt
 
-    debt = Debt.first
-    elements = DebtElement.where(:debt_id => debt.id, :group_membership_id => @taker_membership.id).all
-    elements.map(&:amount).sum.should == -25
-    elements = DebtElement.where(:debt_id => debt.id, :group_membership_id => gmm.membership.id).all
-    elements.map(&:amount).sum.should == -25
-    elements = DebtElement.where(:debt_id => debt.id, :group_membership_id => @giver_membership.id).all
-    elements.map(&:amount).sum.should == 50
+    group.amount(@taker_membership).should == -25
+    group.amount(gmm.membership).should == -25
+    group.amount(@giver_membership).should == 50
   end
 
   it "divides reminder between users so that total amount sums" do
     taker2 = FactoryGirl.create :person
     gmm = GroupMembershipManager.new(group, taker2)
     gmm.connect
-    adder = DebtAdder.new(giver, [taker, taker2], 49)
+    adder = DebtAdder.new(giver, [taker, gmm.membership], 49)
 
     adder.add_debt
 
-    debt = Debt.first
-    elements = DebtElement.where(:debt_id => debt.id, :group_membership_id => [@taker_membership.id, gmm.membership.id]).all
-    elements.map(&:amount).sum.should == -49
-    elements = DebtElement.where(:debt_id => debt.id, :group_membership_id => @giver_membership.id).all
-    elements.map(&:amount).sum.should == 49
+    group.amount([@taker_membership, gmm.membership]).should == -49
+    group.amount(@giver_membership).should == 49
   end
 
   it "covers situation when giver is amongs takers" do
@@ -68,10 +55,17 @@ describe DebtAdder do
 
     adder.add_debt
 
-    debt = Debt.first
-    elements = DebtElement.where(:debt_id => debt.id, :group_membership_id => [@giver_membership.id]).all
-    elements.map(&:amount).sum.should == 100
-    elements = DebtElement.where(:debt_id => debt.id, :group_membership_id => [@taker_membership.id]).all
-    elements.map(&:amount).sum.should == -100
+    group.amount(@giver_membership).should == 100
+    group.amount(@taker_membership).should == -100
+  end
+
+  it "raises if many groups occur in memberships" do
+    group = FactoryGirl.create :group
+    gmm = GroupMembershipManager.new(group, "person")
+    gmm.connect
+
+    lambda {
+      DebtAdder.new(gmm.membership, [taker], 100)
+    }.should raise_error(DebtAdder::Error)
   end
 end

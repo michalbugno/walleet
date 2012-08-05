@@ -6,6 +6,11 @@ class DebtAdder
     @giver = giver
     @takers = takers
     @amount = amount
+
+    group_ids = ([giver] + takers).map(&:group_id).uniq
+    if group_ids.size > 1
+      raise Error.new("Cannot add debts between groups")
+    end
   end
 
   def group

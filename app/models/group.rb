@@ -8,8 +8,10 @@ class Group < ActiveRecord::Base
 
   scope :visible, lambda { where(:visible => true) }
 
-  def amount(member)
-    debt_elements.select { |e| e.group_membership_id == member.id }.map(&:amount).sum
+  def amount(members)
+    members = [members] if !members.is_a?(Enumerable)
+    member_ids = members.map(&:id)
+    debt_elements.select { |e| member_ids.include?(e.group_membership_id) }.map(&:amount).sum
   end
 
   def debt_elements
