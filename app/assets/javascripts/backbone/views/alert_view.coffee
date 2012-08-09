@@ -7,7 +7,7 @@ class Views.AlertView extends Backbone.View
 
   addError: (error, options) =>
     options = this.convertOptions(options)
-    @errors.push({message: error, hideable: options.hideable})
+    @errors.push({message: error, hideable: options.hideable, isArray: _.isArray(error)})
 
   addNotice: (notice, options) =>
     options = this.convertOptions(options)

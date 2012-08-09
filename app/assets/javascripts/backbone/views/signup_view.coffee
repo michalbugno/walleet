@@ -24,7 +24,12 @@ class Views.Signup extends Backbone.View
         alert.render()
       error: (model, json) =>
         alert = new Views.AlertView(el: this.alertContainer())
-        alert.addError("Something went wrong")
+        errors = []
+        response = JSON.parse(json.responseText)
+        _.each(response.errors, (values, key) =>
+          _.each(values, (error) =>
+            errors.push(error)))
+        alert.addError(errors)
         alert.render()
     })
 

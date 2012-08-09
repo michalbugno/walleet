@@ -3,11 +3,21 @@
     %div.alert.alert-error
       - if error.hideable
         %button{:class => "close"} ×
-      = error.message
+      - if error.isArray
+        - for e in error.message
+          = e
+          %br
+      - else
+        = error.message
 
 - if @notices.length > 0
   - for notice in @notices
     %div.alert.alert-notice
       - if notice.hideable
         %button{:class => "close"} ×
-      = notice.message
+      - if notice.isArray
+        - for e in notice.message
+          = e
+          %br
+      - else
+        = notice.message
