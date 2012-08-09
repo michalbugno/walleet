@@ -29,6 +29,7 @@ class Layouts.Main extends Layout
     alert.render()
 
   context: =>
+    currentPerson: Auth.person.toJSON().person
     loggedIn: Auth.loggedIn()
     groups: _.map(App.groups.toJSON(), (group) =>
       group.url = "#groups/" + group.id

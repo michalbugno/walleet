@@ -5,7 +5,9 @@
       %ul#topbar.nav
         - if @loggedIn
           %li
-            %a#sign-out{:href => "#"}= "Sign out"
+            %a#sign-out{:href => "#"}
+              Sign out
+              = @currentPerson.email
         - else
           %li
             %a{:href => "#person/sign_in"}= "Sign in"
