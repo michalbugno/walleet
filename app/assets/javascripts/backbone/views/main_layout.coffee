@@ -23,7 +23,7 @@ class Layouts.Main extends Layout
   signOut: (ev) =>
     ev.preventDefault()
     Auth.logout()
-    Router.navigate("goodbye", {trigger: true})
+    Backbone.history.navigate("/goodbye", true)
     alert = new Views.AlertView(el: this.alertContainer())
     alert.addNotice("You are signed out")
     alert.render()
@@ -34,7 +34,7 @@ class Layouts.Main extends Layout
       ret.currentPerson = Auth.person.toJSON().person
     ret.loggedIn = Auth.loggedIn()
     ret.groups = _.map(App.groups.toJSON(), (group) =>
-      group.url = "#groups/" + group.id
+      group.url = "/groups/" + group.id
       group)
     ret
 

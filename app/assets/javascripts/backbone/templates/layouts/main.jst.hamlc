@@ -1,7 +1,7 @@
 %div#main-nav.navbar.navbar-fixed-top
   %div.navbar-inner
     %div.container
-      %a.brand{:href => "#"} Walleet
+      %a.brand{:href => "/"} Walleet
       %ul#topbar.nav
         - if @loggedIn
           %li
@@ -10,9 +10,9 @@
               = @currentPerson.email
         - else
           %li
-            %a{:href => "#person/sign_in"}= "Sign in"
+            %a{:href => "/person/sign_in"}= "Sign in"
           %li
-            %a{:href => "#person/sign_up"}= "Sign up"
+            %a{:href => "/person/sign_up"}= "Sign up"
 
 %div#undo
 %div.row

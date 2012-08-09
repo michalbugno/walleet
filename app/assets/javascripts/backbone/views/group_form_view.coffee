@@ -19,5 +19,5 @@ class Views.GroupFormView extends Backbone.View
     group = new Models.Group({name: @groupName.val()})
     group.save({}, {
       success: =>
-        Router.navigate("groups/" + group.get("id"), {trigger: true})
+        Backbone.history.navigate("/groups/" + group.get("id"), true)
     })

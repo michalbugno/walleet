@@ -22,7 +22,7 @@ class Routers.Walleet extends Backbone.Router
 
   mainPage: =>
     if !Auth.loggedIn()
-      Router.navigate("welcome", {trigger: true})
+      Backbone.history.navigate("welcome", true)
     else
       layout = new Layouts.Main()
       layout.render()

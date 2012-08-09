@@ -11,7 +11,7 @@ class Views.GroupListView extends Backbone.View
 
   templateContext: =>
     groups: _.map(App.groups.toJSON(), (group) =>
-      group.url = "#groups/" + group.id
+      group.url = "/groups/" + group.id
       if @currentGroup && parseInt(@currentGroup.get("id")) == group.id
         group.activeClass = "active"
       else

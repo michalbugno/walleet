@@ -20,11 +20,23 @@ person.bind("change", window.Auth.login)
 person.fetch({async: false})
 
 window.Router = new Routers.Walleet()
-Backbone.history.start()
+Backbone.history.start({pushState: true})
 
 if !window.Auth.loggedIn()
-  hash = window.location.hash
-  if hash.match /#welcome|#person\/sign_in|#person\/sign_up|#person\/reset_password/
-    Router.navigate(hash, {trigger: true})
+  path = window.location.pathname
+  if path.match /welcome|person\/sign_in|person\/sign_up|person\/reset_password/
+    Backbone.history.navigate(path, true)
   else
-    Router.navigate("person/sign_in", {trigger: true})
+    Backbone.history.navigate("/person/sign_in", true)
+
+$('a').live 'click', (e) ->
+  if $(this).attr('href') == '#'
+    e.preventDefault()
+    return
+  host  = window.location.host + '/'
+  regex = new RegExp(window.location.host)
+  if regex.test(this.href)
+    path = this.href.split(host).pop()
+    path = path.replace(/^\//, '')
+    Backbone.history.navigate(path, true)
+    e.preventDefault()
