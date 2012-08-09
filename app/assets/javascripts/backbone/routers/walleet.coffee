@@ -6,6 +6,7 @@ class Routers.Walleet extends Backbone.Router
     "groups/:id": "groupShow"
     "person/sign_in": "signIn"
     "person/sign_up": "signUp"
+    "person/reset_password/:token": "resetPassword"
     "*anything": "notFound"
   }
 
@@ -50,3 +51,8 @@ class Routers.Walleet extends Backbone.Router
     layout = new Layouts.Main()
     layout.render()
     new Views.NotFoundView(el: layout.container("content"), path: path).render()
+
+  resetPassword: (token) =>
+    layout = new Layouts.Main()
+    layout.render()
+    new Views.ResetPassword(el: layout.container("content"), token: token).render()
