@@ -23,7 +23,8 @@ window.Router = new Routers.Walleet()
 Backbone.history.start()
 
 if !window.Auth.loggedIn()
-  if window.location.hash == "#welcome"
-    Router.navigate("welcome", {trigger: true})
+  hash = window.location.hash
+  if _.include(["#welcome", "#person/sign_in", "#person/sign_up"], hash)
+    Router.navigate(hash, {trigger: true})
   else
     Router.navigate("person/sign_in", {trigger: true})

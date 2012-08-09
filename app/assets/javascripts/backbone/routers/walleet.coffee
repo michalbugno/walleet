@@ -5,6 +5,7 @@ class Routers.Walleet extends Backbone.Router
     "goodbye": "goodbye"
     "groups/:id": "groupShow"
     "person/sign_in": "signIn"
+    "person/sign_up": "signUp"
     "*anything": "notFound"
   }
 
@@ -39,6 +40,11 @@ class Routers.Walleet extends Backbone.Router
     layout = new Layouts.Main()
     layout.render()
     new Views.Login(el: layout.container("content")).render()
+
+  signUp: =>
+    layout = new Layouts.Main()
+    layout.render()
+    new Views.Signup(el: layout.container("content")).render()
 
   notFound: (path) =>
     layout = new Layouts.Main()
