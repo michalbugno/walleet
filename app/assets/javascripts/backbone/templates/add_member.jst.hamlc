@@ -2,4 +2,5 @@
   %input#person-name.input-small{:name => 'name', :type => 'text', :placeholder => 'Name'}
   %button#add-member-button.btn
     %i.icon-plus
-    Add member
+    %span.content
+      Add member

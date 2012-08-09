@@ -22,4 +22,18 @@ describe Api::V1::MembershipsController do
     response.body.should be_empty
   end
 
+  context "an email has been given to invite" do
+    let(:request) { post :create, :group_id => group.id, :email => "dude@example.com", :format => :json }
+
+    it "responds with 201 after successful add" do
+      request
+
+      should respond_with(201)
+    end
+
+    it "creates a person if she doesn't exist" do
+      lambda { request }.should change(Person, :count).by(1)
+    end
+  end
+
 end

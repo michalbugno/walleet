@@ -18,11 +18,25 @@ class Views.AddMemberView extends Backbone.View
   addMember: (event) =>
     event.preventDefault()
 
-    member = new Models.Membership(group_id: @group.get("id"), name: @name.val())
+    data = {
+      group_id: @group.get('id')
+      name: if !this.isEmail() then @name.val()
+      email: if this.isEmail() then @name.val()
+    }
+
+    member = new Models.Membership(data)
     member.save()
     @group.fetch()
 
+  isEmail: ->
+    @name.val().match("@")
+
   updateAddMemberButton: (event) =>
+    if this.isEmail()
+      @addMemberButton.find('.content').html("Invite member")
+    else
+      @addMemberButton.find('.content').html("Add member")
+
     if @name.val() != ""
       @addMemberButton.removeAttr("disabled")
     else

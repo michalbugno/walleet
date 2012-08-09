@@ -1,4 +1,5 @@
 require 'group_membership_manager'
+require 'securerandom'
 
 class Api::V1::MembershipsController < Api::BaseController
   respond_to :json
@@ -7,6 +8,9 @@ class Api::V1::MembershipsController < Api::BaseController
   def create
     if params[:person_id]
       person = Person.find(params[:person_id])
+    elsif params[:email]
+      password = SecureRandom.base64(20)
+      person = Person.create!(:email => params[:email], :password => password, :password_confirmation => password)
     else
       person = params[:name]
     end
