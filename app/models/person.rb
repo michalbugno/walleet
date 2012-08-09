@@ -39,4 +39,9 @@ class Person < ActiveRecord::Base
     GroupMembership.
       where(:group_id => group_ids)
   end
+
+  def send_invitation
+    generate_reset_password_token!
+    Mailer.invitation(self).deliver
+  end
 end

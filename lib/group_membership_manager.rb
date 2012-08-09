@@ -62,7 +62,7 @@ class GroupMembershipManager
 
   def self.create_person(email)
     person = Person.create(:email => email, :password => SecureRandom.base64(20))
-    person.send_reset_password_instructions
+    person.send_invitation
     person
   end
 
