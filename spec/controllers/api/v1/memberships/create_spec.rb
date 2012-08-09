@@ -34,6 +34,13 @@ describe Api::V1::MembershipsController do
     it "creates a person if she doesn't exist" do
       lambda { request }.should change(Person, :count).by(1)
     end
+
+    it "adds the person with that email if she exists" do
+      person = FactoryGirl.create :person, :email => "dude@example.com"
+      lambda { request }.should_not change(Person, :count)
+
+      person.reload.group_memberships.first.group.should == group
+    end
   end
 
 end

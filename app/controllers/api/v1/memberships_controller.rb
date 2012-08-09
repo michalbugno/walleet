@@ -9,8 +9,7 @@ class Api::V1::MembershipsController < Api::BaseController
     if params[:person_id]
       person = Person.find(params[:person_id])
     elsif params[:email]
-      password = SecureRandom.base64(20)
-      person = Person.create!(:email => params[:email], :password => password, :password_confirmation => password)
+      person = Person.find_by_email(params[:email]) || create_person(params[:email])
     else
       person = params[:name]
     end
@@ -31,5 +30,10 @@ class Api::V1::MembershipsController < Api::BaseController
     rescue ActiveRecord::RecordNotFound
       return render :nothing => true, :status => 404
     end
+  end
+
+  def create_person(email)
+    password = SecureRandom.base64(20)
+    person = Person.create!(:email => email, :password => password, :password_confirmation => password)
   end
 end
