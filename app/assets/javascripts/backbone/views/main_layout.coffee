@@ -23,7 +23,7 @@ class Layouts.Main extends Layout
   signOut: (ev) =>
     ev.preventDefault()
     Auth.logout()
-    Backbone.history.navigate("/goodbye", true)
+    App.navigate("/goodbye")
     alert = new Views.AlertView(el: this.alertContainer())
     alert.addNotice("You are signed out")
     alert.render()

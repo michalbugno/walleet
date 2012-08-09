@@ -18,7 +18,7 @@ class Views.Signup extends Backbone.View
     })
     person.save({}, {
       success: =>
-        Backbone.history.navigate("/person/sign_in", true)
+        App.navigate("/person/sign_in")
         alert = new Views.AlertView(el: this.alertContainer())
         alert.addNotice("You can sign in now!")
         alert.render()

@@ -14,6 +14,8 @@ class Auth
 window.Auth = new Auth()
 window.App = {}
 window.App.groups = new Collections.GroupCollection
+window.App.navigate = (path) =>
+  Backbone.history.navigate(path, true)
 
 person = new Models.Person
 person.bind("change", window.Auth.login)
@@ -25,9 +27,9 @@ Backbone.history.start({pushState: true})
 if !window.Auth.loggedIn()
   path = window.location.pathname
   if path.match /welcome|person\/sign_in|person\/sign_up|person\/reset_password/
-    Backbone.history.navigate(path, true)
+    App.navigate(path)
   else
-    Backbone.history.navigate("/person/sign_in", true)
+    App.navigate("/person/sign_in")
 
 $('a').live 'click', (e) ->
   if $(this).attr('href') == '#'
@@ -38,5 +40,5 @@ $('a').live 'click', (e) ->
   if regex.test(this.href)
     path = this.href.split(host).pop()
     path = path.replace(/^\//, '')
-    Backbone.history.navigate(path, true)
+    App.navigate(path)
     e.preventDefault()

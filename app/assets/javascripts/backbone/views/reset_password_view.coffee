@@ -15,7 +15,7 @@ class Views.ResetPassword extends Backbone.View
         person = new Models.Person
         person.bind("change", window.Auth.login)
         person.fetch({async: false})
-        Backbone.history.navigate('/', true)
+        App.navigate("/")
       error: -> console.log "error"
       data:
         person:
