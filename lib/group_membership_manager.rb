@@ -1,3 +1,5 @@
+require 'securerandom'
+
 class GroupMembershipManager
   def initialize(group, person)
     @group = group
@@ -59,9 +61,9 @@ class GroupMembershipManager
   end
 
   def self.create_person(email)
-    # TODO: devise: send reset password instructions + testing
-    person = Person.create(:email => email, :password => "password12345")
+    person = Person.create(:email => email, :password => SecureRandom.base64(20))
     person.send_reset_password_instructions
+    person
   end
 
   def person?
