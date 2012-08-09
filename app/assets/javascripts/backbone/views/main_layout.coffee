@@ -29,11 +29,14 @@ class Layouts.Main extends Layout
     alert.render()
 
   context: =>
-    currentPerson: Auth.person.toJSON().person
-    loggedIn: Auth.loggedIn()
-    groups: _.map(App.groups.toJSON(), (group) =>
+    ret = {}
+    if Auth.loggedIn()
+      ret.currentPerson = Auth.person.toJSON().person
+    ret.loggedIn = Auth.loggedIn()
+    ret.groups = _.map(App.groups.toJSON(), (group) =>
       group.url = "#groups/" + group.id
       group)
+    ret
 
   alertContainer: =>
     container = $(".alert-container", this.$el)
