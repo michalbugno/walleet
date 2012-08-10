@@ -23,5 +23,5 @@ class Views.Undo extends Backbone.View
       success: (model, response) =>
         # pass
       error: (model, response) =>
-        App.navigate(response.responseText)
+        App.nav.navigate(response.responseText)
     })

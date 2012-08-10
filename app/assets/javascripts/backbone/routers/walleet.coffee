@@ -21,8 +21,8 @@ class Routers.Walleet extends Backbone.Router
     new Views.Goodbye(el: layout.container("content")).render()
 
   mainPage: =>
-    if !Auth.loggedIn()
-      App.navigate("welcome")
+    if !App.auth.loggedIn()
+      App.nav.navigate("welcome")
     else
       layout = new Layouts.Main()
       layout.render()

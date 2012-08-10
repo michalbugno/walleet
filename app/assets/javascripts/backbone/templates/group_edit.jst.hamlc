@@ -1,0 +1,14 @@
+%div.row
+  %div.span8
+    %h1= @group.name
+    %form.form-horizontal
+      %fieldset
+        %div.control-group
+          %label.control-label{:for => "currency-decimal"} Decimal digits
+          %div.controls
+            %select#currency-decimal.span2
+              %option 0
+              %option 1
+              %option 2
+
+  %div.span4 &nbsp;

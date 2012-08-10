@@ -13,9 +13,9 @@ class Views.ResetPassword extends Backbone.View
       type: 'put'
       success: ->
         person = new Models.Person
-        person.bind("change", window.Auth.login)
+        person.bind("change", App.auth.login)
         person.fetch({async: false})
-        App.navigate("/")
+        App.nav.navigate("root")
       error: -> console.log "error"
       data:
         person:

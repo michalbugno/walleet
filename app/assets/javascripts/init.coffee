@@ -1,35 +1,21 @@
-class Auth
-  loggedIn: =>
-    !!@person
-
-  login: (person) =>
-    @person = person
-
-  logout: =>
-    App.groups = new Collections.GroupCollection
-    if @person
-      @person.destroy()
-      @person = null
-
-window.Auth = new Auth()
 window.App = {}
+window.App.auth = new Auth()
+window.App.nav = new Navigation()
 window.App.groups = new Collections.GroupCollection
-window.App.navigate = (path) =>
-  Backbone.history.navigate(path, true)
 
 person = new Models.Person
-person.bind("change", window.Auth.login)
+person.bind("change", App.auth.login)
 person.fetch({async: false})
 
-window.Router = new Routers.Walleet()
+window.Router = new Routers.Walleet(window.App)
 Backbone.history.start({pushState: true})
 
-if !window.Auth.loggedIn()
+if !App.auth.loggedIn()
   path = window.location.pathname
   if path.match /welcome|person\/sign_in|person\/sign_up|person\/reset_password/
-    App.navigate(path)
+    App.nav.navigate(path)
   else
-    App.navigate("/person/sign_in")
+    App.nav.navigate("/person/sign_in")
 
 $('a').live 'click', (e) ->
   if $(this).attr('href') == '#'
@@ -40,5 +26,5 @@ $('a').live 'click', (e) ->
   if regex.test(this.href)
     path = this.href.split(host).pop()
     path = path.replace(/^\//, '')
-    App.navigate(path)
+    App.nav.navigate(path)
     e.preventDefault()

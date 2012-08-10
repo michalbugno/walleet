@@ -14,7 +14,7 @@ class Layouts.Main extends Layout
     super()
     context = this.context()
     this.$el.html(this.template(context))
-    if Auth.loggedIn()
+    if App.auth.loggedIn()
       groupList = new Views.GroupListView(el: this.container("group-list"), currentGroup: @currentGroup)
       groupList.render()
       createGroup = new Views.GroupFormView(el: this.container("group-form"))
@@ -22,19 +22,18 @@ class Layouts.Main extends Layout
 
   signOut: (ev) =>
     ev.preventDefault()
-    Auth.logout()
-    App.navigate("/goodbye")
+    App.auth.logout()
+    App.nav.navigate("/goodbye")
     alert = new Views.AlertView(el: this.alertContainer())
     alert.addNotice("You are signed out")
     alert.render()
 
   context: =>
     ret = {}
-    if Auth.loggedIn()
-      ret.currentPerson = Auth.person.toJSON().person
-    ret.loggedIn = Auth.loggedIn()
+    if App.auth.loggedIn()
+      ret.currentPerson = App.auth.person.toJSON().person
+    ret.loggedIn = App.auth.loggedIn()
     ret.groups = _.map(App.groups.toJSON(), (group) =>
-      group.url = "/groups/" + group.id
       group)
     ret
 

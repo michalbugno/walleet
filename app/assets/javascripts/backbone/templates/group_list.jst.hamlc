@@ -2,4 +2,4 @@
   %ul.nav.nav-pills
     - for group in @groups
       %li{:class => group.activeClass}
-        %a{:href => group.url}= group.name
+        %a{:href => App.nav.path('group:show', group.id)}= group.name

@@ -13,7 +13,10 @@
 
   %div.span4
     %a#remove-group.btn.btn-danger Remove
-    %h1= @group.name
+    %h1
+      = @group.name
+      %small
+        %a{:href => App.nav.path('group:edit', @group.id)} Edit
     %ol#group-members.group-summary
       - for member in @group.members
         %li.member

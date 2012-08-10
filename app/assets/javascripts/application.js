@@ -19,5 +19,6 @@
 //= require backbone
 //= require backbone/walleet
 //= require hamlcoffee
+//= require_tree ./lib
 //= require init
 //= require_tree .

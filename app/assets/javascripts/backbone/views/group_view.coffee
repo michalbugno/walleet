@@ -40,7 +40,7 @@ class Views.GroupView extends Backbone.View
     @group.destroy({
       success: (model, response) =>
         App.groups.fetch()
-        App.navigate("/")
+        App.nav.navigate("root")
         new Views.Undo(text: "Group removed", undoId: response.id)
       error: =>
         # pass

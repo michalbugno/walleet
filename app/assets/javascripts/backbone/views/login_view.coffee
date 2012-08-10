@@ -20,8 +20,8 @@ class Views.Login extends Backbone.View
     member.save({}, {
       async: false,
       success: (model, response) =>
-        Auth.login(model)
-        App.navigate("/")
+        App.auth.login(model)
+        App.nav.navigate("root")
       error: (model, response) =>
         alert = new Views.AlertView(el: this.alertContainer())
         alert.addError("Incorrect email and/or password", {noHide: true})
