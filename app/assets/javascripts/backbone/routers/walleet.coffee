@@ -23,13 +23,11 @@ class Routers.Walleet extends Backbone.Router
       App.nav.navigate("welcome")
     else
       this.setLayout(Views.MainLayout)
-      App.groups.setCurrentId(null)
       @layout.addSubview("content", Views.FeedView)
 
   groupShow: (groupId) =>
     groupId = parseInt(groupId)
     @group = new Models.Group({id: groupId})
-    App.groups.setCurrentId(groupId)
     this.setLayout(Views.MainLayout, {currentGroup: @group})
 
     @layout.addSubview("content", Views.GroupView, {group: @group})

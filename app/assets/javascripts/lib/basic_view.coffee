@@ -19,7 +19,11 @@ class window.BasicView extends Backbone.View
     oldView = _.find(@childrenViews, (view) => view.$el[0].id == el[0].id)
     oldView.detach() if oldView
     @childrenViews.push(view)
+    view.attached(this)
     view
+
+  attached: (view) =>
+    true
 
   removeSubview: (view) =>
     @childrenViews = _.without(@childrenViews, view)

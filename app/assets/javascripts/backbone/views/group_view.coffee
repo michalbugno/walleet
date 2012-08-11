@@ -98,3 +98,10 @@ class Views.GroupView extends BasicView
     membership = new Models.Membership(id: membershipId)
     membership.destroy()
     @group.fetch()
+
+  attached: (parentView) =>
+    App.groups.setCurrentId(@group.get("id"))
+
+  detach: =>
+    App.groups.setCurrentId(null)
+    super()
