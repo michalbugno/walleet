@@ -6,7 +6,8 @@ class Views.Undo extends BasicView
   events:
     "click #undo-link": "performUndo"
 
-  initialize: (options) =>
+  initialize: (options, callback) =>
+    @callback = options.callback
     @text = options.text
     @undo = new Models.Undo(id: options.undoId)
     this.render()
@@ -23,5 +24,6 @@ class Views.Undo extends BasicView
       success: (model, response) =>
         # pass
       error: (model, response) =>
-        App.nav.navigate(response.responseText)
+        @callback(model, response)
+        this.detach()
     })

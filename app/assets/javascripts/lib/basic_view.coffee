@@ -16,6 +16,8 @@ class window.BasicView extends Backbone.View
     view = new klass(options)
     view.parentView = this
     @childrenViews ||= []
+    oldView = _.find(@childrenViews, (view) => view.$el[0].id == el[0].id)
+    oldView.detach() if oldView
     @childrenViews.push(view)
     view
 
@@ -27,6 +29,7 @@ class window.BasicView extends Backbone.View
     if parent
       parent.removeSubview(this)
     _.each(@childrenViews, (view) => view.detach())
-    this.remove()
+    this.$el.html("")
+    this.undelegateEvents()
     @childrenViews = []
     this

@@ -26,7 +26,9 @@ class Routers.Walleet extends Backbone.Router
       @layout.addSubview("content", Views.FeedView)
 
   groupShow: (groupId) =>
+    groupId = parseInt(groupId)
     @group = new Models.Group({id: groupId})
+    App.groups.setCurrentId(groupId)
     this.setLayout(Views.MainLayout, {currentGroup: @group})
 
     @layout.addSubview("content", Views.GroupView, {group: @group})
@@ -56,5 +58,8 @@ class Routers.Walleet extends Backbone.Router
     @layout.addSubview("content", Views.ResetPassword, {token: token}).render()
 
   setLayout: (klass, options) =>
-    @layout = new klass(options)
-    @layout.render()
+    if !@layout || klass.name != @layout.constructor.name
+      @layout = new klass(options)
+      @layout.render()
+      App.layout = @layout
+    @layout

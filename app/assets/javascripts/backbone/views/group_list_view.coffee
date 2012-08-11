@@ -12,7 +12,7 @@ class Views.GroupListView extends BasicView
   templateContext: =>
     groups: _.map(App.groups.toJSON(), (group) =>
       group.url = "/groups/" + group.id
-      if @currentGroup && parseInt(@currentGroup.get("id")) == group.id
+      if App.groups.currentId == group.id
         group.activeClass = "active"
       else
         group.activeClass = null

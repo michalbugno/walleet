@@ -1,3 +1,7 @@
-%div
-  %p= @text
-  %a#undo-link{:href => "#"} You can undo this!
+.row
+  .span4 &nbsp;
+  .span4
+    %div.alert.alert-info
+      %strong= @text
+      %a#undo-link{:href => "#"} You can undo this!
+  .span4 &nbsp;

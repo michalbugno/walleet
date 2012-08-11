@@ -6,15 +6,11 @@ class Views.MainLayout extends BasicView
   events:
     "click #sign-out": "signOut"
 
-  initialize: (options) =>
-    options ||= {}
-    @currentGroup = options.currentGroup
-
   render: =>
     context = this.context()
     this.$el.html(this.template(context))
     if App.auth.loggedIn()
-      groupList = this.addSubview("group-list", Views.GroupListView, {currentGroup: @currentGroup})
+      groupList = this.addSubview("group-list", Views.GroupListView)
       groupList.render()
       createGroup = this.addSubview("group-form", Views.GroupFormView)
       createGroup.render()

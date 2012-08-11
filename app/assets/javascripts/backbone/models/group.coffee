@@ -10,3 +10,7 @@ class Collections.GroupCollection extends Backbone.Collection
   model: Models.Group
 
   url: "/api/v1/groups.json"
+
+  setCurrentId: (id) =>
+    @currentId = id
+    this.trigger("reset")

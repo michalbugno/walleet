@@ -44,7 +44,13 @@ class Views.GroupView extends BasicView
       success: (model, response) =>
         App.groups.fetch()
         App.nav.navigate("root")
-        new Views.Undo(text: "Group removed", undoId: response.id)
+        App.layout.addSubview("undo", Views.Undo, {
+          text: "Group removed",
+          undoId: response.id,
+          callback: =>
+            App.groups.fetch()
+            App.nav.navigate("group:show", @group.get("id"))
+        })
       error: =>
         # pass
     })
