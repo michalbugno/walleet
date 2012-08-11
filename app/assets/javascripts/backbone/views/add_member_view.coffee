@@ -1,4 +1,4 @@
-class Views.AddMemberView extends Backbone.View
+class Views.AddMemberView extends BasicView
   template: JST['backbone/templates/add_member']
 
   events:
@@ -28,7 +28,7 @@ class Views.AddMemberView extends Backbone.View
     member.save()
     @group.fetch()
 
-  isEmail: ->
+  isEmail: =>
     @name.val().match("@")
 
   updateAddMemberButton: (event) =>

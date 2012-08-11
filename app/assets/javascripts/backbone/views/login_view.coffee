@@ -1,7 +1,5 @@
-class Views.Login extends Backbone.View
+class Views.Login extends BasicView
   template: JST['backbone/templates/login']
-
-  el: "#content"
 
   events:
     'submit form': 'signIn'

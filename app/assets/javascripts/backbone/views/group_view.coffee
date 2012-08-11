@@ -1,5 +1,8 @@
-class Views.GroupView extends Backbone.View
+class Views.GroupView extends BasicView
   template: JST['backbone/templates/group']
+
+  meta:
+    name: "Views.GroupView"
 
   events:
     "submit #add-debt": "addDebt"
@@ -11,14 +14,14 @@ class Views.GroupView extends Backbone.View
     "click .remove-membership-link": "removeMembership"
 
   initialize: (options) ->
+    super(options)
     @group = options.group
     @group.bind("change", this.render)
 
   render: =>
     this.$el.html(this.template(this.templateContext()))
-    @feedView = new Views.FeedView(el: "#group-feed", group: @group)
-    @addMemberView = new Views.AddMemberView(el: "#side-content", group: @group)
-    @addMemberView.render()
+    this.addSubview("group-feed", Views.FeedView, {group: @group})
+    this.addSubview("side-content", Views.AddMemberView, {group: @group}).render()
 
     @amount = $("#amount", this.$el)
     @addDebtButton = $("#add-debt-button", this.$el)

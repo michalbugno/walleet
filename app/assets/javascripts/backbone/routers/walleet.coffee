@@ -11,48 +11,45 @@ class Routers.Walleet extends Backbone.Router
   }
 
   welcome: =>
-    layout = new Layouts.Main()
-    layout.render()
-    new Views.Welcome(el: layout.container("content")).render()
+    this.setLayout(Views.MainLayout)
+    @layout.addSubview("content", Views.Welcome).render()
 
   goodbye: =>
-    layout = new Layouts.Main()
-    layout.render()
-    new Views.Goodbye(el: layout.container("content")).render()
+    this.setLayout(Views.MainLayout)
+    @layout.addSubview("content", Views.Goodbye).render()
 
   mainPage: =>
     if !App.auth.loggedIn()
       App.nav.navigate("welcome")
     else
-      layout = new Layouts.Main()
-      layout.render()
-      new Views.FeedView(el: layout.container("content"))
+      this.setLayout(Views.MainLayout)
+      @layout.addSubview("content", Views.FeedView)
 
   groupShow: (groupId) =>
     @group = new Models.Group({id: groupId})
-    layout = new Layouts.Main(currentGroup: @group)
-    layout.render()
+    this.setLayout(Views.MainLayout, {currentGroup: @group})
 
-    new Views.GroupView({group: @group, el: layout.container("content")})
+    @layout.addSubview("content", Views.GroupView, {group: @group})
+    App.l = @layout
 
     @group.fetch()
 
   signIn: =>
-    layout = new Layouts.Main()
-    layout.render()
-    new Views.Login(el: layout.container("content")).render()
+    this.setLayout(Views.MainLayout)
+    @layout.addSubview("content", Views.Login).render()
 
   signUp: =>
-    layout = new Layouts.Main()
-    layout.render()
-    new Views.Signup(el: layout.container("content")).render()
+    this.setLayout(Views.MainLayout)
+    @layout.addSubview("content", Views.Signup).render()
 
   notFound: (path) =>
-    layout = new Layouts.Main()
-    layout.render()
-    new Views.NotFoundView(el: layout.container("content"), path: path).render()
+    this.setLayout(Views.MainLayout)
+    @layout.addSubview("content", Views.NotFoundView, {path: path}).render()
 
   resetPassword: (token) =>
-    layout = new Layouts.Main()
-    layout.render()
-    new Views.ResetPassword(el: layout.container("content"), token: token).render()
+    this.setLayout(Views.MainLayout)
+    @layout.addSubview("content", Views.ResetPassword, {token: token}).render()
+
+  setLayout: (klass, options) =>
+    @layout = new klass(options)
+    @layout.render()

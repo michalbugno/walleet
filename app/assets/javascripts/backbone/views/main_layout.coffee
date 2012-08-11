@@ -1,4 +1,4 @@
-class Layouts.Main extends Layout
+class Views.MainLayout extends BasicView
   template: JST["backbone/templates/layouts/main"]
 
   el: "#body"
@@ -15,9 +15,9 @@ class Layouts.Main extends Layout
     context = this.context()
     this.$el.html(this.template(context))
     if App.auth.loggedIn()
-      groupList = new Views.GroupListView(el: this.container("group-list"), currentGroup: @currentGroup)
+      groupList = this.addSubview("group-list", Views.GroupListView, {currentGroup: @currentGroup})
       groupList.render()
-      createGroup = new Views.GroupFormView(el: this.container("group-form"))
+      createGroup = this.addSubview("group-form", Views.GroupFormView)
       createGroup.render()
 
   signOut: (ev) =>

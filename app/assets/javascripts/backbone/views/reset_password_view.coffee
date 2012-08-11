@@ -1,4 +1,4 @@
-class Views.ResetPassword extends Backbone.View
+class Views.ResetPassword extends BasicView
   template: JST['backbone/templates/reset_password']
 
   events:

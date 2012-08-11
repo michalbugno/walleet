@@ -1,7 +1,5 @@
-class Views.Welcome extends Backbone.View
+class Views.Welcome extends BasicView
   template: JST['backbone/templates/welcome']
-
-  el: "#content"
 
   render: =>
     this.$el.html(this.template())

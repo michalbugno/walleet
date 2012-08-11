@@ -1,4 +1,4 @@
-class Views.Signup extends Backbone.View
+class Views.Signup extends BasicView
   template: JST['backbone/templates/signup']
   events:
     "submit #signup-form": "signup"

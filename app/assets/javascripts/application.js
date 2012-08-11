@@ -17,6 +17,7 @@
 //= require vendor/moment.min
 //= require underscore
 //= require backbone
+//= require lib/basic_view
 //= require backbone/walleet
 //= require hamlcoffee
 //= require_tree ./lib

@@ -1,9 +1,7 @@
-class Views.Groups extends Backbone.View
+class Views.Groups extends BasicView
   template: JST['backbone/templates/group_bar_item']
 
   initialize: (options) ->
-    super(options)
-
     @collection = options.collection
     @currentId = options.currentId * 1
     @collection.bind "reset", this.render

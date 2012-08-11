@@ -9,7 +9,7 @@
         %i.icon-plus
         Add debt
 
-    %div#group-feed
+    %div#container-groupview-group-feed
 
   %div.span4
     %a#remove-group.btn.btn-danger Remove
@@ -28,4 +28,4 @@
           - if member.amount == 0
             %a.remove-membership-link{:href => "#", :data-membership-id => member.id} Remove
 
-    %div#side-content
+    %div#container-groupview-side-content

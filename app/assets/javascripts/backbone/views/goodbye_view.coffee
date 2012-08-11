@@ -1,7 +1,5 @@
-class Views.Goodbye extends Backbone.View
+class Views.Goodbye extends BasicView
   template: JST['backbone/templates/goodbye']
-
-  el: "#content"
 
   render: =>
     this.$el.html(this.template())

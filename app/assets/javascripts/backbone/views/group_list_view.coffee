@@ -1,4 +1,4 @@
-class Views.GroupListView extends Backbone.View
+class Views.GroupListView extends BasicView
   template: JST['backbone/templates/group_list']
 
   initialize: (options) ->

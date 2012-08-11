@@ -22,7 +22,7 @@
 
 %div#secondary-nav.row
   %div.span9
-    %div#layout-main-group-list-container
-  %div#layout-main-group-form-container.span3
+    %div#container-mainlayout-group-list
+  %div#container-mainlayout-group-form.span3
 
-%div#layout-main-content-container
+%div#container-mainlayout-content

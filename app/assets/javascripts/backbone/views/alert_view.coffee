@@ -1,4 +1,4 @@
-class Views.AlertView extends Backbone.View
+class Views.AlertView extends BasicView
   template: JST['backbone/templates/alert']
 
   initialize: (options) =>

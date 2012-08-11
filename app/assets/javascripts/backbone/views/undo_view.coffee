@@ -1,4 +1,4 @@
-class Views.Undo extends Backbone.View
+class Views.Undo extends BasicView
   template: JST['backbone/templates/undo']
 
   el: "#undo"

@@ -1,4 +1,4 @@
-class Views.NotFoundView extends Backbone.View
+class Views.NotFoundView extends BasicView
   template: JST['backbone/templates/not_found']
 
   initialize: (options) ->

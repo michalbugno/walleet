@@ -1,18 +1,18 @@
-class Views.FeedView extends Backbone.View
+class Views.FeedView extends BasicView
   template: JST['backbone/templates/feed']
 
   events:
     "click #load-feed": "loadNextPage"
 
   initialize: (options) =>
-    this.el = options.el
+    options ||= {}
     @group = options.group
     @feed = new Collections.Feed([], {group: @group})
     @feed.bind("reset", this.render)
     @feed.fetchNextPage()
 
   render: =>
-    $(this.el).html(this.template(this.templateContext()))
+    this.$el.html(this.template(this.templateContext()))
 
   resetFeed: =>
     @feed.resetFeed()

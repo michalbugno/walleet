@@ -9,14 +9,4 @@ window.Models = {}
 window.Collections = {}
 window.Routers = {}
 window.Views = {}
-window.Layouts = {}
 window.Helpers = {}
-
-class window.Layout extends Backbone.View
-  render: =>
-    $("#body").html("")
-
-  container: (name) =>
-    klass_name = this.constructor.name.toLowerCase()
-    container = "#layout-" + klass_name + "-" + name + "-container"
-    $(container, this.$el)

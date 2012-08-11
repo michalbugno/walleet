@@ -1,12 +1,10 @@
-class Views.GroupFormView extends Backbone.View
+class Views.GroupFormView extends BasicView
   template: JST["backbone/templates/group_form"]
 
   events:
     "submit form": "createGroup"
 
   initialize: (options) ->
-    super(options)
-
     @collection = App.groups
     this.render()
 
