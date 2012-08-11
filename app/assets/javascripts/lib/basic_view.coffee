@@ -13,11 +13,11 @@ class window.BasicView extends Backbone.View
       throw "Container '" + containerName + "' not found"
     options ||= {}
     options.el = el
+    oldView = _.find(@childrenViews, (view) => view.$el[0].id == el[0].id)
+    oldView.detach() if oldView
     view = new klass(options)
     view.parentView = this
     @childrenViews ||= []
-    oldView = _.find(@childrenViews, (view) => view.$el[0].id == el[0].id)
-    oldView.detach() if oldView
     @childrenViews.push(view)
     view.attached(this)
     view
