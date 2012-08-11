@@ -45,7 +45,7 @@ class Views.GroupView extends BasicView
         App.groups.fetch()
         App.nav.navigate("root")
         App.layout.addSubview("undo", Views.Undo, {
-          text: "Group removed",
+          text: "Group " + @group.get("name") + " removed!",
           undoId: response.id,
           callback: =>
             App.groups.fetch()

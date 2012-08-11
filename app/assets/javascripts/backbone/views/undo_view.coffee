@@ -1,8 +1,6 @@
 class Views.Undo extends BasicView
   template: JST['backbone/templates/undo']
 
-  el: "#undo"
-
   events:
     "click #undo-link": "performUndo"
 
