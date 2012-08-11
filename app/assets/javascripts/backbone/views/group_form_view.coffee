@@ -17,6 +17,7 @@ class Views.GroupFormView extends BasicView
     group = new Models.Group({name: @groupName.val()})
     group.save({}, {
       success: =>
+        @groupName.val("")
         App.groups.setCurrentId(group.get("id"))
         App.groups.fetch()
         App.nav.navigate("group:show", group.get("id"))
