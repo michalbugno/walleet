@@ -30,17 +30,22 @@ class Routers.Walleet extends Backbone.Router
     this.setLayout(Views.MainLayout, {currentGroup: @group})
 
     @layout.addSubview("content", Views.GroupView, {group: @group})
-    App.l = @layout
 
     @group.fetch()
 
   signIn: =>
-    this.setLayout(Views.MainLayout)
-    @layout.addSubview("content", Views.Login).render()
+    if App.auth.loggedIn()
+      App.nav.navigate("root")
+    else
+      this.setLayout(Views.MainLayout)
+      @layout.addSubview("content", Views.Login).render()
 
   signUp: =>
-    this.setLayout(Views.MainLayout)
-    @layout.addSubview("content", Views.Signup).render()
+    if App.auth.loggedIn()
+      App.nav.navigate("root")
+    else
+      this.setLayout(Views.MainLayout)
+      @layout.addSubview("content", Views.Signup).render()
 
   notFound: (path) =>
     this.setLayout(Views.MainLayout)

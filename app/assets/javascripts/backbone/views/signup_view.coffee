@@ -17,11 +17,9 @@ class Views.Signup extends BasicView
       signup: true
     })
     person.save({}, {
-      success: =>
-        App.nav.navigate("/person/sign_in")
-        alert = new Views.AlertView(el: this.alertContainer())
-        alert.addNotice("You can sign in now!")
-        alert.render()
+      success: (model) =>
+        App.auth.login(model)
+        App.nav.navigate("root:welcome")
       error: (model, json) =>
         alert = new Views.AlertView(el: this.alertContainer())
         errors = []

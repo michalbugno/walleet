@@ -11,7 +11,6 @@ class Views.MainLayout extends BasicView
     @currentGroup = options.currentGroup
 
   render: =>
-    super()
     context = this.context()
     this.$el.html(this.template(context))
     if App.auth.loggedIn()
