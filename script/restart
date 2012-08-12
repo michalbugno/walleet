@@ -1,0 +1,48 @@
+#!/usr/bin/env ruby
+
+APP_ENV = ENV["APP_ENV"] || "production"
+ROOT_DIR = File.expand_path(File.join(__FILE__, "..", ".."))
+PID_PATH = File.join(ROOT_DIR, "tmp", "pids", APP_ENV + ".pid")
+RVM = File.read(".rvmrc").split(" ").last
+SOCKET_PATH = File.join(ROOT_DIR, "tmp", "unicorn.sock")
+UNICORN_PATH = File.join(ROOT_DIR, "config", "unicorn.rb")
+UNICORN_BIN = File.join(ROOT_DIR, "bin", "unicorn_rails")
+RAKE_BIN = File.join(ROOT_DIR, "bin", "rake")
+
+def run(cmd)
+  cmd = "cd #{ROOT_DIR} && rvm #{RVM} do env RAILS_ENV=#{APP_ENV} #{cmd}"
+  puts "Running #{cmd}"
+  `#{cmd}`
+end
+
+def pid_exist?(pid)
+  begin
+    Process.getpgid(pid)
+    true
+  rescue Errno::ESRCH
+    false
+  end
+end
+
+def prepare_code
+  run("bundle --binstubs --path=.bundle")
+  run("#{RAKE_BIN} db:migrate")
+  run("#{RAKE_BIN} assets:precompile")
+end
+
+def start_server
+  prepare_code
+  run("#{UNICORN_BIN} -l #{SOCKET_PATH} -E #{APP_ENV} -c #{UNICORN_PATH} -D")
+end
+
+if !File.file?(PID_PATH)
+  start_server
+else
+  pid = File.read(pid_path).to_i
+  if pid_exist?(pid)
+    prepare_code
+    Process.kill("HUP", pid)
+  else
+    start_server
+  end
+end
