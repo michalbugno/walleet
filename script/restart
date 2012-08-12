@@ -38,7 +38,7 @@ end
 if !File.file?(PID_PATH)
   start_server
 else
-  pid = File.read(pid_path).to_i
+  pid = File.read(PID_PATH).to_i
   if pid_exist?(pid)
     prepare_code
     Process.kill("HUP", pid)
