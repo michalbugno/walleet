@@ -4,6 +4,7 @@ class Routers.Walleet extends Backbone.Router
     "welcome": "welcome"
     "goodbye": "goodbye"
     "groups/:id": "groupShow"
+    "groups/:id/edit": "groupEdit"
     "person/sign_in": "signIn"
     "person/sign_up": "signUp"
     "person/reset_password/:token": "resetPassword"
@@ -31,6 +32,15 @@ class Routers.Walleet extends Backbone.Router
     this.setLayout(Views.MainLayout, {currentGroup: @group})
 
     @layout.addSubview("content", Views.GroupView, {group: @group})
+
+    @group.fetch()
+
+  groupEdit: (groupId) =>
+    groupId = parseInt(groupId)
+    @group = new Models.Group({id: groupId})
+    this.setLayout(Views.MainLayout, {currentGroup: @group})
+
+    @layout.addSubview("content", Views.GroupEditView, {group: @group})
 
     @group.fetch()
 

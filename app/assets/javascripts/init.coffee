@@ -3,6 +3,8 @@ window.App.auth = new Auth()
 window.App.nav = new Navigation()
 window.App.groups = new Collections.GroupCollection
 
+window.HAML.escape = (text) => text
+
 person = new Models.Person
 person.bind("change", App.auth.login)
 person.fetch({async: false})

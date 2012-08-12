@@ -1,9 +1,6 @@
 class Views.GroupView extends BasicView
   template: JST['backbone/templates/group']
 
-  meta:
-    name: "Views.GroupView"
-
   events:
     "submit #add-debt": "addDebt"
     "click #remove-group": "removeGroup"
@@ -66,7 +63,7 @@ class Views.GroupView extends BasicView
       else
         badgeClass.push("badge-important")
       member.badgeClass = badgeClass.join(" ")
-      member.formattedAmount = Helpers.formatAmount(member.amount)
+      member.formattedAmount = new Handlebars.SafeString(Helpers.formatAmount(member.amount, group.currency))
     )
     group: group
 

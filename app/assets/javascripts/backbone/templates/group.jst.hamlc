@@ -20,8 +20,7 @@
     %ol#group-members.group-summary
       - for member in @group.members
         %li.member
-          %div.amount
-            %span{:class => member.badgeClass}= member.formattedAmount
+          %div.amount= member.formattedAmount
           %input{:type => "checkbox", :value => member.id}
           %div.name
             = member.name

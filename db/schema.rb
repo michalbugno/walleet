@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120723204220) do
+ActiveRecord::Schema.define(:version => 20120811224249) do
+
+  create_table "currencies", :force => true do |t|
+    t.string   "symbol",              :limit => 32, :null => false
+    t.integer  "decimal_precision",                 :null => false
+    t.string   "decimal_separator",   :limit => 5,  :null => false
+    t.string   "thousands_separator", :limit => 5,  :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+  end
 
   create_table "debt_elements", :force => true do |t|
     t.integer  "debt_id"
@@ -43,9 +52,10 @@ ActiveRecord::Schema.define(:version => 20120723204220) do
 
   create_table "groups", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
-    t.boolean  "visible",    :default => true, :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "visible",     :default => true, :null => false
+    t.integer  "currency_id"
   end
 
   create_table "people", :force => true do |t|

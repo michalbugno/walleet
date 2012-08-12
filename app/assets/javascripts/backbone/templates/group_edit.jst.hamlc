@@ -3,12 +3,38 @@
     %h1= @group.name
     %form.form-horizontal
       %fieldset
+
         %div.control-group
-          %label.control-label{:for => "currency-decimal"} Decimal digits
+          %label.control-label{:for => "currency-decimal-precision"} Decimal digits
           %div.controls
-            %select#currency-decimal.span2
-              %option 0
-              %option 1
-              %option 2
+            %select#currency-decimal-precision.span1
+              - for decimal in @decimalPrecisions
+                %option{:selected => decimal.selected}= decimal.value
+
+        %div.control-group
+          %label.control-label{:for => "currency-symbol"} Symbol
+          %div.controls
+            %select#currency-symbol.span1
+              - for symbol in @symbols
+                %option{:selected => symbol.selected, :value => symbol.value}= symbol.description
+
+        %div.control-group
+          %label.control-label{:for => "currency-thousands-separator"} Thousands separator
+          %div.controls
+            %select#currency-thousands-separator.span1
+              - for symbol in @thousandsSeparator
+                %option{:selected => symbol.selected, :value => symbol.value}= symbol.description
+
+        %div.control-group
+          %label.control-label{:for => "currency-decimal-separator"} Decimal separator
+          %div.controls
+            %select#currency-decimal-separator.span1
+              - for symbol in @decimalSeparators
+                %option{:selected => symbol.selected, :value => symbol.value}= symbol.description
+
+        %div.control-group
+          %label.control-label Example
+          %div.controls
+            %span.span2.input-xlarge.uneditable-input#currency-example
 
   %div.span4 &nbsp;
