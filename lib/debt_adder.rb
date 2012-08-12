@@ -2,10 +2,11 @@ class DebtAdder
   class Error < Exception
   end
 
-  def initialize(giver, takers, amount)
+  def initialize(giver, takers, amount, description = nil)
     @giver = giver
     @takers = takers
     @amount = (amount * 100).to_i
+    @description = description
 
     group_ids = ([giver] + takers).map(&:group_id).uniq
     if group_ids.size > 1
@@ -19,7 +20,7 @@ class DebtAdder
 
   def add_debt
     ActiveRecord::Base.transaction do
-      @debt = Debt.create!(:group_id => group.id)
+      @debt = Debt.create!(:group_id => group.id, :description => @description)
 
       charge_giver
       charge_takers

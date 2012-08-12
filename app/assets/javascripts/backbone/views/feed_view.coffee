@@ -30,7 +30,11 @@ class Views.FeedView extends BasicView
       el.date = moment(el.date).calendar()
       switch el.feed_type
         when "new_debt"
-          el.text = Helpers.formatAmount(el.amount, el.currency)
+          formattedCurrency = Helpers.formatAmount(el.amount, el.currency)
+          if el.text
+            el.text = formattedCurrency + " (" + el.text + ")"
+          else
+            el.text = formattedCurrency
         when "new_member"
           el.text = el.name + " joined"
     )

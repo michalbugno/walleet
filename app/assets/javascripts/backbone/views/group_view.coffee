@@ -20,8 +20,9 @@ class Views.GroupView extends BasicView
     this.addSubview("group-feed", Views.FeedView, {group: @group})
     this.addSubview("side-content", Views.AddMemberView, {group: @group}).render()
 
-    @amount = $("#amount", this.$el)
-    @addDebtButton = $("#add-debt-button", this.$el)
+    @amount = this.$("#amount")
+    @description = this.$("#description")
+    @addDebtButton = this.$("#add-debt-button")
 
     this.updateAddDebtButton()
 
@@ -31,7 +32,13 @@ class Views.GroupView extends BasicView
     groupId = @group.get("id")
     giverId = this.$("#giver-id :selected").val()
     joinedIds = this.takerIds().join(",")
-    debt = new Models.Debt(group_id: groupId, taker_ids: joinedIds, amount: @amount.val(), giver_id: giverId)
+    debt = new Models.Debt({
+      group_id: groupId
+      taker_ids: joinedIds
+      amount: @amount.val()
+      giver_id: giverId
+      description: @description.val()
+    })
     debt.save()
     @group.fetch()
 
