@@ -71,7 +71,7 @@ class Views.GroupView extends BasicView
     _.map($("#group-members :checked"), (input) => $(input).val())
 
   updateAddDebtButton: (event) =>
-    amount = Number(@amount.val())
+    amount = parseFloat(@amount.val().replace(",", "."))
     enableButton = this.takerIds().length > 0 && Math.abs(amount) >= 0.01
     if enableButton
       @addDebtButton.removeAttr("disabled")

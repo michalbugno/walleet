@@ -13,4 +13,8 @@ class Currency < ActiveRecord::Base
       :thousands_separator => " ",
     })
   end
+
+  def format_raw(amount)
+    ("%f" % [amount / 100.0]).to_f
+  end
 end

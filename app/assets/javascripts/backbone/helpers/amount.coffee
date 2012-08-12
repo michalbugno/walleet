@@ -1,24 +1,26 @@
 Helpers.formatAmount = (amount, currency) =>
-  amount = parseInt(amount)
-  precision = currency.decimal_precision
+  amount = parseFloat(amount)
   if amount > 0
     value = amount.toString()
   else
     value = (-amount).toString()
-  if value.length > precision
-    thousandsPart = value.substring(0, value.length - precision)
-    decimalPart = value.substring(value.length - precision, value.length)
-  else
-    thousandsPart = "0"
-    decimalPart = (parseInt(value) / Math.pow(10, precision)).toFixed(precision)
-    decimalPart = decimalPart.substr(2, decimalPart.length)
+
+  split = value.split(".")
+  decimalPart = split[1] || ""
+  thousandsPart = split[0]
 
   parts = Helpers.splitBy3(thousandsPart)
   thousandsSeparator = currency.thousands_separator
   value = parts.join(thousandsSeparator)
   symbol = currency.symbol
 
-  if precision > 0
+  if currency.decimal_precision < decimalPart.length
+    decimalPart = decimalPart.substr(0, currency.decimal_precision)
+  else
+    while decimalPart.length < currency.decimal_precision
+      decimalPart = decimalPart + "0"
+
+  if currency.decimal_precision > 0
     decimalSeparator = currency.decimal_separator
     value = value + decimalSeparator + decimalPart
 

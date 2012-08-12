@@ -63,4 +63,4 @@ class Views.GroupEditView extends BasicView
     @group.save()
 
   showCurrencyExample: =>
-    this.$("#currency-example").html(@group.formatValue(-123456))
+    this.$("#currency-example").html(@group.formatValue(-1234.56))

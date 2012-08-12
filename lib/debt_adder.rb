@@ -5,7 +5,7 @@ class DebtAdder
   def initialize(giver, takers, amount)
     @giver = giver
     @takers = takers
-    @amount = amount
+    @amount = (amount * 100).to_i
 
     group_ids = ([giver] + takers).map(&:group_id).uniq
     if group_ids.size > 1

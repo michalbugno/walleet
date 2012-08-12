@@ -12,7 +12,9 @@ class Group < ActiveRecord::Base
   def amount(members)
     members = [members] if !members.is_a?(Enumerable)
     member_ids = members.map(&:id)
-    debt_elements.select { |e| member_ids.include?(e.group_membership_id) }.map(&:amount).sum
+    currency = Currency.for_group(self)
+    sum = debt_elements.select { |e| member_ids.include?(e.group_membership_id) }.map(&:amount).sum
+    currency.format_raw(sum)
   end
 
   def debt_elements
