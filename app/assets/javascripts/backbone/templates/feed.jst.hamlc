@@ -9,4 +9,4 @@
 - unless @lastPage
   %ul.pager
     %li
-      %a#load-feed{:href => "#/groups"} Load more
+      %a#load-feed{:href => "#"} Load more
