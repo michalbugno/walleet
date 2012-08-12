@@ -24,7 +24,7 @@ class Api::V1::GroupsController < Api::BaseController
       group.save!
     end
     GroupMembershipManager.new(group, current_person).connect
-    respond_with(group, :location => "")
+    respond_with(group, :location => "/api/v1/groups/#{group.id}.#{params[:format]}")
   end
 
   def update

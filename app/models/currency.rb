@@ -24,7 +24,7 @@ class Currency < ActiveRecord::Base
 
   def self.default
     Currency.new({
-      :symbol => "&#164;",
+      :symbol => "&curren;",
       :decimal_precision => 2,
       :decimal_separator => ".",
       :thousands_separator => " ",
