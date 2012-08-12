@@ -17,7 +17,7 @@ class Api::V1::GroupsController < Api::BaseController
 
   def create
     group = Group.new(params[:group])
-    currency = Currency.for_group(group)
+    currency = Currency.smart_build(current_person)
     ActiveRecord::Base.transaction do
       currency.save!
       group.currency = currency
