@@ -18,10 +18,12 @@ class DebtAdder
   end
 
   def add_debt
-    @debt = Debt.create!(:group_id => group.id)
+    ActiveRecord::Base.transaction do
+      @debt = Debt.create!(:group_id => group.id)
 
-    charge_giver
-    charge_takers
+      charge_giver
+      charge_takers
+    end
   end
 
   def debt
