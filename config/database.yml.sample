@@ -1,0 +1,13 @@
+development:
+  username: root
+  password:
+  adapter: mysql2
+  encoding: utf8
+  database: walleet_dev
+
+test:
+  username: root
+  password:
+  adapter: mysql2
+  encoding: utf8
+  database: walleet_test
