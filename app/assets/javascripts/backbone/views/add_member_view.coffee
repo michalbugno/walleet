@@ -25,8 +25,10 @@ class Views.AddMemberView extends BasicView
     }
 
     member = new Models.Membership(data)
-    member.save()
-    @group.fetch()
+    member.save({
+      success: =>
+        @group.fetch()
+    })
 
   isEmail: =>
     @name.val().match("@")
