@@ -10,6 +10,7 @@ gem 'twitter-bootstrap-rails'
 gem 'haml_coffee_assets'
 gem 'execjs'
 gem 'unicorn'
+gem 'airbrake'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
