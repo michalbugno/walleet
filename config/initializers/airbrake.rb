@@ -1,3 +1,8 @@
 Airbrake.configure do |config|
-  config.api_key = '28243bcdb1fb168351b370462be402e1'
+  path = File.join(Rails.root, "config", "airbrake.yml")
+  if File.file?(path)
+    global = YAML.load_file(path)
+    env_config = global[Rails.env]
+    config.api_key = env_config if env_config
+  end
 end
