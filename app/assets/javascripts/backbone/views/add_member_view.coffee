@@ -25,7 +25,7 @@ class Views.AddMemberView extends BasicView
     }
 
     member = new Models.Membership(data)
-    member.save({
+    member.save({}, {
       success: =>
         @group.fetch()
     })
