@@ -50,6 +50,12 @@ Walleet::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
+  smtp_path = File.join(Rails.root, "config", "smtp.yml")
+  if File.file?(smtp_path)
+    global_cfg = YAML.load_file(smtp_path)
+    cfg = global_cfg[Rails.env]
+    config.action_mailer.smtp_settings = cfg if cfg
+  end
 
   # Enable threaded mode
   # config.threadsafe!
