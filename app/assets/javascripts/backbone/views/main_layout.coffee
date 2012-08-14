@@ -3,12 +3,15 @@ class Views.MainLayout extends BasicView
 
   el: "#body"
 
+  initialize: =>
+    App.auth.bind("login", this.render)
+    App.auth.bind("logout", this.render)
+
   events:
     "click #sign-out": "signOut"
 
   render: =>
-    context = this.context()
-    this.$el.html(this.template(context))
+    this.$el.html(this.template(this.templateContext()))
     if App.auth.loggedIn()
       groupList = this.addSubview("group-list", Views.GroupListView)
       groupList.render()
@@ -23,7 +26,7 @@ class Views.MainLayout extends BasicView
     alert.addNotice("You are signed out")
     alert.render()
 
-  context: =>
+  templateContext: =>
     ret = {}
     if App.auth.loggedIn()
       ret.currentPerson = App.auth.person.toJSON().person
