@@ -8,4 +8,4 @@ listen File.join(root_dir, "tmp", "unicorn.sock")
 logger Logger.new(File.join(root_dir, "log", app_env + ".log"))
 
 working_directory root_dir
-worker_processes 3
+worker_processes 2
