@@ -51,7 +51,7 @@ module Walleet
     # config.active_record.whitelist_attributes = true
 
     config.assets.enabled = true
-    config.action_mailer.default_url_options = { :host => 'walleet.com' }
+    config.action_mailer.default_url_options = { :host => 'beta.walleet.com' }
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
