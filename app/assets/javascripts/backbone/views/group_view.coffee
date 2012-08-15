@@ -40,7 +40,7 @@ class Views.GroupView extends BasicView
       description: @description.val()
     })
     debt.save({}, {
-      success: @group.fetch()
+      success: => @group.fetch()
     })
 
   removeGroup: (event) =>
