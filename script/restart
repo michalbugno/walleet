@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby
-
 APP_ENV = ENV["APP_ENV"] || "production"
 ROOT_DIR = File.expand_path(File.join(__FILE__, "..", ".."))
 PID_PATH = File.join(ROOT_DIR, "tmp", "pids", APP_ENV + ".pid")
