@@ -14,6 +14,8 @@ class Person < ActiveRecord::Base
   has_many :persons, :through => :group_memberships
   has_many :groups, :through => :group_memberships, :conditions => {:visible => true}, :order => "groups.created_at DESC"
 
+  before_create :generate_api_token
+
   def related_people
     group_ids = GroupMembership.
       where(:person_id => self.id).
@@ -43,5 +45,9 @@ class Person < ActiveRecord::Base
   def send_invitation
     generate_reset_password_token!
     Mailer.invitation(self).deliver
+  end
+
+  def generate_api_token
+    self.api_token = SecureRandom.hex(10)
   end
 end
