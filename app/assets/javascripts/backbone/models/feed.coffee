@@ -15,7 +15,7 @@ class Collections.Feed extends Backbone.Collection
     if @group
       "/api/v1/groups/" + @group.get("id") + "/feed.json"
     else
-      "/api/v1/me/feed.json"
+      "/api/v1/person/feed.json"
 
   resetFeed: =>
     this.reset([], {silent: true})
