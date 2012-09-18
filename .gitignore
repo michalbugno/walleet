@@ -7,6 +7,7 @@
 /config/airbrake.yml
 /config/smtp.yml
 /public/assets
+/migration/*.sql
 
 # Ignore bundler config
 /.bundle
