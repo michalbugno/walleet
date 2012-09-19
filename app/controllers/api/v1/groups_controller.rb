@@ -8,7 +8,8 @@ class Api::V1::GroupsController < Api::BaseController
   before_filter :find_group, :only => [:show, :feed, :destroy, :update]
 
   def index
-    respond_with current_person.groups
+    response = current_person.groups.map { |e| {:group => e.attributes } }
+    render :json => {:items => response}
   end
 
   def show
@@ -24,7 +25,7 @@ class Api::V1::GroupsController < Api::BaseController
       group.save!
     end
     GroupMembershipManager.new(group, current_person).connect
-    respond_with(group, :location => "/api/v1/groups/#{group.id}.#{params[:format]}")
+    respond_with(group, :location => "", :responder => GroupResponder)
   end
 
   def update
@@ -34,7 +35,7 @@ class Api::V1::GroupsController < Api::BaseController
     currency = Currency.for_group(@group)
     currency.update_attributes!(currency_params)
     @group.update_attributes!(params[:group])
-    respond_with(@group, :location => "")
+    respond_with(@group, :location => "", :responder => GroupResponder)
   end
 
   def feed

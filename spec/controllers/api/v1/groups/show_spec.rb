@@ -20,7 +20,7 @@ describe Api::V1::GroupsController do
   it "includes group attributes" do
     request
 
-    json = Yajl::Parser.parse(response.body)
+    json = Yajl::Parser.parse(response.body)['group']
     json['name'].should == 'My name'
     json['id'].should == group.id
   end
@@ -31,7 +31,7 @@ describe Api::V1::GroupsController do
 
     request
 
-    json = Yajl::Parser.parse(response.body)
+    json = Yajl::Parser.parse(response.body)['group']
     json.should have_key("members")
     json["members"].each { |p| p.should have_key("amount") }
   end

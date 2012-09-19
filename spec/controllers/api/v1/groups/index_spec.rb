@@ -16,8 +16,8 @@ describe Api::V1::GroupsController do
   end
 
   it "includes name in response" do
-    groups = Yajl::Parser.parse(response.body)
+    groups = Yajl::Parser.parse(response.body)["items"]
     groups.size.should == 1
-    groups[0]['name'].should == 'My name'
+    groups[0]['group']['name'].should == 'My name'
   end
 end

@@ -5,12 +5,18 @@ class Models.Group extends Backbone.Model
     else
       "/api/v1/groups/" + this.get("id") + ".json"
 
+  parse: (object) =>
+    super(object.group)
+
   formatValue: (value) =>
     Helpers.formatAmount(value, this.get("currency"))
 
 
 class Collections.GroupCollection extends Backbone.Collection
   model: Models.Group
+
+  parse: (object) =>
+    super(object.items)
 
   url: "/api/v1/groups.json"
 

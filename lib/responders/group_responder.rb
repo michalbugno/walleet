@@ -1,10 +1,11 @@
 class GroupResponder < ActionController::Responder
   def to_json
-    json = group.attributes
-    json.delete("currency_id")
-    json["members"] = people_with_amounts
-    json["currency"] = currency.attributes
-    render :json => Yajl::Encoder.encode(json)
+    attrs = group.attributes
+    attrs.delete("currency_id")
+    attrs["members"] = people_with_amounts
+    attrs["currency"] = currency.attributes
+    status = post? ? 201 : 200
+    render :json => {:group => attrs}, :status => status
   end
 
   def group
