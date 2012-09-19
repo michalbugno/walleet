@@ -18,6 +18,7 @@ Walleet::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resource :api, :only => ["show"]
       resources :groups, :only => ["index", "show", "create", "update", "destroy"] do
         member do
           get :feed
