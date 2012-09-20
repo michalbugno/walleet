@@ -4,7 +4,7 @@ class Group < ActiveRecord::Base
   attr_accessible :name
 
   has_many :group_memberships
-  has_many :persons, :through => :group_memberships
+  has_many :people, :through => :group_memberships
   belongs_to :currency
 
   scope :visible, lambda { where(:visible => true) }
