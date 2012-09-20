@@ -9,6 +9,8 @@ describe DebtAdder do
   before(:each) do
     giver = FactoryGirl.create :person
     taker = FactoryGirl.create :person
+    taker2 = FactoryGirl.create :person
+
     gmm1 = GroupMembershipManager.new(group, giver)
     gmm1.connect
     @giver_membership = gmm1.membership
@@ -36,6 +38,27 @@ describe DebtAdder do
     group.amount(@taker_membership).should == -25
     group.amount(gmm.membership).should == -25
     group.amount(@giver_membership).should == 50
+  end
+
+  it "assigns diveded debt" do
+    taker2 = FactoryGirl.create :person
+    gmm = GroupMembershipManager.new(group, taker2)
+    gmm.connect
+    adder = DebtAdder.new(giver, {taker => 30, gmm.membership => 20}, 50, nil)
+
+    adder.add_debt
+    group.amount(@taker_membership).should == -30
+    group.amount(gmm.membership).should == -20
+    group.amount(@giver_membership).should == 50
+  end
+
+  it "raises if divided debt is not equal amount" do
+    taker2 = FactoryGirl.create :person
+    gmm = GroupMembershipManager.new(group, taker2)
+    gmm.connect
+    lambda {
+      DebtAdder.new(giver, {taker => 20, gmm.membership => 20}, 50, nil)
+    }.should raise_error(DebtAdder::Error)
   end
 
   it "divides reminder between users so that total amount sums" do
