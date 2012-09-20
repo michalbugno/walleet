@@ -1,10 +1,12 @@
 %h2 Feed
-%ol
+%ul.unstyled.feed
   - for item in @feed
     %li.well
       %span.badge.badge-info= item.feed_type
-      = item.text
-      = item.date
+      - if(item.currency)
+        %span.amount= item.currency
+      %span.text= item.text
+      %time= item.date
 
 - unless @lastPage
   %ul.pager

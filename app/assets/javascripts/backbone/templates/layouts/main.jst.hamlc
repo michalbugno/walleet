@@ -13,16 +13,16 @@
             %a{:href => "/person/sign_in"}= "Sign in"
           %li
             %a{:href => "/person/sign_up"}= "Sign up"
+%div.container
+  %div#container-mainlayout-undo
+    %div.row
+      %div.span3 &nbsp;
+      %div.span6.alert-container
+      %div.span3 &nbsp;
 
-%div#container-mainlayout-undo
-%div.row
-  %div.span4 &nbsp;
-  %div.span4.alert-container
-  %div.span4 &nbsp;
+  %div#secondary-nav.row
+    %div.span8
+      %div#container-mainlayout-group-list
+    %div#container-mainlayout-group-form.span4
 
-%div#secondary-nav.row
-  %div.span9
-    %div#container-mainlayout-group-list
-  %div#container-mainlayout-group-form.span3
-
-%div#container-mainlayout-content
+  %div#container-mainlayout-content

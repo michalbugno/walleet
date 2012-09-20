@@ -1,16 +1,16 @@
 %div.container
   %div.content
     %div.row
-      %div.span4
+      %div.span3
         &nbsp;
-      %div.span4
+      %div.span6
         %h2 Sign up
         %form.form-inline.well#signup-form
-          %input#person-email.input-small{:name => 'email', :type => 'email', :placeholder => 'Email'}
-          %input#person-password.input-small{:name => 'password', :type => 'password', :placeholder => 'Password'}
+          %input#person-email.input-medium{:name => 'email', :type => 'email', :placeholder => 'Email'}
+          %input#person-password.input-medium{:name => 'password', :type => 'password', :placeholder => 'Password'}
           %button.btn
             %i.icon-user
             Sign up
         %div.alert-container
-      %div.span4
+      %div.span3
         &nbsp;
