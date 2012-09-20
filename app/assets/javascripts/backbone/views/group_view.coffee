@@ -4,7 +4,7 @@ class Views.GroupView extends BasicView
   events:
     "submit #add-debt": "addDebt"
     "click #remove-group": "removeGroup"
-    "input #amount": "updateAddDebtButton"
+    "input #amount": "showGroupMember"
     "change #group-members": "updateAddDebtButton"
     "mouseover .member": "showRemoveMembershipLink"
     "mouseout .member": "hideRemoveMembershipLink"
@@ -23,8 +23,9 @@ class Views.GroupView extends BasicView
     @amount = this.$("#amount")
     @description = this.$("#description")
     @addDebtButton = this.$("#add-debt-button")
-
+    @groupMembers = $("#group-members")
     this.updateAddDebtButton()
+    this.showGroupMember()
 
   addDebt: (event) =>
     event.preventDefault()
@@ -85,7 +86,13 @@ class Views.GroupView extends BasicView
       @addDebtButton.removeAttr("disabled")
     else
       @addDebtButton.attr("disabled", true)
-
+      
+  showGroupMember: (event) =>
+    if @amount.val()
+      @groupMembers.css('display','block')
+    else
+      @groupMembers.css('display','none')
+      
   showRemoveMembershipLink: (event) =>
     target = $(event.currentTarget, this.$el)
     link = target.find(".remove-membership-link")

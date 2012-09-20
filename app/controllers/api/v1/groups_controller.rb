@@ -6,7 +6,7 @@ require 'group_feed_fetcher'
 class Api::V1::GroupsController < Api::BaseController
   respond_to :json
   before_filter :find_group, :only => [:show, :feed, :destroy, :update]
-
+  
   def index
     response = current_person.groups.map { |e| {:group => e.attributes } }
     render :json => {:items => response}
@@ -18,14 +18,18 @@ class Api::V1::GroupsController < Api::BaseController
 
   def create
     group = Group.new(params[:group])
-    currency = Currency.smart_build(current_person)
-    ActiveRecord::Base.transaction do
-      currency.save!
-      group.currency = currency
-      group.save!
+    if group.save
+      currency = Currency.smart_build(current_person)
+      ActiveRecord::Base.transaction do
+        currency.save!
+        group.currency = currency
+        group.save!
+      end
+      GroupMembershipManager.new(group, current_person).connect
+      respond_with(group, :location => "", :responder => GroupResponder)
+    else
+      respond_with(group)
     end
-    GroupMembershipManager.new(group, current_person).connect
-    respond_with(group, :location => "", :responder => GroupResponder)
   end
 
   def update
