@@ -11,7 +11,7 @@ class Person < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
   has_many :group_memberships
-  has_many :persons, :through => :group_memberships
+  has_many :people, :through => :group_memberships
   has_many :groups, :through => :group_memberships, :conditions => {:visible => true}, :order => "groups.created_at DESC"
 
   before_create :generate_api_token

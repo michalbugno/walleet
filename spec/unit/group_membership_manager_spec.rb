@@ -37,13 +37,13 @@ describe GroupMembershipManager do
     end
 
     it "adds person to group" do
-      expect { @manager.connect }.to change(group.persons, :count).by(1)
-      group.persons.should include(person)
+      expect { @manager.connect }.to change(group.people, :count).by(1)
+      group.people.should include(person)
     end
 
     it "person is now in group" do
       @manager.connect
-      expect { @manager.connect }.to change(group.persons, :count).by(0)
+      expect { @manager.connect }.to change(group.people, :count).by(0)
     end
 
     it "connects dummy users" do
@@ -59,12 +59,12 @@ describe GroupMembershipManager do
     end
 
     it "remove person from group" do
-      expect { @manager.disconnect }.to change(group.persons, :count).by(-1)
+      expect { @manager.disconnect }.to change(group.people, :count).by(-1)
     end
 
     it "person now is not in group" do
       @manager.disconnect
-      expect { @manager.disconnect }.to change(group.persons, :count).by(0)
+      expect { @manager.disconnect }.to change(group.people, :count).by(0)
     end
   end
 

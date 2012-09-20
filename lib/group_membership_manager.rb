@@ -36,7 +36,7 @@ class GroupMembershipManager
   def connect
     return if member?
     if person?
-      @group.persons << @person
+      @group.people << @person
     else
       GroupMembership.create(:group_id => @group.id, :name => @person)
     end
