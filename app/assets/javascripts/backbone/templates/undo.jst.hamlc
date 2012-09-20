@@ -1,7 +1,8 @@
 .row
-  .span4 &nbsp;
-  .span4
+  .span3 &nbsp;
+  .span6
     %div.alert.alert-info
       %strong= @text
       %a#undo-link{:href => "#"} You can undo this!
-  .span4 &nbsp;
+      %a.close{:href => "#", :data-dismiss => "alert"} ×
+  .span3 &nbsp;
