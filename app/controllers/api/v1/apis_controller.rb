@@ -4,7 +4,8 @@ class Api::V1::ApisController < Api::BaseController
 
   def show
     apis = [
-      api_entry(:post, "person", "Create an account"),
+      api_entry(:post, "person", "Create an account (required params: {person: {email: 'email@example.com', password: 'pass'}}"),
+      api_entry(:post, "person/sign_in", "Show account using email/password"),
       api_entry(:get, "person", "Show your account"),
       api_entry(:get, "person/feed", "Show your account's feed"),
       api_entry(:get, "groups", "List of groups"),
