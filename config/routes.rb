@@ -10,8 +10,8 @@ Walleet::Application.routes.draw do
         post "api/v1/person/sign_in" => "devise/sessions#create"
         delete "api/v1/person/sign_out" => "devise/sessions#destroy"
 
-        post "api/v1/person/password" => "devise/passwords#create"
-        put "api/v1/person/password" => "devise/passwords#update"
+        post "api/v1/person/password" => "api/v1/passwords#create"
+        put "api/v1/person/password" => "api/v1/passwords#update"
       end
     end
   end
