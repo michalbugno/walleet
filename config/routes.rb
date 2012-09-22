@@ -3,9 +3,9 @@ Walleet::Application.routes.draw do
     scope :v1 do
       devise_for :people, :skip => ["session", "registration", "password"]
       devise_scope :person do
-        post "api/v1/person" => "devise/registrations#create"
-        put "api/v1/person" => "devise/registrations#update"
-        delete "api/v1/person" => "devise/registrations#destroy"
+        post "api/v1/person" => "api/v1/registrations#create"
+        put "api/v1/person" => "api/v1/registrations#update"
+        delete "api/v1/person" => "api/v1/registrations#destroy"
 
         post "api/v1/person/sign_in" => "devise/sessions#create"
         delete "api/v1/person/sign_out" => "devise/sessions#destroy"
