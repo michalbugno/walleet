@@ -11,6 +11,10 @@ class Models.Group extends Backbone.Model
   formatValue: (value) =>
     Helpers.formatAmount(value, this.get("currency"))
 
+  toJSON: =>
+    {
+      group: super()
+    }
 
 class Collections.GroupCollection extends Backbone.Collection
   model: Models.Group

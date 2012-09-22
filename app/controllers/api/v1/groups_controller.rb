@@ -30,11 +30,12 @@ class Api::V1::GroupsController < Api::BaseController
 
   def update
     group_params = params[:group]
-    currency_params = params[:currency]
+    currency_params = group_params[:currency]
     currency_params.select! { |name| ["decimal_precision", "symbol", "decimal_separator", "thousands_separator"].include?(name) }
     currency = Currency.for_group(@group)
     currency.update_attributes!(currency_params)
-    @group.update_attributes!(params[:group])
+    group_params = group_params.select { |key| ["name"].include?(key) }
+    @group.update_attributes!(group_params)
     respond_with(@group, :location => "", :responder => GroupResponder)
   end
 

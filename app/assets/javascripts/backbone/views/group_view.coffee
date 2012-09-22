@@ -61,7 +61,7 @@ class Views.GroupView extends BasicView
     })
 
   templateContext: =>
-    group = @group.toJSON()
+    group = @group.toJSON().group
     _.each(group.members, (member) =>
       badgeClass = ["badge"]
       if member.amount > 0
