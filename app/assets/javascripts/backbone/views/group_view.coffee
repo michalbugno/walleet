@@ -86,13 +86,13 @@ class Views.GroupView extends BasicView
       @addDebtButton.removeAttr("disabled")
     else
       @addDebtButton.attr("disabled", true)
-      
+
   showGroupMember: (event) =>
     if @amount.val()
-      @groupMembers.css('display','block')
+      @groupMembers.css('display', 'block')
     else
-      @groupMembers.css('display','none')
-      
+      @groupMembers.css('display', 'none')
+
   showRemoveMembershipLink: (event) =>
     target = $(event.currentTarget, this.$el)
     link = target.find(".remove-membership-link")
