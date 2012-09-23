@@ -11,6 +11,7 @@ gem 'haml_coffee_assets'
 gem 'execjs'
 gem 'unicorn'
 gem 'airbrake'
+gem 'yard'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

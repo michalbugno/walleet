@@ -163,6 +163,7 @@ GEM
     warden (1.1.1)
       rack (>= 1.0)
     yajl-ruby (1.1.0)
+    yard (0.8.2.1)
 
 PLATFORMS
   ruby
@@ -188,3 +189,4 @@ DEPENDENCIES
   uglifier (>= 1.0.3)
   unicorn
   yajl-ruby
+  yard

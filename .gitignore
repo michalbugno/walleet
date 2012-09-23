@@ -25,3 +25,5 @@
 .redcar/
 /coverage
 .DS_Store
+
+/.yardoc
