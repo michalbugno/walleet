@@ -4,8 +4,12 @@ class GroupResponder < ActionController::Responder
     attrs.delete("currency_id")
     attrs["members"] = people_with_amounts
     attrs["currency"] = currency.attributes
-    status = post? ? 201 : 200
-    render :json => {:group => attrs}, :status => status
+    if has_errors?
+      render :json => {:errors => group.errors}, :status => 422
+    else
+      status = post? ? 201 : 200
+      render :json => {:group => attrs}, :status => status
+    end
   end
 
   def group

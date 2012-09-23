@@ -6,7 +6,6 @@ class Group < ActiveRecord::Base
   has_many :group_memberships
   has_many :persons, :through => :group_memberships
   belongs_to :currency
-  validates :name, :presence => true
   scope :visible, lambda { where(:visible => true) }
 
   def amount(members)
