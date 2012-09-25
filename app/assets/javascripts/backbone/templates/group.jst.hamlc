@@ -25,6 +25,8 @@
           %input{:type => "checkbox", :value => member.id}
           %div.name
             = member.name
+          - if member.amount > 0
+            %a.pay-debt-link.btn{:href => "#", :data-membership-id => member.id} Pay back
           - if member.amount == 0
             %a.remove-membership-link{:href => "#", :data-membership-id => member.id} Remove
 

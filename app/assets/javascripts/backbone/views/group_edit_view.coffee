@@ -6,6 +6,7 @@ class Views.GroupEditView extends BasicView
     @group.bind("change", this.render)
 
   events:
+    "change #group-name": "update"
     "change #currency-decimal-precision": "update"
     "change #currency-symbol": "update"
     "change #currency-decimal-separator": "update"
@@ -51,10 +52,12 @@ class Views.GroupEditView extends BasicView
     _.map(values, (value) => {value: value[0], selected: value[0].replace("&amp;", "&") == symbol, description: value[1]})
 
   update: (event) =>
+    groupName = this.$("#group-name").val()
     precision = this.$("#currency-decimal-precision :selected").val()
     symbol = this.$("#currency-symbol :selected").val()
     decimalSeparator = this.$("#currency-decimal-separator :selected").val()
     thousandsSeparator = this.$("#currency-thousands-separator :selected").val()
+    @group.set({"name" : groupName})
     @group.get("currency").decimal_precision = precision
     @group.get("currency").symbol = symbol
     @group.get("currency").decimal_separator = decimalSeparator

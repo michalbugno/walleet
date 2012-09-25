@@ -8,6 +8,7 @@ class Views.GroupView extends BasicView
     "change #group-members": "updateAddDebtButton"
     "mouseover .member": "showRemoveMembershipLink"
     "mouseout .member": "hideRemoveMembershipLink"
+    "click .pay-debt-link": "payBack"
     "click .remove-membership-link": "removeMembership"
 
   initialize: (options) ->
@@ -95,6 +96,25 @@ class Views.GroupView extends BasicView
     target = $(event.currentTarget, this.$el)
     link = target.find(".remove-membership-link")
     link.hide()
+    
+  payBack: (event) =>
+    event.preventDefault()
+    takerButton = $(event.target)
+    taker = takerButton.parent()
+    target = $(event.currentTarget)
+    groupId = @group.get("id")
+    takerId = takerButton.attr("data-membership-id")
+    giverId = this.$("#giver-id :selected").val()#to be modified after figuring out a decent way to obtain current user id
+    debt = new Models.Debt({
+      group_id: groupId
+      taker_ids: takerId
+      amount: JSON.stringify(parseInt(taker.find(".amount").text()))#it would be nice however if there was a dedicated span to hold just the amount
+      giver_id: giverId
+      description: "full return"
+    })
+    debt.save({}, {
+      success: => @group.fetch()
+    })
 
   removeMembership: (event) =>
     event.preventDefault()
