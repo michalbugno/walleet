@@ -5,7 +5,7 @@ class Views.GroupListView extends BasicView
     App.groups.bind("reset", this.render)
     App.groups.fetch()
     @currentGroup = options.currentGroup
-
+    
   render: =>
     this.$el.html(this.template(this.templateContext()))
 

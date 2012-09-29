@@ -3,6 +3,11 @@
     %h1= @group.name
     %form.form-horizontal
       %fieldset
+      
+        %div.control-group
+          %label.control-label{:for => "group-name"} Group name
+          %div.controls
+            %input#group-name{:value => @group.name}
 
         %div.control-group
           %label.control-label{:for => "currency-decimal-precision"} Decimal digits

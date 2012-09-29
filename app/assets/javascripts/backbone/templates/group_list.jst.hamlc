@@ -1,5 +1,5 @@
 %div.subnav
-  %ul.nav.nav-pills
+  %ul.nav.nav-pills{:class => "groupList"}
     - for group in @groups
       %li{:class => group.activeClass}
         %a{:href => App.nav.path('group:show', group.id)}= group.name
