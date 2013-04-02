@@ -6,12 +6,15 @@ gem 'yajl-ruby', :require => 'yajl'
 gem 'devise'
 gem 'rails-backbone'
 gem 'jquery-rails'
-gem 'twitter-bootstrap-rails'
 gem 'haml_coffee_assets'
 gem 'execjs'
 gem 'unicorn'
 gem 'airbrake'
 gem 'yard'
+
+gem "therubyracer"
+gem "less-rails"
+gem "twitter-bootstrap-rails"
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
