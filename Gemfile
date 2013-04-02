@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.3'
+gem 'rails'
 gem 'mysql2'
 gem 'yajl-ruby', :require => 'yajl'
 gem 'devise'
