@@ -15,7 +15,7 @@ describe Api::V1::DebtsController do
       GroupMembershipManager.new(group, p).connect
     end
 
-    post :create, :amount => 200, :group_id => group.id, :giver_id => person.id,
+    post :create, :amount => "200", :group_id => group.id, :giver_id => person.id,
       :taker_ids => "#{@taker1.id}, #{@taker2.id}", :format => :json
   end
 
