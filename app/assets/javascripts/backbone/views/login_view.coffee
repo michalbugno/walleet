@@ -6,8 +6,8 @@ class Views.Login extends BasicView
 
   render: =>
     this.$el.html(this.template())
-    @email = this.$('#person-email')
-    @password = this.$('#person-password')
+    @email = this.$('.person-email')
+    @password = this.$('.person-password')
 
     @email.focus()
 
@@ -16,20 +16,13 @@ class Views.Login extends BasicView
 
     member = new Models.Person({email: @email.val(), password: @password.val()})
     member.save({}, {
-      async: false,
       success: (model, response) =>
         App.auth.login(model)
-        App.nav.navigate("root")
+        App.nav.navigate("groups")
       error: (model, response) =>
-        alert = new Views.AlertView(el: this.alertContainer())
+        alert = new Views.AlertView(el: this.$(".errors"))
         alert.addError("Incorrect email and/or password", {noHide: true})
         alert.render()
         @email.focus()
         @email.select()
     })
-
-  alertContainer: =>
-    container = $(".alert-container", this.$el)
-    if container.length == 0
-      container = $(".alert-container")
-    container

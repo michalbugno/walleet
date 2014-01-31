@@ -1,28 +1,11 @@
-%div#main-nav.navbar.navbar-fixed-top
-  %div.navbar-inner
-    %div.container
-      %a.brand{:href => "/"} Walleet
-      %ul#topbar.nav
-        - if @loggedIn
-          %li
-            %a#sign-out{:href => "#"}
-              Sign out
-              = @currentPerson.email
-        - else
-          %li
-            %a{:href => "/person/sign_in"}= "Sign in"
-          %li
-            %a{:href => "/person/sign_up"}= "Sign up"
+%div.pure-menu.pure-menu-open.pure-menu-horizontal
+  %a.pure-menu-heading{:href => "/"} Walleet
+  %ul
+    %li
+      %a{:href => "/groups"} Groups
+    %li
+      %a#sign-out{:href => "#"} Logout
 
-%div#container-mainlayout-undo
-%div.row
-  %div.span4 &nbsp;
-  %div.span4.alert-container
-  %div.span4 &nbsp;
-
-%div#secondary-nav.row
-  %div.span9
-    %div#container-mainlayout-group-list
-  %div#container-mainlayout-group-form.span3
-
+%div#container-mainlayout-group-list
+%div#container-mainlayout-group-form
 %div#container-mainlayout-content

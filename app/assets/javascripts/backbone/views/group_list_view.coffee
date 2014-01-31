@@ -13,8 +13,6 @@ class Views.GroupListView extends BasicView
     groups: _.map(App.groups.toJSON(), (group) =>
       group = group.group
       group.url = "/groups/" + group.id
-      if App.groups.currentId == group.id
-        group.activeClass = "active"
-      else
-        group.activeClass = null
-      group)
+      group.active = App.groups.currentId == group.id
+      group
+    )

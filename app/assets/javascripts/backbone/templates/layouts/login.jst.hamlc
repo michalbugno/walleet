@@ -1,0 +1,10 @@
+.header
+  %h1 Walleet
+  %h2 Easy sharing of debts among friends
+
+%div.row
+  %div.span4 &nbsp;
+  %div.span4.alert-container
+  %div.span4 &nbsp;
+
+%div#container-loglayout-content

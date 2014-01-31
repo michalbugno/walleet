@@ -2,7 +2,7 @@ class Routers.Walleet extends Backbone.Router
   routes: {
     "": "mainPage"
     "welcome": "welcome"
-    "goodbye": "goodbye"
+    "groups": "groupIndex"
     "groups/:id": "groupShow"
     "groups/:id/edit": "groupEdit"
     "person/sign_in": "signIn"
@@ -21,10 +21,13 @@ class Routers.Walleet extends Backbone.Router
 
   mainPage: =>
     if !App.auth.loggedIn()
-      App.nav.navigate("welcome")
+      App.nav.navigate("person/sign_in")
     else
       this.setLayout(Views.MainLayout)
       @layout.addSubview("content", Views.FeedView)
+
+  groupIndex: =>
+    this.setLayout(Views.MainLayout)
 
   groupShow: (groupId) =>
     groupId = parseInt(groupId)
@@ -48,14 +51,14 @@ class Routers.Walleet extends Backbone.Router
     if App.auth.loggedIn()
       App.nav.navigate("root")
     else
-      this.setLayout(Views.MainLayout)
+      this.setLayout(Views.LogLayout)
       @layout.addSubview("content", Views.Login).render()
 
   signUp: =>
     if App.auth.loggedIn()
       App.nav.navigate("root")
     else
-      this.setLayout(Views.MainLayout)
+      this.setLayout(Views.LogLayout)
       @layout.addSubview("content", Views.Signup).render()
 
   notFound: (path) =>

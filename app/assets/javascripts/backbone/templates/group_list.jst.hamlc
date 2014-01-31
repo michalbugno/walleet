@@ -1,5 +1,8 @@
-%div.subnav
-  %ul.nav.nav-pills
-    - for group in @groups
-      %li{:class => group.activeClass}
+%ul
+  - for group in @groups
+    - if group.active
+      %li{:class => "pure-menu-selected"}
+        %a{:href => App.nav.path('group:show', group.id)}= group.name
+    - else
+      %li
         %a{:href => App.nav.path('group:show', group.id)}= group.name

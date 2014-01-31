@@ -14,7 +14,10 @@ class Views.AlertView extends BasicView
     @notices.push({message: notice, hideable: options.hideable})
 
   render: =>
+    this.$el.css(opacity: 0.0)
     this.$el.html(this.template(this.templateContext()))
+    this.$el.animate(opacity: 1.0, 400, 'swing', =>
+    )
     $(".close", this.$el).click (event) =>
       event.preventDefault()
       target = $(event.currentTarget)

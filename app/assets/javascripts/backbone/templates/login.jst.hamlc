@@ -1,16 +1,12 @@
-%div.container
-  %div.content
-    %div.row
-      %div.span4
-        &nbsp;
-      %div.span4
-        %h2 Sign in
-        %form.form-inline.well
-          %input#person-email.input-small{:name => 'email', :type => 'email', :placeholder => 'Email'}
-          %input#person-password.input-small{:name => 'password', :type => 'password', :placeholder => 'Password'}
-          %button.btn
-            %i.icon-user
-            Sign in
-        %div.alert-container
-      %div.span4
-        &nbsp;
+.centered
+  %form.pure-form
+    %input.person-email{:name => 'email', :type => 'email', :placeholder => 'Email'}
+    %input.person-password{:name => 'password', :type => 'password', :placeholder => 'Password'}
+    %button.pure-button.pure-button-primary.fixed-width{:type => 'submit'}
+      Sign in
+
+  %div.errors.small-margin.fixed-height-small
+
+  %h3.far
+    or
+    %a{:href => "/person/sign_up"} create a free account
