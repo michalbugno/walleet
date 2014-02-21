@@ -5,10 +5,10 @@ class Views.GroupView extends BasicView
     "submit #add-debt": "addDebt"
     "click #remove-group": "removeGroup"
     "input #amount": "showGroupMember"
-    "change #group-members": "updateAddDebtButton"
+    "change .js-group-members": "updateAddDebtButton"
     "mouseover .member": "showRemoveMembershipLink"
     "mouseout .member": "hideRemoveMembershipLink"
-    "click .remove-membership-link": "removeMembership"
+    "click .js-remove-membership-link": "removeMembership"
 
   initialize: (options) ->
     super(options)
@@ -19,11 +19,12 @@ class Views.GroupView extends BasicView
     this.$el.html(this.template(this.templateContext()))
     this.addSubview("group-feed", Views.FeedView, {group: @group})
     this.addSubview("side-content", Views.AddMemberView, {group: @group}).render()
+    this.hideRemoveMembershipLinks()
 
     @amount = this.$("#amount")
     @description = this.$("#description")
     @addDebtButton = this.$("#add-debt-button")
-    @groupMembers = $("#group-members")
+    @groupMembers = $(".js-group-members")
     this.updateAddDebtButton()
     this.showGroupMember()
 
@@ -95,12 +96,12 @@ class Views.GroupView extends BasicView
 
   showRemoveMembershipLink: (event) =>
     target = $(event.currentTarget, this.$el)
-    link = target.find(".remove-membership-link")
+    link = target.find(".js-remove-membership-link")
     link.show()
 
   hideRemoveMembershipLink: (event) =>
     target = $(event.currentTarget, this.$el)
-    link = target.find(".remove-membership-link")
+    link = target.find(".js-remove-membership-link")
     link.hide()
 
   removeMembership: (event) =>
@@ -117,3 +118,6 @@ class Views.GroupView extends BasicView
   detach: =>
     App.groups.setCurrentId(null)
     super()
+
+  hideRemoveMembershipLinks: =>
+    this.$(".group-summary .js-remove-membership-link").hide()
