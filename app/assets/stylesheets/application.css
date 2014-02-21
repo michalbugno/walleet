@@ -10,83 +10,8 @@
  *
  *= require_self
  *= require_tree .
+ *= require styles
  */
 
 @import url('http://fonts.googleapis.com/css?family=Open+Sans:400,300,700');
 @import url('http://yui.yahooapis.com/pure/0.3.0/pure-min.css');
-
-html {
-  font-family: 'Open Sans', sans-serif;
-  color: #666;
-}
-
-a {
-  text-decoration: none;
-  color: #661843;
-}
-
-.header {
-  text-align: center;
-}
-
-.header h1 {
-  font-size: 400%;
-}
-
-.header h2 {
-  font-size: 150%;
-}
-
-h1, h2, h3 {
-  font-weight: 300;
-}
-
-.centered {
-  text-align: center;
-}
-
-button.fixed-width {
-  width: 120px;
-}
-
-.far {
-  margin-top: 50px;
-}
-
-.button-error {
-  background: rgb(202, 60, 60);
-}
-
-.button-xsmall {
-  font-size: 70%;
-}
-
-.button-small {
-  font-size: 85%;
-}
-
-.button-large {
-  font-size: 110%;
-}
-
-.button-xlarge {
-  font-size: 125%;
-}
-
-.alert-error {
-  color: #FF530D;
-}
-
-.small-margin {
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
-
-.fixed-height-small {
-  height: 20px;
-}
-
-.main-page-margin {
-  margin-left: 20px;
-  margin-right: 20px;
-}

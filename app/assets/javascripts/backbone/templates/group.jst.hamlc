@@ -6,8 +6,8 @@
           %option{:value => member.id}= member.name
       %input#amount.input-small{:name => 'amount', :placeholder => 'Amount'}
       %input#description.input-medium{:name => 'description', :placeholder => 'Description'}
+
       %button#add-debt-button.btn
-        %i.icon-plus
         Add debt
 
     %ol.js-group-members.group-summary
@@ -28,13 +28,13 @@
             %a{:href => App.nav.path('group:edit', @group.id)} Edit
 
   %div.pure-u-2-5
-    %ol.group-summary
+    %table.group-summary.center
       - for member in @group.members
-        %li.member
-          %div.amount= member.formattedAmount
-          %div.name
-            = member.name
-          - if member.amount == 0
-            %a.js-remove-membership-link{:href => "#", :data-membership-id => member.id} Remove
+        %tr.member{:class => member.badgeClass}
+          %td.name= member.name
+          %td.amount= member.formattedAmount
+          %td.options
+            - if member.amount == 0
+              %a.js-remove-membership-link{:href => "#", :data-membership-id => member.id} Remove
 
     %div#container-groupview-side-content

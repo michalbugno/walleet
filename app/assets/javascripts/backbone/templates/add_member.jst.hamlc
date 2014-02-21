@@ -1,4 +1,4 @@
-%form.pure-form
+%form.pure-form.centered
   %input.js-person-name.input-small{:name => 'name', :type => 'text', :placeholder => 'Member name'}
   %button.pure-button.button-small.js-add-button{:type => 'submit'}
     Add

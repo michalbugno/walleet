@@ -65,20 +65,19 @@ class Views.GroupView extends BasicView
   templateContext: =>
     group = @group.toJSON().group
     _.each(group.members, (member) =>
-      badgeClass = ["badge"]
       if member.amount > 0
-        badgeClass.push("badge-success")
+        badgeClass = "positive"
       else if member.amount == 0
-        badgeClass.push("badge-info")
+        badgeClass = "neutral"
       else
-        badgeClass.push("badge-important")
-      member.badgeClass = badgeClass.join(" ")
+        badgeClass = "negative"
+      member.badgeClass = badgeClass
       member.formattedAmount = new Handlebars.SafeString(Helpers.formatAmount(member.amount, group.currency))
     )
     group: group
 
   takerIds: =>
-    _.map($("#group-members :checked"), (input) => $(input).val())
+    _.map(this.$(".js-group-members :checked"), (input) => this.$(input).val())
 
   updateAddDebtButton: (event) =>
     amount = parseFloat(@amount.val().replace(",", "."))
