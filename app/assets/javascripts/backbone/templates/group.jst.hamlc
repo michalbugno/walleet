@@ -1,13 +1,13 @@
 %div.pure-g
   %div.pure-u-3-5
-    %form#add-debt.form-inline.well
+    %form#add-debt.pure-form
       %select#giver-id{:name => "giver_id"}
         - for member in @group.members
           %option{:value => member.id}= member.name
-      %input#amount.input-small{:name => 'amount', :placeholder => 'Amount'}
-      %input#description.input-medium{:name => 'description', :placeholder => 'Description'}
+      %input#amount{:name => 'amount', :placeholder => 'Amount', :type => "number", :step => "0.01"}
+      %input#description{:name => 'description', :placeholder => 'Description', :type => "text"}
 
-      %button#add-debt-button.btn
+      %button#add-debt-button.pure-button.pure-button-primary.button-small
         Add debt
 
     %ol.js-group-members.group-summary

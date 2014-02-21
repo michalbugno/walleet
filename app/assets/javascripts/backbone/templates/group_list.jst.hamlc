@@ -1,3 +1,7 @@
 - for group in @groups
   %h2
-    %a{:href => App.nav.path('group:show', group.id)}= group.name
+    %a{:href => App.nav.path('group:show', group.id)}
+      - if group.current
+        %b= group.name
+      - else
+        = group.name

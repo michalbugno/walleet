@@ -78,7 +78,7 @@ button.fixed-width {
 }
 
 .group-summary td {
-  padding: 2px 5px;
+  padding: 3px 8px;
 }
 
 .group-summary .name {
@@ -98,7 +98,7 @@ button.fixed-width {
 }
 
 .group-summary .options {
-  width: 200px;
+  width: 80px;
 }
 
 table.center {
