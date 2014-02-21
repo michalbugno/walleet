@@ -70,3 +70,8 @@ button.fixed-width {
 .fixed-height-small {
   height: 20px;
 }
+
+.main-page-margin {
+  margin-left: 20px;
+  margin-right: 20px;
+}

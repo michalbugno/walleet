@@ -1,8 +1,3 @@
-%ul
-  - for group in @groups
-    - if group.active
-      %li{:class => "pure-menu-selected"}
-        %a{:href => App.nav.path('group:show', group.id)}= group.name
-    - else
-      %li
-        %a{:href => App.nav.path('group:show', group.id)}= group.name
+- for group in @groups
+  %h2
+    %a{:href => App.nav.path('group:show', group.id)}= group.name

@@ -2,17 +2,21 @@ class Views.GroupListView extends BasicView
   template: JST['backbone/templates/group_list']
 
   initialize: (options) ->
-    App.groups.bind("reset", this.render)
-    App.groups.fetch()
+    @groups = new Collections.GroupCollection
+    @groups.bind("sync", this.render)
+    @groups.fetch()
     @currentGroup = options.currentGroup
+    if @currentGroup
+      @currentGroup.bind("change", this.render)
 
   render: =>
+    console.log(this.templateContext())
     this.$el.html(this.template(this.templateContext()))
 
   templateContext: =>
-    groups: _.map(App.groups.toJSON(), (group) =>
+    groups: _.map(@groups.toJSON(), (group) =>
       group = group.group
       group.url = "/groups/" + group.id
-      group.active = App.groups.currentId == group.id
+      group.current = @currentGroup && @currentGroup.id == group.id
       group
     )

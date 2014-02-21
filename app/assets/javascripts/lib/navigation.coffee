@@ -1,7 +1,7 @@
 class window.Navigation
   navigate: (name) =>
     path = this.path.apply(name, arguments) || name
-    Backbone.history.navigate(path, true)
+    Backbone.history.navigate(path, {trigger: true})
 
   path: (name) =>
     switch name

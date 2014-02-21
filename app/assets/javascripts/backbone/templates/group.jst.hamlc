@@ -1,5 +1,5 @@
-%div.row
-  %div.span8
+%div.pure-g
+  %div.pure-u-3-5
     %form#add-debt.form-inline.well
       %select#giver-id{:name => "giver_id"}
         - for member in @group.members
@@ -9,7 +9,6 @@
       %button#add-debt-button.btn
         %i.icon-plus
         Add debt
-
     %ol#group-members.group-summary
       - for member in @group.members
         %li.member
@@ -17,15 +16,8 @@
           %input{:type => "checkbox", :value => member.id}
           %div.name
             = member.name
-    %div#container-groupview-group-feed
 
-  %div.span4
-    %a#remove-group.btn.btn-danger Remove
-    %h1
-      = @group.name
-      %small
-        %a{:href => App.nav.path('group:edit', @group.id)} Edit
-
+  %div.pure-u-2-5
     %ol.group-summary
       - for member in @group.members
         %li.member
@@ -36,3 +28,12 @@
             %a.remove-membership-link{:href => "#", :data-membership-id => member.id} Remove
 
     %div#container-groupview-side-content
+
+%div#container-groupview-group-feed
+
+  %div.span4
+    %a#remove-group.btn.btn-danger Remove
+    %h1
+      = @group.name
+      %small
+        %a{:href => App.nav.path('group:edit', @group.id)} Edit
