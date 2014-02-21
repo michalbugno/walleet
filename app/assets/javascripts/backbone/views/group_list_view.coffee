@@ -10,7 +10,6 @@ class Views.GroupListView extends BasicView
       @currentGroup.bind("change", this.render)
 
   render: =>
-    console.log(this.templateContext())
     this.$el.html(this.template(this.templateContext()))
 
   templateContext: =>

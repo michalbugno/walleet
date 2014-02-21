@@ -3,7 +3,7 @@ class Views.AddMemberView extends BasicView
 
   events:
     'submit form': 'addMember'
-    "input #person-name": "updateAddMemberButton"
+    "input .js-person-name": "updateAddMemberButton"
 
   initialize: (options) ->
     @group = options.group
@@ -11,17 +11,19 @@ class Views.AddMemberView extends BasicView
 
   render: =>
     this.$el.html(this.template(group: @group))
-    @name = this.$("#person-name")
-    @addMemberButton = this.$("#add-member-button")
+    @addMemberButton = this.$(".js-add-button")
     this.updateAddMemberButton()
 
   addMember: (event) =>
     event.preventDefault()
+    return if !@enabled
+
+    event.preventDefault()
 
     data = {
       group_id: @group.get('id')
-      name: if !this.isEmail() then @name.val()
-      email: if this.isEmail() then @name.val()
+      name: if !this.isEmail() then this.enteredName()
+      email: if this.isEmail() then this.enteredName()
     }
 
     member = new Models.Membership(data)
@@ -31,15 +33,15 @@ class Views.AddMemberView extends BasicView
     })
 
   isEmail: =>
-    @name.val().match("@")
+    this.enteredName().match("@")
 
   updateAddMemberButton: (event) =>
-    if this.isEmail()
-      @addMemberButton.find('.content').html("Invite member")
-    else
-      @addMemberButton.find('.content').html("Add member")
-
-    if @name.val() != ""
+    if this.enteredName() != ""
+      @enabled = true
       @addMemberButton.removeAttr("disabled")
     else
+      @enabled = false
       @addMemberButton.attr("disabled", true)
+
+  enteredName: =>
+    this.$(".js-person-name").val()

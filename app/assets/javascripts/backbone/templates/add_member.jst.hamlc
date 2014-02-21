@@ -1,6 +1,4 @@
-%form.form-inline.well
-  %input#person-name.input-small{:name => 'name', :type => 'text', :placeholder => 'Name'}
-  %button#add-member-button.btn
-    %i.icon-plus
-    %span.content
-      Add member
+%form.pure-form
+  %input.js-person-name.input-small{:name => 'name', :type => 'text', :placeholder => 'Member name'}
+  %button.pure-button.button-small.js-add-button{:type => 'submit'}
+    Add
