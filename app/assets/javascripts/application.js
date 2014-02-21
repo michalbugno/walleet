@@ -10,11 +10,11 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery
-//= require jquery_ujs
+//= require vendor/jquery-2.1.0.min
 //= require twitter/bootstrap
 //= require vendor/handlebars
 //= require vendor/moment.min
+//= require vendor/nprogress
 //= require underscore
 //= require backbone
 //= require lib/basic_view

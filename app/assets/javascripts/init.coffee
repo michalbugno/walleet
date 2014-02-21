@@ -19,8 +19,9 @@ if !App.auth.loggedIn()
   else
     App.nav.navigate("/person/sign_in")
 
-$('a').live 'click', (e) ->
+$(document).on "click", "a", (e) ->
   if $(this).attr('href') == '#'
+    console.log("prevent")
     e.preventDefault()
     return
   host  = window.location.host + '/'
@@ -30,3 +31,9 @@ $('a').live 'click', (e) ->
     path = path.replace(/^\//, '')
     App.nav.navigate(path)
     e.preventDefault()
+
+$(document).ajaxStart =>
+  NProgress.start()
+
+$(document).ajaxStop =>
+  NProgress.done()
