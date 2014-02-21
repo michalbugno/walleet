@@ -27,7 +27,9 @@ class Views.FeedView extends BasicView
   templateContext: =>
     feed = @feed.toJSON()
     _.each(feed, (el) =>
-      el.date = moment(el.date).calendar()
+      date = moment(el.date)
+      el.date = date.fromNow()
+      el.fullDate = date.calendar()
       switch el.feed_type
         when "new_debt"
           formattedCurrency = Helpers.formatAmount(el.amount, el.currency)
@@ -36,7 +38,7 @@ class Views.FeedView extends BasicView
           else
             el.text = formattedCurrency
         when "new_member"
-          el.text = el.name + " joined"
+          el.text = "New member #{el.name} joined"
     )
     feed: feed
     lastPage: @feed.lastPage()
