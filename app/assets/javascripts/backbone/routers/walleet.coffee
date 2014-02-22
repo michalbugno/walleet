@@ -23,8 +23,7 @@ class Routers.Walleet extends Backbone.Router
     if !App.auth.loggedIn()
       App.nav.navigate("person/sign_in")
     else
-      this.setLayout(Views.MainLayout)
-      @layout.addSubview("content", Views.FeedView)
+      App.nav.navigate("groups")
 
   groupList: =>
     this.setLayout(Views.MainLayout)

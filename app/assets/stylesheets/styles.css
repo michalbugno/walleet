@@ -3,6 +3,7 @@ html, button, input, select, textarea, .pure-g [class *= "pure-u"], .pure-g-r [c
 }
 
 body {
+  padding-top: 5px;
   color: #666;
 }
 
