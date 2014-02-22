@@ -4,6 +4,7 @@ describe Api::V1::MembershipsController do
   let!(:group) { FactoryGirl.create :group, :name => "My name" }
   let!(:person) { FactoryGirl.create :person, :email => "email@something.com", :password => "password" }
   let(:request) { post :create, :group_id => group.id, :person_id => person.id, :format => :json }
+  let(:parsed_respone) { JSON.parse(response.body) }
 
   before(:each) do
     sign_in :person, person
@@ -19,7 +20,7 @@ describe Api::V1::MembershipsController do
   it "responds with empty body" do
     request
 
-    response.body.should be_empty
+    parsed_respone.should == {}
   end
 
   context "an email has been given to invite" do

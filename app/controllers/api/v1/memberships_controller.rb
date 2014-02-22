@@ -14,12 +14,12 @@ class Api::V1::MembershipsController < Api::BaseController
     end
     group = current_person.groups.find(params[:group_id])
     GroupMembershipManager.new(group, person).connect
-    respond_with("", :location => "")
+    respond_with({}, :location => "")
   end
 
   def destroy
     GroupMembershipManager.from_membership(@membership).disconnect
-    respond_with("", :location => "")
+    respond_with({}, :location => "")
   end
 
   private
