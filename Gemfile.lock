@@ -158,7 +158,7 @@ GEM
       raindrops (~> 0.7)
     warden (1.1.1)
       rack (>= 1.0)
-    yajl-ruby (1.1.0)
+    yajl-ruby (1.4.3)
     yard (0.8.2.1)
 
 PLATFORMS
